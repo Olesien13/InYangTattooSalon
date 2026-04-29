@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #F9F6F0;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+    <stylesheets>
+        <URL value="@styles.css" />
+    </stylesheets>
+   <children>
+      <HBox layoutX="142.0" prefHeight="50.0" prefWidth="353.0">
+         <children>
+            <TabPane prefHeight="50.0" prefWidth="378.0" tabClosingPolicy="UNAVAILABLE">
+               <tabs>
+                  <Tab id="first" text="Новая запись">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                     </content>
+                  </Tab>
+                  <Tab text="Профиль">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="100.0" />
+                     </content>
+                  </Tab>
+                  <Tab id="last" text="Мои записи">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
+         </children>
+      </HBox>
+       
+                        <Label id="id=&quot;heading&quot;" layoutX="237.0" layoutY="77.0" text="Выберите услугу">
+         <font>
+            <Font name="Maika" size="13.0" />
+         </font>
+      </Label>
+       <Region layoutX="210.0" layoutY="99.0" prefHeight="1.0" prefWidth="192.0" style="-fx-background-color: #771011;" />
+      <TilePane alignment="TOP_CENTER" hgap="20.0" layoutY="131.0" prefColumns="4" prefHeight="308.0" prefRows="4" prefWidth="600.0" vgap="25.0">
+         <children>
+            <StackPane prefHeight="120.0" prefWidth="120.0" styleClass="card">
+               <children>
+                  <ImageView fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" styleClass="card-image">
+                     <image>
+                        <Image url="@../images/svetnaya.jpg" />
+                     </image>
+                  </ImageView>
+                  <Label prefHeight="42.0" prefWidth="95.0" styleClass="card-header" text="Цветное тату" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                     <font>
+                        <Font name="Maika" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label styleClass="card-sena" text="От 4000" textFill="#ff3366" />
+               </children>
+            </StackPane>
+            <StackPane prefHeight="120.0" prefWidth="120.0" styleClass="card">
+               <children>
+                  <ImageView fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" styleClass="card-image">
+                     <image>
+                        <Image url="@../images/chb.jpg" />
+                     </image>
+                  </ImageView>
+                  <Label styleClass="card-header" text="черно-белое тату" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
+                  <Label styleClass="card-sena" text="От 3000" />
+               </children>
+            </StackPane>
+            <StackPane prefHeight="120.0" prefWidth="120.0" styleClass="card">
+               <children>
+                  <ImageView fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" styleClass="card-image">
+                     <image>
+                        <Image url="@../images/perekpitie.jpg" />
+                     </image>
+                  </ImageView>
+                  <Label prefWidth="90.0" styleClass="card-header" text="Перекрытие" />
+                  <Label styleClass="card-sena" text="От 5000" />
+               </children>
+            </StackPane>
+            <StackPane prefHeight="120.0" prefWidth="120.0" styleClass="card">
+               <children>
+                  <ImageView fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" styleClass="card-image">
+                     <image>
+                        <Image url="@../images/korreksia.jpg" />
+                     </image>
+                  </ImageView>
+                  <Label styleClass="card-header" text="Коррекция" />
+                  <Label styleClass="card-sena" text="От 2000" />
+               </children>
+            </StackPane>
+            <StackPane prefHeight="120.0" prefWidth="120.0" styleClass="card">
+               <children>
+                  <ImageView fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" styleClass="card-image">
+                     <image>
+                        <Image url="@../images/lazer.jpg" />
+                     </image>
+                  </ImageView>
+                  <Label styleClass="card-header" text="Сведение" />
+                  <Label styleClass="card-sena" text="От 6000" />
+               </children>
+            </StackPane>
+            <StackPane prefHeight="120.0" prefWidth="120.0" styleClass="card">
+               <children>
+                  <ImageView fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" styleClass="card-image">
+                     <image>
+                        <Image url="@../images/esciz.jpg" />
+                     </image>
+                  </ImageView>
+                  <Label styleClass="card-header" text="Эскиз" />
+                  <Label styleClass="card-sena" text="От 500" />
+               </children>
+            </StackPane>
+            <StackPane prefHeight="120.0" prefWidth="120.0" styleClass="card">
+               <children>
+                  <ImageView fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" styleClass="card">
+                     <image>
+                        <Image url="@../images/consul.jpg" />
+                     </image>
+                  </ImageView>
+                  <Label styleClass="card-header" text="Консультация" />
+                  <Label styleClass="card-sena" text="Бесплатно" />
+               </children>
+            </StackPane>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </TilePane>
+      <HBox alignment="CENTER" layoutY="475.0" prefHeight="25.0" prefWidth="600.0" styleClass="fotter">
+         <children>
+            <Label styleClass="fotter" text="⏰ ПН-ВС 10–21  |  📍 ул. Ленина, 5  |  📞 +7 (999) 123-45-67" />
+         </children>
+      </HBox>
+   </children>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+</AnchorPane>

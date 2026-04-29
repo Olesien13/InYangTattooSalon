@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Pane layoutX="200.0" layoutY="129.0" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Pane prefHeight="500.0" prefWidth="397.0" style="-fx-background-color: #771011;">
+                    <children>
+                        <Button layoutX="119.0" layoutY="343.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="158.0" style="-fx-border-color: #ffffff; -fx-border-radius: 30; -fx-background-color: #771011;" text="РЕГИСТРАЦИЯ" textFill="WHITE">
+                            <font>
+                                <Font name="Open Sans SemiBold" size="14.0" />
+                            </font>
+                        </Button>
+                        <Label layoutX="142.0" layoutY="384.0" prefHeight="15.0" prefWidth="122.0" text="У Вас нет аккаунта?" textFill="WHITE">
+                            <font>
+                                <Font name="Open Sans Regular" size="12.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="97.0" layoutY="243.0" text="Тату-студия" textFill="WHITE">
+                            <font>
+                                <Font name="Maika" size="24.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="139.0" layoutY="275.0" text="&quot;Инь-Янь&quot;" textFill="WHITE">
+                            <font>
+                                <Font name="Maika" size="24.0" />
+                            </font>
+                        </Label>
+                        <ImageView fitHeight="404.0" fitWidth="234.0" layoutX="86.0" layoutY="-30.0" pickOnBounds="true" smooth="false">
+                            <image>
+                                <Image url="@../images/logo.png" />
+                            </image>
+                        </ImageView>
+                    </children></Pane>
+                <Label layoutX="437.0" layoutY="119.0" prefHeight="20.0" prefWidth="113.0" text="АВТОРИЗАЦИЯ">
+                    <font>
+                        <Font name="Open Sans Bold" size="14.0" />
+                    </font>
+                </Label>
+                <Label layoutX="420.0" layoutY="140.0" prefHeight="19.0" prefWidth="156.0" text="Клиент | Администратор">
+                    <font>
+                        <Font name="Open Sans Light" size="13.0" />
+                    </font>
+                </Label>
+                <Button alignment="TOP_LEFT" cancelButton="true" layoutX="420.0" layoutY="187.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="156.0" style="-fx-border-color: #771011; -fx-border-radius: 30; -fx-background-color: #ffffff;" text="Email" textFill="#c4c4c4">
+                    <font>
+                        <Font name="Open Sans Light" size="13.0" />
+                    </font></Button>
+                <Button alignment="TOP_LEFT" layoutX="421.0" layoutY="236.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="156.0" style="-fx-border-color: #771011; -fx-border-radius: 30; -fx-background-color: #ffffff;" text="Пароль" textFill="#c4c4c4">
+                    <font>
+                        <Font name="Open Sans Light" size="13.0" />
+                    </font>
+                </Button>
+                <Label layoutX="457.0" layoutY="280.0" prefHeight="17.0" prefWidth="85.0" text="Забыли пароль?" textFill="#771011">
+                    <font>
+                        <Font name="Open Sans Light" size="10.0" />
+                    </font>
+                </Label>
+                <Button layoutX="446.0" layoutY="343.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="105.0" style="-fx-border-radius: 30; -fx-background-color: #771011; -fx-background-radius: 30;" text="Войти" textFill="WHITE">
+                    <font>
+                        <Font name="Open Sans SemiBold" size="14.0" />
+                    </font>
+                </Button>
+            </children></Pane>
+    </children>
+</AnchorPane>
