@@ -14,6 +14,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -31,12 +32,12 @@
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                      </content>
                   </Tab>
-                  <Tab text="Профиль">
+                  <Tab text="Мои записи">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="100.0" />
                      </content>
                   </Tab>
-                  <Tab id="last" text="Мои записи">
+                  <Tab id="last" text="Профиль">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                      </content>
@@ -58,7 +59,7 @@
       </HBox>
       <VBox alignment="TOP_CENTER" layoutX="18.0" layoutY="136.0" prefHeight="264.0" prefWidth="155.0">
          <children>
-            <ToggleButton contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="58.0" prefWidth="133.0" selected="true" styleClass="masters-button" text="Александр" textAlignment="CENTER" wrapText="true">
+            <ToggleButton alignment="TOP_CENTER" contentDisplay="BOTTOM" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="133.0" selected="true" styleClass="masters-button" text="Александр" textAlignment="CENTER" wrapText="true">
                <toggleGroup>
                   <ToggleGroup fx:id="masterGroup" />
                </toggleGroup>
@@ -73,7 +74,7 @@
                   </Label>
                </graphic>
             </ToggleButton>
-            <ToggleButton contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="58.0" prefWidth="133.0" styleClass="masters-button" text="Виктория" toggleGroup="$masterGroup" wrapText="true">
+            <ToggleButton contentDisplay="BOTTOM" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="133.0" styleClass="masters-button" text="Виктория" toggleGroup="$masterGroup" wrapText="true">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin>
@@ -85,7 +86,7 @@
                   </Label>
                </graphic>
             </ToggleButton>
-            <ToggleButton contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="58.0" prefWidth="133.0" styleClass="masters-button" text="Дмитрий" toggleGroup="$masterGroup">
+            <ToggleButton contentDisplay="BOTTOM" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="133.0" styleClass="masters-button" text="Дмитрий" toggleGroup="$masterGroup">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin>
@@ -97,7 +98,7 @@
                   </Label>
                </graphic>
             </ToggleButton>
-            <ToggleButton contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="58.0" prefWidth="133.0" styleClass="masters-button" text="Дарья" toggleGroup="$masterGroup">
+            <ToggleButton contentDisplay="BOTTOM" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="133.0" styleClass="masters-button" text="Дарья" toggleGroup="$masterGroup">
                <graphic>
                   <Label text="акварель" textFill="#1a1a1a">
                      <font>
@@ -116,44 +117,68 @@
             <Font name="Maika" size="13.0" />
          </font>
       </Label>
-      <VBox layoutX="236.0" layoutY="208.0" prefHeight="235.0" prefWidth="325.0">
+      <VBox alignment="CENTER" layoutX="226.0" layoutY="200.0" prefHeight="235.0" prefWidth="325.0">
          <children>
-            <HBox fillHeight="false" prefHeight="257.0" prefWidth="258.0">
+            <HBox alignment="CENTER" fillHeight="false" prefHeight="257.0" prefWidth="258.0" spacing="15.0">
                <children>
-                  <ImageView fitHeight="110.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/uslugi/alex/realizm1.jpg" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="110.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/uslugi/alex/yaponskiy1.jpg" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="110.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/uslugi/alex/yaponskiy3.jpg" />
-                     </image>
-                  </ImageView>
+                  <StackPane prefHeight="100.0" prefWidth="100.0" styleClass="card-referens">
+                     <children>
+                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/uslugi/alex/tattoo_alex3.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </StackPane>
+                  <StackPane prefHeight="100.0" prefWidth="100.0" styleClass="card-referens">
+                     <children>
+                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/uslugi/alex/tattoo_alex6.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </StackPane>
+                  <StackPane prefHeight="100.0" prefWidth="100.0" styleClass="card-referens">
+                     <children>
+                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/uslugi/alex/tattoo_alex8.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </StackPane>
                </children>
             </HBox>
-            <HBox prefHeight="110.0" prefWidth="270.0">
+            <HBox alignment="CENTER" prefHeight="110.0" prefWidth="270.0" spacing="15.0">
                <children>
-                  <ImageView fitHeight="110.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/uslugi/alex/realizm2.jpg" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="110.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/uslugi/alex/realizm4.jpg" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="110.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/uslugi/alex/realizm3.jpg" />
-                     </image>
-                  </ImageView>
+                  <StackPane prefHeight="100.0" prefWidth="100.0" styleClass="card-referens">
+                     <children>
+                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/uslugi/alex/tattoo_alex2.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </StackPane>
+                  <StackPane prefHeight="100.0" prefWidth="100.0" styleClass="card-referens">
+                     <children>
+                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/uslugi/alex/tattoo_alex5.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </StackPane>
+                  <StackPane prefHeight="100.0" prefWidth="100.0" styleClass="card-referens">
+                     <children>
+                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/uslugi/alex/tattoo_alex7.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </StackPane>
                </children>
             </HBox>
          </children>
@@ -163,23 +188,23 @@
             <Label alignment="TOP_LEFT" prefHeight="52.0" prefWidth="238.0" style="-fx-translate-y: 40;" text="Опыт 8 лет. Специализация: реализм,графика. Более 500 работ." wrapText="true" />
             <ImageView fitHeight="103.0" fitWidth="102.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/uslugi/alex/masterAlex.jpg" />
+                  <Image url="@../images/uslugi/alex/masterAlex.png" />
                </image>
             </ImageView>
          </children>
       </HBox>
-      <Pane layoutY="437.0" prefHeight="38.0" prefWidth="600.0">
-         <children>
-            <Button layoutX="17.0" layoutY="4.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="76.0" styleClass="button-deystvie" text="&lt;- Нахад" />
-            <Button layoutX="512.0" layoutY="4.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="76.0" styleClass="button-deystvie" text="Далее -&gt;" />
-         </children>
-      </Pane>
       <Region layoutX="264.0" layoutY="194.0" prefHeight="2.0" prefWidth="166.0" style="-fx-background-color: #771011;" />
       <Label id="id=&quot;heading&quot;" layoutX="283.0" layoutY="174.0" text="Примеры работ">
          <font>
             <Font name="Maika" size="13.0" />
          </font>
       </Label>
+      <Pane layoutY="437.0" prefHeight="38.0" prefWidth="600.0">
+         <children>
+            <Button layoutX="17.0" layoutY="4.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="76.0" styleClass="button-deystvie" text="← Нахад" />
+            <Button layoutX="512.0" layoutY="4.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="76.0" styleClass="button-deystvie" text="Далее →" />
+         </children>
+      </Pane>
    </children>
    <opaqueInsets>
       <Insets />

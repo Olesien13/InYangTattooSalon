@@ -77,13 +77,15 @@
 }
 
 .card {
-    -fx-effect: dropshadow(gaussian, rgba(47, 47, 47, 0.5), 0.5, 0.5, 1, 1.5);
+    -fx-effect: dropshadow(gaussian, rgba(47, 47, 47, 0.5), 1, 0.5, 1, 1.5);
+    -fx-background-color:  #1A1717;
+    -fx-background-radius: 30;
 }
 .card-image {
     -fx-background-size: cover;
     -fx-background-radius: 30px;
     -fx-border-color: #F9F6F0;
-    -fx-opacity: 0.8;
+    -fx-opacity: 0.5;
 }
 .card-header {
     -fx-effect: dropshadow(gaussian, black, 0, 1, 1, 1);
@@ -117,6 +119,11 @@
     -fx-background-color: #771011;
     -fx-background-radius: 20;
     -fx-text-fill: #FFFFFF;
+}
+.card-referens{
+    -fx-background-border: 30;
+    -fx-border-radius: 30;
+    -fx-border-color: #FFFFFF;
 }
 
 .button-deystvie {
@@ -176,8 +183,47 @@
     -fx-font-family: 'Open Sans Light'
 }
 .forma-btn-zapis {
-    -fx-background-color: transparent;
+    -fx-background-color: #F9F6F0;
     -fx-border-radius: 30;
     -fx-background-radius: 30;
     -fx-border-color: #771011;
+}
+
+.filter-btn {
+    -fx-text-fill: #1A1A1A;
+}
+.filter-btn:selected {
+    -fx-text-fill: #771011;
+}
+.table-header{
+    -fx-font-family: 'Maika';
+    -fx-background-color: transparent;
+}
+.table-header-bok-right {
+    -fx-background-radius: 20 0 0 0;
+    -fx-border-radius: 20 0 0 0;
+}
+.table {
+    -fx-border-color: #771011;
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+}
+.table-view .column-header-background {
+    -fx-background-radius: 20px 20px 0 0;
+    -fx-background-color: #771011;
+}
+.table-view .column-header .label {
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+}
+
+.bonus {
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-border-color: #771011;
+}
+.bonus .label {
+    -fx-text-fill: #1A1A1A;
 }

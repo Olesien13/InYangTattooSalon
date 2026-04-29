@@ -19,29 +19,6 @@
         <URL value="@styles.css" />
     </stylesheets>
    <children>
-      <HBox layoutX="142.0" prefHeight="50.0" prefWidth="353.0">
-         <children>
-            <TabPane prefHeight="50.0" prefWidth="378.0" tabClosingPolicy="UNAVAILABLE">
-               <tabs>
-                  <Tab id="first" text="Новая запись">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                     </content>
-                  </Tab>
-                  <Tab text="Профиль">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="100.0" />
-                     </content>
-                  </Tab>
-                  <Tab id="last" text="Мои записи">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                     </content>
-                  </Tab>
-               </tabs>
-            </TabPane>
-         </children>
-      </HBox>
        
                         <Label id="id=&quot;heading&quot;" layoutX="237.0" layoutY="77.0" text="Выберите услугу">
          <font>
@@ -55,7 +32,7 @@
                <children>
                   <ImageView fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" styleClass="card-image">
                      <image>
-                        <Image url="@../images/svetnaya.jpg" />
+                        <Image url="@../images/svetnaya.png" />
                      </image>
                   </ImageView>
                   <Label prefHeight="42.0" prefWidth="95.0" styleClass="card-header" text="Цветное тату" textAlignment="CENTER" textFill="WHITE" wrapText="true">
@@ -70,7 +47,7 @@
                <children>
                   <ImageView fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" styleClass="card-image">
                      <image>
-                        <Image url="@../images/chb.jpg" />
+                        <Image url="@../images/chb.png" />
                      </image>
                   </ImageView>
                   <Label styleClass="card-header" text="черно-белое тату" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
@@ -81,7 +58,7 @@
                <children>
                   <ImageView fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" styleClass="card-image">
                      <image>
-                        <Image url="@../images/perekpitie.jpg" />
+                        <Image url="@../images/perekritie.png" />
                      </image>
                   </ImageView>
                   <Label prefWidth="90.0" styleClass="card-header" text="Перекрытие" />
@@ -92,7 +69,7 @@
                <children>
                   <ImageView fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" styleClass="card-image">
                      <image>
-                        <Image url="@../images/korreksia.jpg" />
+                        <Image url="@../images/korreksia.png" />
                      </image>
                   </ImageView>
                   <Label styleClass="card-header" text="Коррекция" />
@@ -103,7 +80,7 @@
                <children>
                   <ImageView fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" styleClass="card-image">
                      <image>
-                        <Image url="@../images/lazer.jpg" />
+                        <Image url="@../images/lazer.png" />
                      </image>
                   </ImageView>
                   <Label styleClass="card-header" text="Сведение" />
@@ -114,7 +91,7 @@
                <children>
                   <ImageView fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" styleClass="card-image">
                      <image>
-                        <Image url="@../images/esciz.jpg" />
+                        <Image url="@../images/esciz.png" />
                      </image>
                   </ImageView>
                   <Label styleClass="card-header" text="Эскиз" />
@@ -123,9 +100,9 @@
             </StackPane>
             <StackPane prefHeight="120.0" prefWidth="120.0" styleClass="card">
                <children>
-                  <ImageView fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" styleClass="card">
+                  <ImageView fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" styleClass="card-image">
                      <image>
-                        <Image url="@../images/consul.jpg" />
+                        <Image url="@../images/consul.png" />
                      </image>
                   </ImageView>
                   <Label styleClass="card-header" text="Консультация" />
@@ -140,6 +117,29 @@
       <HBox alignment="CENTER" layoutY="475.0" prefHeight="25.0" prefWidth="600.0" styleClass="fotter">
          <children>
             <Label styleClass="fotter" text="⏰ ПН-ВС 10–21  |  📍 ул. Ленина, 5  |  📞 +7 (999) 123-45-67" />
+         </children>
+      </HBox>
+      <HBox layoutX="124.0" layoutY="14.0" prefHeight="50.0" prefWidth="353.0">
+         <children>
+            <TabPane prefHeight="50.0" prefWidth="378.0" tabClosingPolicy="UNAVAILABLE">
+               <tabs>
+                  <Tab id="first" text="Новая запись">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                     </content>
+                  </Tab>
+                  <Tab text="Мои записи">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="100.0" />
+                     </content>
+                  </Tab>
+                  <Tab id="last" text="Профиль">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
          </children>
       </HBox>
    </children>
