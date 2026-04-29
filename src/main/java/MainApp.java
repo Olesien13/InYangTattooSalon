@@ -11,9 +11,9 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main-view.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/main-view.fxml"));
         Scene scene = new Scene(loader.load());
-        scene.getStylesheets().add(getClass().getResource("/fxml/styles.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/client/styles.css").toExternalForm());
         primaryStage.setTitle("Тату-салон Инь-Янь");
         primaryStage.setScene(scene);
         primaryStage.show();
