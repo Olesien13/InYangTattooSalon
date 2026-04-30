@@ -3,66 +3,49 @@
     -fx-background-color: #F9F6F0;
 }
 
+/* Меню */
 .tab-pane {
     -fx-background-color: transparent;
     -fx-border-width: 0;
     -fx-background-insets: 0;
     -fx-padding: 0;
 }
-
-/* Убираем фон и границу у внутреннего фона заголовков (иногда там скрытая полоска) */
 .tab-pane .tab-header-area .tab-header-background {
     -fx-background-color: transparent;
     -fx-background-insets: 0;
 }
-
-/* Выравниваем вкладки вплотную */
 .tab-pane .tab-header-area .headers-region {
     -fx-border-color: #771011;
     -fx-border-radius: 30px;
     -fx-background-radius: 30px;
 }
-
-/* Общий стиль для каждой вкладки */
 .tab {
     -fx-background-color: #F9F6F0;
-    -fx-padding: 2 20 2 20;            /* Внутренние отступы */
-    -fx-font-family: 'Open Sans Light';      /* Ваш шрифт */
+    -fx-padding: 2 20 2 20;
+    -fx-font-family: 'Open Sans Light';
     -fx-font-size: 13px;
-    -fx-text-fill: #771011;            /* Красный текст для неактивных */
+    -fx-text-fill: #771011;
 }
-
-/* Первая вкладка — скругление левых углов */
 #first {
     -fx-background-radius: 30px 0 0 30px;
     -fx-border-radius: 30px 0 0 30px;
 }
-
-/* Последняя вкладка — скругление правых углов */
 #last {
     -fx-background-radius: 0 30px 30px 0;
     -fx-border-radius: 0 30px 30px 0;
 }
-
-/* Стиль для выбранной (активной) вкладки */
 .tab:selected {
     -fx-background-color: #771011;
-    -fx-text-fill: #FFFFFF;            /* цвет текста*/
+    -fx-text-fill: #FFFFFF;
     -fx-border-color: #771011;
 }
-
-/* Стиль для текста внутри вкладки */
 .tab .tab-label {
     -fx-text-fill: inherit;
 }
-
-/* Убираем обводку фокуса */
 .tab-pane .tab:selected {
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
 }
-
-/* Убираем лишние кнопки (прокрутка вкладок) */
 .tab-pane .tab-header-area .control-buttons-tab {
     -fx-visibility: hidden;
     -fx-pref-width: 0;
@@ -76,6 +59,7 @@
     -fx-height: 46px;
 }
 
+/* Главное меню */
 .card {
     -fx-effect: dropshadow(gaussian, rgba(47, 47, 47, 0.5), 1, 0.5, 1, 1.5);
     -fx-background-color:  #1A1717;
@@ -108,6 +92,7 @@
     -fx-font-size: 10;
 }
 
+/* Мастера */
 .masters-button {
     -fx-background-color: transparent;
     -fx-font-size: 13px;
@@ -135,6 +120,7 @@
     -fx-font-size: 12px;
 }
 
+/* Календарь */
 .calendar {
     -fx-background-color:transparent;
     -fx-border-radius: 30;
@@ -165,30 +151,7 @@
     -fx-font-size: 11px;
 }
 
-.forma-texarea {
-    -fx-background-radius: 30;
-    -fx-text-fill: #1A1A1A;
-    -fx-font-size: 12px;
-    -fx-border-radius: 30;
-    -fx-border-color: #771011;
-}
-.forma-label {
-    -fx-text-fill: #1A1A1A;
-    -fx-font-size: 13px;
-    -fx-font-family: 'Open Sans'
-}
-.forma-btn {
-    -fx-background-color: transparent;
-    -fx-font-size: 12px;
-    -fx-font-family: 'Open Sans Light'
-}
-.forma-btn-zapis {
-    -fx-background-color: #F9F6F0;
-    -fx-border-radius: 30;
-    -fx-background-radius: 30;
-    -fx-border-color: #771011;
-}
-
+/* Мои записи */
 .filter-btn {
     -fx-text-fill: #1A1A1A;
 }
@@ -219,6 +182,30 @@
     -fx-font-size: 13px;
 }
 
+/* Профиль */
+.forma-texarea {
+    -fx-background-radius: 30;
+    -fx-text-fill: #1A1A1A;
+    -fx-font-size: 12px;
+    -fx-border-radius: 30;
+    -fx-border-color: #771011;
+}
+.forma-label {
+    -fx-text-fill: #1A1A1A;
+    -fx-font-size: 13px;
+    -fx-font-family: 'Open Sans'
+}
+.forma-btn {
+    -fx-background-color: transparent;
+    -fx-font-size: 12px;
+    -fx-font-family: 'Open Sans Light'
+}
+.forma-btn-zapis {
+    -fx-background-color: #F9F6F0;
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+    -fx-border-color: #771011;
+}
 .bonus {
     -fx-background-radius: 20;
     -fx-border-radius: 20;
@@ -226,4 +213,46 @@
 }
 .bonus .label {
     -fx-text-fill: #1A1A1A;
+}
+
+/* Вход */
+.text-btn {
+    -fx-border-color:  #771011;
+    -fx-border-radius: 30;
+    -fx-background-color:  #ffffff;
+    -fx-font-family: 'Open Sans Light';
+    -fx-font-size: 13px;
+}
+.login-btn {
+     -fx-border-radius: 30;
+     -fx-background-color:  #771011;
+     -fx-background-radius: 30;
+     -fx-font-family: 'Open Sans SemiBold';
+     -fx-font-size: 14px;
+     -fx-text-fill: #ffffff;
+ }
+.registr-btn {
+    -fx-border-color:  #ffffff;
+    -fx-border-radius: 30;
+    -fx-background-color:  #771011;
+    -fx-background-radius: 30;
+    -fx-font-family: 'Open Sans SemiBold';
+    -fx-font-size: 14px;
+    -fx-text-fill: #ffffff;
+}
+.login-pane {
+    -fx-background-color:  #771011;
+}
+.client-tbtn {
+    -fx-background-color:  transparent;
+    -fx-text-fill:  #1A1A1A;
+    -fx-font-family:  'Open Sans Light';
+}
+.admin-tbtn {
+    -fx-background-color:  transparent;
+    -fx-text-fill:  #1A1A1A;
+    -fx-font-family:  'Open Sans Light';
+}
+.client-tbtn:selected, .admin-tbtn:selected {
+    -fx-text-fill: #771011;
 }

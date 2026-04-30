@@ -2,6 +2,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import dao.UserDao;
 
 public class MainApp extends Application {
 
@@ -10,12 +11,18 @@ public class MainApp extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/main-view.fxml"));
+    public void start(Stage stage) throws Exception {
+
+        // создаем загрузчик fxml, указывая путь к файлу интерфейса входа
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/login-view.fxml"));
+
+        // загружаем fxml и создаем сцену
         Scene scene = new Scene(loader.load());
-        scene.getStylesheets().add(getClass().getResource("/client/styles.css").toExternalForm());
-        primaryStage.setTitle("Тату-салон Инь-Янь");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        stage.setTitle("Тату-салон Инь-Янь"); // устанавливаем заголовок окна
+        stage.setScene(scene); // помещаем сцену в окно
+        stage.show(); // показываем окно
+
+        // вызываем метод testUsers() для создания тестовых пользователей (админ, клиент)
+        UserDao.testUsers();
     }
 }
