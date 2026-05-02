@@ -13,7 +13,6 @@ import javafx.stage.Stage;
 import dao.UserDao;
 import models.User;
 import utils.PasswordUtils;
-import utils.EmailUtils;
 
 public class RegisterController {
 
@@ -34,7 +33,7 @@ public class RegisterController {
 
         // проверка на пустые поля
         if (email.isEmpty() || password.isEmpty() || confirm.isEmpty()) {
-            showError("Заполните Email, пароль и подтверждение");
+            showError("Заполните email, пароль и подтверждение");
             return;
         }
 

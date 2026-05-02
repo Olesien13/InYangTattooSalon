@@ -60,7 +60,7 @@
             <Button layoutX="512.0" layoutY="4.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="76.0" styleClass="button-deystvie" text="Далее →" />
          </children>
       </Pane>
-      <Button layoutX="99.0" layoutY="392.0" mnemonicParsing="false" styleClass="forma-btn-zapis" text="Отменить" />
+      <Button layoutX="99.0" layoutY="392.0" mnemonicParsing="false" styleClass="forma-btn-zapis" text="Отменить" textFill="#771011" />
       <TableView layoutX="99.0" layoutY="170.0" prefHeight="160.0" prefWidth="425.0" styleClass="table">
         <columns>
           <TableColumn prefWidth="76.800048828125" text="Дата">
@@ -88,7 +88,7 @@
          </children>
       </HBox>
       <Label layoutX="99.0" layoutY="359.0" text="Выбрана запись:" />
-      <Button layoutX="185.0" layoutY="392.0" mnemonicParsing="false" styleClass="forma-btn-zapis" text="Перенести" />
+      <Button layoutX="185.0" layoutY="392.0" mnemonicParsing="false" styleClass="forma-btn-zapis" text="Перенести" textFill="#771011" />
    </children>
    <opaqueInsets>
       <Insets />

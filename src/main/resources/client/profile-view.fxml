@@ -53,7 +53,7 @@
             <Label styleClass="fotter" text="⏰ ПН-ВС 10–21  |  📍 ул. Ленина, 5  |  📞 +7 (999) 123-45-67" />
          </children>
       </HBox>
-      <Button layoutX="108.0" layoutY="318.0" mnemonicParsing="false" styleClass="forma-btn-zapis" text="Редактировать" />
+      <Button layoutX="108.0" layoutY="318.0" mnemonicParsing="false" styleClass="forma-btn-zapis" text="Редактировать" textFill="#771011" />
       <HBox alignment="TOP_CENTER" layoutX="13.0" layoutY="121.0" prefHeight="186.0" prefWidth="575.0" spacing="20.0">
          <children>
             <VBox prefHeight="198.0" prefWidth="114.0" spacing="12.0">
