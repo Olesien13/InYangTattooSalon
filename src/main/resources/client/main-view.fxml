@@ -14,19 +14,19 @@
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #F9F6F0;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #F9F6F0;" xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
     <stylesheets>
         <URL value="@styles.css" />
     </stylesheets>
    <children>
-       
-                        <Label id="id=&quot;heading&quot;" layoutX="237.0" layoutY="77.0" text="Выберите услугу">
+      <Label id="id=&quot;heading&quot;" layoutX="237.0" layoutY="77.0" text="Выберите услугу">
          <font>
             <Font name="Maika" size="13.0" />
          </font>
       </Label>
        <Region layoutX="210.0" layoutY="99.0" prefHeight="1.0" prefWidth="192.0" style="-fx-background-color: #771011;" />
-      <TilePane alignment="TOP_CENTER" hgap="20.0" layoutY="131.0" prefColumns="4" prefHeight="308.0" prefRows="4" prefWidth="600.0" vgap="25.0">
+      <TilePane fx:id="servicesTilePane" alignment="TOP_CENTER" hgap="20.0" layoutY="131.0" prefColumns="4" prefHeight="308.0" prefRows="4" prefWidth="600.0" vgap="25.0">
          <children>
             <StackPane prefHeight="120.0" prefWidth="120.0" styleClass="card">
                <children>
