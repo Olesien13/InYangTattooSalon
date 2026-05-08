@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #F9F6F0;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CalendarController">
+   <stylesheets>
+      <URL value="@styles.css" />
+   </stylesheets>
+   <children>
+      <HBox layoutX="124.0" layoutY="14.0" prefHeight="50.0" prefWidth="353.0">
+         <children>
+            <TabPane prefHeight="50.0" prefWidth="378.0" tabClosingPolicy="UNAVAILABLE">
+               <tabs>
+                  <Tab id="first" text="Новая запись">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                     </content>
+                  </Tab>
+                  <Tab text="Мои записи">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="100.0" />
+                     </content>
+                  </Tab>
+                  <Tab id="last" text="Профиль">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
+         </children>
+      </HBox>
+      <Label id="id=&quot;heading&quot;" layoutX="211.0" layoutY="74.0" text="Выбор даты и времени">
+         <font>
+            <Font name="Maika" size="13.0" />
+         </font>
+      </Label>
+      <Region layoutX="198.0" layoutY="99.0" prefHeight="1.0" prefWidth="192.0" style="-fx-background-color: #771011;" />
+      <Label layoutX="225.0" layoutY="107.0" text="Цветное тату | Александр" textFill="#1a1a1a">
+         <font>
+            <Font name="Open Sans Regular" size="13.0" />
+         </font>
+      </Label>
+      <HBox alignment="CENTER" layoutY="475.0" prefHeight="25.0" prefWidth="600.0" styleClass="fotter">
+         <children>
+            <Label styleClass="fotter" text="⏰ ПН-ВС 10–21  |  📍 ул. Ленина, 5  |  📞 +7 (999) 123-45-67" />
+         </children>
+      </HBox>
+      <Pane layoutY="437.0" prefHeight="38.0" prefWidth="600.0">
+         <children>
+            <Button layoutX="17.0" layoutY="4.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="76.0" styleClass="button-deystvie" text="← Нахад" />
+            <Button layoutX="512.0" layoutY="4.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="76.0" styleClass="button-deystvie" text="Далее →" />
+         </children>
+      </Pane>
+      <VBox layoutX="111.0" layoutY="143.0" prefHeight="260.0" prefWidth="380.0" styleClass="calendar">
+         <children>
+            <HBox alignment="CENTER" prefHeight="25.0" prefWidth="378.0">
+               <children>
+                  <Label styleClass="calendar-header" text="АПРЕЛЬ 2026" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="40.0" styleClass="calendar-label" text="1" textAlignment="CENTER" />
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="40.0" styleClass="calendar-label" text="2" />
+                  <Label alignment="CENTER" disable="true" prefHeight="35.0" prefWidth="40.0" styleClass="calendar-label" text="3" />
+                  <Label alignment="CENTER" disable="true" prefHeight="35.0" prefWidth="40.0" styleClass="calendar-label" text="4" />
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="40.0" styleClass="calendar-label" text="5" />
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="40.0" styleClass="calendar-label" text="6" />
+                  <Label alignment="CENTER" disable="true" prefHeight="35.0" prefWidth="40.0" styleClass="calendar-label" text="7" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Label alignment="CENTER" disable="true" prefHeight="35.0" prefWidth="40.0" styleClass="calendar-label" text="8" />
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="40.0" styleClass="calendar-label" text="9" />
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="40.0" styleClass="calendar-label" text="10" />
+                  <Label alignment="CENTER" disable="true" prefHeight="35.0" prefWidth="40.0" styleClass="calendar-label" text="11" />
+                  <Label alignment="CENTER" disable="true" prefHeight="35.0" prefWidth="40.0" styleClass="calendar-label" text="12" />
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="40.0" styleClass="calendar-label" text="13" />
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="40.0" styleClass="calendar-label" text="14" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Label alignment="CENTER" disable="true" prefHeight="35.0" prefWidth="40.0" styleClass="calendar-label" text="15" />
+                  <Label alignment="CENTER" disable="true" prefHeight="35.0" prefWidth="40.0" styleClass="calendar-label" text="16" />
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="40.0" styleClass="calendar-label" text="17" />
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="40.0" styleClass="calendar-label" text="18" />
+                  <Label alignment="CENTER" disable="true" prefHeight="35.0" prefWidth="40.0" styleClass="calendar-label" text="19" />
+                  <Label alignment="CENTER" disable="true" prefHeight="35.0" prefWidth="40.0" styleClass="calendar-label" text="20" />
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="40.0" styleClass="calendar-label" text="21" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="40.0" styleClass="calendar-label" text="22" />
+                  <Label alignment="CENTER" disable="true" prefHeight="35.0" prefWidth="40.0" styleClass="calendar-label" text="23" />
+                  <Label alignment="CENTER" disable="true" prefHeight="35.0" prefWidth="40.0" styleClass="calendar-label" text="24" />
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="40.0" styleClass="calendar-label" text="25" />
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="40.0" styleClass="calendar-label" text="26" />
+                  <Label alignment="CENTER" disable="true" prefHeight="35.0" prefWidth="40.0" styleClass="calendar-label" text="27" />
+                  <Label alignment="CENTER" disable="true" prefHeight="35.0" prefWidth="40.0" styleClass="calendar-label" text="28" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="40.0" styleClass="calendar-label" text="29" />
+                  <Label alignment="CENTER" prefHeight="35.0" prefWidth="40.0" styleClass="calendar-label" text="30" />
+               </children>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+      <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="30.0" layoutX="60.0" layoutY="414.0" prefHeight="25.0" prefWidth="481.0">
+         <children>
+            <ToggleButton mnemonicParsing="false" prefHeight="20.0" prefWidth="50.0" styleClass="calendar-time" text="10:00" />
+            <ToggleButton mnemonicParsing="false" prefHeight="20.0" prefWidth="50.0" styleClass="calendar-time" text="11:30" />
+            <ToggleButton mnemonicParsing="false" prefHeight="20.0" prefWidth="50.0" styleClass="calendar-time" text="13:00" />
+            <ToggleButton mnemonicParsing="false" prefHeight="20.0" prefWidth="50.0" styleClass="calendar-time" text="15:00" />
+            <ToggleButton mnemonicParsing="false" prefHeight="20.0" prefWidth="50.0" styleClass="calendar-time" text="16:30" />
+         </children>
+      </FlowPane>
+   </children>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+</AnchorPane>
