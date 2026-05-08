@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import dao.UserDao;
 import models.User;
 import utils.*;
+import java.util.Random;
 
 // класс контроллера для окна входа
 public class LoginController {
@@ -22,11 +23,14 @@ public class LoginController {
     @FXML private Label errorLabel;               // метка для показа ошибок
     @FXML private ToggleButton clientToggleBtn;   // кнопка выбора роли "Клиент"
     @FXML private ToggleButton adminToggleBtn;    // кнопка выбора роли "Администратор"
+
     private ToggleGroup groupRole;  // группа переключателей, чтобы одновременно была выбрана только одна роль
+    private UserDao userDao;
 
     // инициализируем группу переключателей и устанавливаем выбор "Клиент" по умолчанию
     @FXML
     public void initialize() {
+        userDao = new UserDao();  // инициализируем DAO
         groupRole = new ToggleGroup();              // создаем новую группу
         clientToggleBtn.setToggleGroup(groupRole);  // добавляем кнопку клиента в группу
         adminToggleBtn.setToggleGroup(groupRole);   // добавляем кнопку админа в группу
@@ -48,7 +52,7 @@ public class LoginController {
         }
 
         // ищем пользователя по email
-        User user = UserDao.searchUser(email);
+        User user = userDao.findByEmail(email);
         if (user == null) {
             showError("Пользователь не найден.");
             return;
@@ -114,31 +118,45 @@ public class LoginController {
             showError("Введите email для восстановления.");
             return;
         }
-        User user = UserDao.searchUser(email);
+        User user = userDao.findByEmail(email);
         if (user == null) {
             showError("Пользователь не найден.");
             return;
         }
 
-        // генерируем новый случайный пароль
-        String newPassword = dopPassword();
-        String newHash = PasswordUtils.hashPassword(newPassword); // хешируем его
-        UserDao.updatePassword(email, newHash);              // обновляем пароль в хранилище
-        EmailUtils.sendPasswordResetEmail(email, newPassword);    // отправляем письмо
-        showError("Новый пароль отправлен на email.");
+        // Генерация случайного пароля
+        String newPassword = generateRandomPassword();
+        String newHash = PasswordUtils.hashPassword(newPassword);
+
+        // Обновление пароля в базе данных
+        user.setPasswordHash(newHash);
+        boolean updated = userDao.update(user);
+
+        if (updated) {
+            // Отправка нового пароля на почту
+            EmailUtils.sendPasswordResetEmail(email, newPassword);
+            showError("Новый пароль отправлен на вашу почту.");
+        } else {
+            showError("Ошибка при смене пароля. Попробуйте позже.");
+        }
     }
 
     // генератор случайного пароля
-    private String dopPassword() {
-        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        String password = "";
-        java.util.Random rand = new java.util.Random();
-        for (int i = 0; i < 10; i++) {
-            password += chars.charAt(rand.nextInt(chars.length())); // выбираем случайный символ
-        }
-        return password;
-    }
+    private String generateRandomPassword() {
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                + "abcdefghijklmnopqrstuvwxyz"
+                + "0123456789";
 
+        StringBuilder password = new StringBuilder();
+        Random random = new Random();
+
+        for (int i = 0; i < 10; i++) {
+            int index = random.nextInt(chars.length());
+            password.append(chars.charAt(index));
+        }
+
+        return password.toString();
+    }
     // метод для сообщения об ошибке в метке errorLabel
     private void showError(String message) {
         errorLabel.setText(message);

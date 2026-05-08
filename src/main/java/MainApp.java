@@ -3,6 +3,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import dao.UserDao;
+import dao.DatabaseConnection;
 
 public class MainApp extends Application {
 
@@ -12,6 +13,8 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        // Подключаемся к БД при запуске приложения
+        DatabaseConnection.getConnection();
 
         // создаем загрузчик fxml, указывая путь к файлу интерфейса входа
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/login-view.fxml"));
@@ -22,7 +25,9 @@ public class MainApp extends Application {
         stage.setScene(scene); // помещаем сцену в окно
         stage.show(); // показываем окно
 
-        // вызываем метод testUsers() для создания тестовых пользователей (админ, клиент)
-        UserDao.testUsers();
+        // При закрытии окна - закрываем соединение с БД
+        stage.setOnCloseRequest(event -> {
+            DatabaseConnection.closeConnection();
+        });
     }
 }

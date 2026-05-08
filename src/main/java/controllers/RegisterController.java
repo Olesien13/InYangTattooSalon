@@ -20,7 +20,14 @@ public class RegisterController {
     @FXML private TextField emailField;               // поле ввода email
     @FXML private PasswordField passwordField;        // поле ввода пароля
     @FXML private PasswordField confirmPasswordField; // поле повторного ввода пароля
-    @FXML private Label errorLabel;                   // метка для показа ошибок
+    @FXML private Label errorLabel;// метка для показа ошибок
+
+    private UserDao userDao;
+
+    @FXML
+    public void initialize() {
+        userDao = new UserDao();
+    }
 
     // обработчик кнопки "Зарегистрироваться"
     @FXML
@@ -50,15 +57,22 @@ public class RegisterController {
         }
 
         // проверка уникальности email
-        if (UserDao.searchUser(email) != null) {
+        if (userDao.findByEmail(email) != null) {
             showError("Пользователь с таким email уже существует");
             return;
         }
 
         // хешируем пароль и создаем нового пользователя с ролью "Клиент"
         String passwordHash = PasswordUtils.hashPassword(password);
-        User newUser = new User(0, email, passwordHash,"client");
-        if (UserDao.createUser(newUser)) {
+            User newUser = new User();
+            newUser.setEmail(email);
+            newUser.setPasswordHash(passwordHash);
+            newUser.setRole("client");
+            newUser.setFirstName("");
+            newUser.setLastName("");
+            newUser.setPhone("");
+
+        if (userDao.create(newUser)) {
 
             // переходим на окно входа
             try {
