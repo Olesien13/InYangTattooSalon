@@ -39,6 +39,23 @@ public class MasterDao {
         return null;
     }
 
+    // Получить портфолио мастера (список путей к изображениям)
+    public List<String> getPortfolioImages(int masterId) {
+        List<String> images = new ArrayList<>();
+        String sql = "SELECT image_path FROM master_portfolio WHERE master_id = ?";
+
+        try (PreparedStatement stmt = DatabaseConnection.getConnection().prepareStatement(sql)) {
+            stmt.setInt(1, masterId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                images.add(rs.getString("image_path"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return images;
+    }
+
     private Master extractMaster(ResultSet rs) throws SQLException {
         Master master = new Master();
         master.setId(rs.getInt("id"));
