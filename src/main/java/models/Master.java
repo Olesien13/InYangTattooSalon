@@ -10,6 +10,7 @@ public class Master {
     private String hireDate;
     private int positionId;
     private boolean isActive;
+    private double salary;
 
     // Конструктор по умолчанию
     public Master() {
@@ -42,4 +43,7 @@ public class Master {
 
     public boolean isActive() { return isActive; }
     public void setActive(boolean active) { isActive = active; }
+
+    public double getSalary() { return salary; }
+    public void setSalary(double salary) { this.salary = salary; }
 }

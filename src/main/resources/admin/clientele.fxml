@@ -9,38 +9,39 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="450.0" prefWidth="600.0" style="-fx-background-color: #F9F6F0;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="450.0" prefWidth="600.0" style="-fx-background-color: #F9F6F0;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.admin.ClientsController">
     <children>
-        <TableView layoutX="35.0" layoutY="69.0" prefHeight="292.0" prefWidth="530.0" style="-fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #333;">
+        <TableView fx:id="clientsTable" layoutX="15.0" layoutY="69.0" prefHeight="292.0" prefWidth="571.0" style="-fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #333;">
             <columns>
-                <TableColumn prefWidth="26.0" style="-fx-background-radius: 15; -fx-border-radius: 15;" text="ID" />
-                <TableColumn style="-fx-background-radius: 15; -fx-border-radius: 15;" text="ФИО" />
-                <TableColumn prefWidth="68.0" style="-fx-background-radius: 15; -fx-border-radius: 15;" text="Телефон" />
-                <TableColumn prefWidth="63.0" style="-fx-background-radius: 15; -fx-border-radius: 15;" text="Почта" />
-                <TableColumn prefWidth="70.0" style="-fx-background-radius: 15; -fx-border-radius: 15;" text="Название услуги" />
-                <TableColumn prefWidth="59.0" style="-fx-background-radius: 15; -fx-border-radius: 15;" text="Всего потратил" />
-            <TableColumn prefWidth="73.0" style="-fx-background-radius: 15; -fx-border-radius: 15;" text="Дата" />
-            <TableColumn prefWidth="89.0" style="-fx-background-radius: 15; -fx-border-radius: 15;" text="Статус" />
+                <TableColumn fx:id="colId" prefWidth="26.0" style="-fx-background-radius: 15; -fx-border-radius: 15;" text="Id" />
+                <TableColumn fx:id="colName" prefWidth="114.0" style="-fx-background-radius: 15; -fx-border-radius: 15;" text="ФИО" />
+                <TableColumn fx:id="colPhone" prefWidth="58.0" style="-fx-background-radius: 15; -fx-border-radius: 15;" text="Телефон" />
+                <TableColumn fx:id="colEmail" prefWidth="74.0" style="-fx-background-radius: 15; -fx-border-radius: 15;" text="Почта" />
+                <TableColumn fx:id="colServiceName" prefWidth="98.0" style="-fx-background-radius: 15; -fx-border-radius: 15;" text="Название услуги" />
+                <TableColumn fx:id="colTotalSpent" prefWidth="85.0" style="-fx-background-radius: 15; -fx-border-radius: 15;" text="Всего потратил" />
+                <TableColumn fx:id="colRegistrationDate" prefWidth="50.0" style="-fx-background-radius: 15; -fx-border-radius: 15;" text="Дата регистрации" />
+                <TableColumn fx:id="colStatus" prefWidth="64.0" style="-fx-background-radius: 15; -fx-border-radius: 15;" text="Статус" />
             </columns>
         </TableView>
+
         <ButtonBar buttonMinWidth="0.0" layoutX="95.0" layoutY="20.0" prefHeight="31.0" prefWidth="411.0" style="-fx-background-radius: 20; -fx-border-color: #771011; -fx-border-radius: 20;">
             <buttons>
-                <Button alignment="CENTER" mnemonicParsing="false" prefHeight="23.0" prefWidth="119.0" style="-fx-background-radius: 20; -fx-background-color: #F9F6F0;" text="Сотрудники" textAlignment="CENTER" textFill="#771011">
+                <Button fx:id="employeesMenuBtn" alignment="CENTER" mnemonicParsing="false" onAction="#goToEmployees" prefHeight="23.0" prefWidth="119.0" style="-fx-background-radius: 20; -fx-background-color: #F9F6F0;" text="Сотрудники" textAlignment="CENTER" textFill="#771011">
                     <font>
                         <Font name="Open Sans Regular" size="13.0" />
                     </font>
                 </Button>
-                <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="117.0" style="-fx-background-radius: 20; -fx-background-color: transparent;" text="Расходники" textFill="#771011">
+                <Button fx:id="consumablesMenuBtn" mnemonicParsing="false" onAction="#goToConsumables" prefHeight="29.0" prefWidth="117.0" style="-fx-background-radius: 20; -fx-background-color: transparent;" text="Расходники" textFill="#771011">
                     <font>
                         <Font name="Open Sans Regular" size="13.0" />
                     </font>
                 </Button>
-                <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="117.0" style="-fx-background-radius: 20; -fx-background-color: transparent;" text="Услуги" textFill="#771011">
+                <Button fx:id="servicesMenuBtn" mnemonicParsing="false" onAction="#goToServices" prefHeight="29.0" prefWidth="117.0" style="-fx-background-radius: 20; -fx-background-color: transparent;" text="Услуги" textFill="#771011">
                     <font>
                         <Font name="Open Sans Regular" size="13.0" />
                     </font>
                 </Button>
-                <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="117.0" style="-fx-background-radius: 20; -fx-background-color: #771011;" text="Клиенты" textFill="#f9f6f0">
+                <Button fx:id="clientsMenuBtn" mnemonicParsing="false" onAction="#goToClients" prefHeight="31.0" prefWidth="117.0" style="-fx-background-radius: 20; -fx-background-color: #771011;" text="Клиенты" textFill="#f9f6f0">
                     <font>
                         <Font name="Open Sans Regular" size="13.0" />
                     </font>
@@ -50,21 +51,31 @@
                 <Insets left="-20.0" />
             </padding>
         </ButtonBar>
-        <Button alignment="CENTER" layoutX="19.0" layoutY="376.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="76.0" style="-fx-background-radius: 20; -fx-background-color: #771011;" text="Назад" textAlignment="CENTER" textFill="WHITE">
+
+        <Button fx:id="backButton" alignment="CENTER" layoutX="19.0" layoutY="376.0" mnemonicParsing="false" onAction="#goBack" prefHeight="29.0" prefWidth="76.0" style="-fx-background-radius: 20; -fx-background-color: #771011;" text="Назад" textAlignment="CENTER" textFill="WHITE">
             <font>
                 <Font name="Open Sans Regular" size="13.0" />
             </font>
         </Button>
-        <Button alignment="CENTER" layoutX="489.0" layoutY="376.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="86.0" style="-fx-background-radius: 20; -fx-background-color: #771011;" text="Изменить" textAlignment="CENTER" textFill="WHITE">
+
+        <Button fx:id="editButton" alignment="CENTER" layoutX="489.0" layoutY="376.0" mnemonicParsing="false" onAction="#editClient" prefHeight="29.0" prefWidth="86.0" style="-fx-background-radius: 20; -fx-background-color: #771011;" text="Изменить" textAlignment="CENTER" textFill="WHITE">
             <font>
                 <Font name="Open Sans Regular" size="13.0" />
             </font>
         </Button>
-        <Button alignment="CENTER" layoutX="392.0" layoutY="376.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="86.0" style="-fx-background-radius: 20; -fx-background-color: #771011;" text="Добавить" textAlignment="CENTER" textFill="WHITE">
+
+        <Button fx:id="addButton" alignment="CENTER" layoutX="392.0" layoutY="376.0" mnemonicParsing="false" onAction="#addClient" prefHeight="29.0" prefWidth="86.0" style="-fx-background-radius: 20; -fx-background-color: #771011;" text="Добавить" textAlignment="CENTER" textFill="WHITE">
             <font>
                 <Font name="Open Sans Regular" size="13.0" />
             </font>
         </Button>
+
+        <Button fx:id="deleteButton" alignment="CENTER" layoutX="295.0" layoutY="376.0" mnemonicParsing="false" onAction="#deleteClient" prefHeight="29.0" prefWidth="86.0" style="-fx-background-radius: 20; -fx-background-color: #771011;" text="Удалить" textAlignment="CENTER" textFill="WHITE">
+            <font>
+                <Font name="Open Sans Regular" size="13.0" />
+            </font>
+        </Button>
+
         <HBox alignment="CENTER" layoutY="425.0" prefHeight="25.0" prefWidth="600.0" style="-fx-background-color: #771011; -fx-background-radius: 10 10 0 0;" />
     </children>
 </AnchorPane>

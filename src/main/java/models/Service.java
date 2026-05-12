@@ -5,7 +5,10 @@ public class Service {
     private String name;
     private int durationMinutes;
     private double price;
+    private int masterId;      // ID мастера
+    private String masterName; // Имя мастера (для отображения)
 
+    public Service() {}
 
     // Геттеры и сеттеры
     public int getId() { return id; }
@@ -20,4 +23,9 @@ public class Service {
     public double getPrice() { return price; }
     public void setPrice(double price) { this.price = price; }
 
+    public int getMasterId() { return masterId; }
+    public void setMasterId(int masterId) { this.masterId = masterId; }
+
+    public String getMasterName() { return masterName; }
+    public void setMasterName(String masterName) { this.masterName = masterName; }
 }
