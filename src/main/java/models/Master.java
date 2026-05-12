@@ -10,12 +10,12 @@ public class Master {
     private String hireDate;
     private int positionId;
     private boolean isActive;
+    private String avatarPath;   // путь к аватарке мастера из БД
 
-    // Конструктор по умолчанию
-    public Master() {
-    }
+    // конструктор по умолчанию
+    public Master() {}
 
-    // Геттеры и сеттеры
+    // геттеры и сеттеры (только новые и необходимые)
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
@@ -42,4 +42,7 @@ public class Master {
 
     public boolean isActive() { return isActive; }
     public void setActive(boolean active) { isActive = active; }
+
+    public String getAvatarPath() { return avatarPath; }
+    public void setAvatarPath(String avatarPath) { this.avatarPath = avatarPath; }
 }

@@ -2,7 +2,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import dao.UserDao;
 import dao.DatabaseConnection;
 
 public class MainApp extends Application {
@@ -17,7 +16,7 @@ public class MainApp extends Application {
         DatabaseConnection.getConnection();
 
         // создаем загрузчик fxml, указывая путь к файлу интерфейса входа
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/login-view.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/main-view.fxml"));
 
         // загружаем fxml и создаем сцену
         Scene scene = new Scene(loader.load());

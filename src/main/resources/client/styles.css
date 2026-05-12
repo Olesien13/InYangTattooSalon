@@ -99,11 +99,29 @@
     -fx-border-color: #771011;
     -fx-border-radius: 20;
     -fx-text-fill: #1A1A1A;
+    -fx-font-family: 'Open Sans';
+    -fx-alignment: center;
+}
+.master-specialization {
+    -fx-text-fill: inherit;
+    -fx-font-family: 'Open Sans';
+    -fx-font-size: 10px;
 }
 .masters-button:selected {
     -fx-background-color: #771011;
     -fx-background-radius: 20;
     -fx-text-fill: #FFFFFF;
+    -fx-border-color: #771011;
+}
+.master-name {
+    -fx-font-family: 'Open Sans';
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1A1A1A;
+}
+.masters-button:selected .master-name,
+.masters-button:selected .master-specialization {
+    -fx-text-fill: white;
 }
 .card-referens{
     -fx-background-border: 30;

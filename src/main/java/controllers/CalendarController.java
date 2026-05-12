@@ -7,14 +7,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import dao.AppointmentDao;
 import dao.MasterScheduleDao;
 import dao.ServiceDao;
+import models.Master;
 import models.Service;
-import utils.UserSession;
+import utils.CurrentAppointment;
 import javafx.scene.control.DateCell;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -44,18 +44,26 @@ public class CalendarController {
         scheduleDao = new MasterScheduleDao();
         serviceDao = new ServiceDao();
 
-        // Получаем ID из сессии
-        masterId = UserSession.getSelectedMasterId();
-        serviceId = UserSession.getSelectedServiceId();
+        // получаем выбранного мастера и услугу из глобального хранилища
+        Master currentMaster = CurrentAppointment.getMaster();
+        Service currentService = CurrentAppointment.getService();
 
-        // Показываем информацию
+        if (currentMaster == null || currentService == null) {
+            showError("Ошибка: не выбран мастер или услуга");
+            return;
+        }
+
+        masterId = currentMaster.getId();
+        serviceId = currentService.getId();
+
+        // отображаем информацию о мастере и услуге
         loadServiceInfo();
 
-        // Настройка DatePicker
+        // настройка DatePicker: запрещаем выбор прошедших дат
         datePicker.setValue(LocalDate.now());
         datePicker.setDayCellFactory(picker -> new DateCell() {
             @Override
-            public void updateItem(LocalDate date, boolean empty) {  // ← ИСПРАВЛЕНО
+            public void updateItem(LocalDate date, boolean empty) {
                 super.updateItem(date, empty);
                 if (date != null && date.isBefore(LocalDate.now())) {
                     setDisable(true);
@@ -63,10 +71,10 @@ public class CalendarController {
             }
         });
 
-        // Обработчик выбора даты
+        // при выборе даты загружаем слоты
         datePicker.setOnAction(event -> loadTimeSlots());
 
-        // Загружаем слоты для сегодняшней даты
+        // загружаем слоты для текущей даты
         loadTimeSlots();
     }
 
@@ -76,7 +84,10 @@ public class CalendarController {
             serviceNameLabel.setText("Услуга: " + service.getName());
             priceLabel.setText("Цена: " + service.getPrice() + " ₽");
         }
-        masterNameLabel.setText("Мастер: ID " + masterId);
+        Master master = CurrentAppointment.getMaster();
+        if (master != null) {
+            masterNameLabel.setText("Мастер: " + master.getName());
+        }
     }
 
     private void loadTimeSlots() {
@@ -85,12 +96,9 @@ public class CalendarController {
         selectedDate = datePicker.getValue().format(DateTimeFormatter.ISO_LOCAL_DATE);
         timeSlotsContainer.getChildren().clear();
 
-        // Определяем день недели (1=пн ... 7=вс)
         int dayOfWeek = datePicker.getValue().getDayOfWeek().getValue();
-        // Конвертируем: в понедельник = 1, в БД тоже 1
-        if (dayOfWeek == 7) dayOfWeek = 7; // воскресенье
 
-        // Получаем рабочие часы мастера
+        // получаем рабочие часы мастера
         String[] hours = scheduleDao.getWorkingHours(masterId, dayOfWeek);
 
         if (hours == null) {
@@ -100,10 +108,9 @@ public class CalendarController {
             return;
         }
 
-        // Генерируем слоты с интервалом 1 час
+        // генерируем слоты с интервалом 1 час (начало и конец из расписания)
         String[] startParts = hours[0].split(":");
         String[] endParts = hours[1].split(":");
-
         int startHour = Integer.parseInt(startParts[0]);
         int endHour = Integer.parseInt(endParts[0]);
 
@@ -113,14 +120,15 @@ public class CalendarController {
             slots.add(timeSlot);
         }
 
-        // Показываем слоты
+        // создаём кнопки для каждого слота
         for (String slot : slots) {
             Button timeButton = new Button(slot);
             timeButton.setMaxWidth(Double.MAX_VALUE);
             timeButton.setStyle("-fx-font-size: 14px; -fx-padding: 8;");
 
-            // Проверяем, свободен ли слот
+            // проверяем, свободен ли слот
             if (appointmentDao.isSlotAvailable(masterId, selectedDate, slot)) {
+                // при нажатии на свободный слот переходим к подтверждению
                 timeButton.setOnAction(event -> selectTime(slot, event));
             } else {
                 timeButton.setDisable(true);
@@ -138,10 +146,9 @@ public class CalendarController {
         }
     }
 
+    // выбор времени и переход на окно подтверждения записи
     private void selectTime(String time, ActionEvent event) {
         selectedTime = time;
-        UserSession.setSelectedDate(selectedDate);
-        UserSession.setSelectedTime(selectedTime);
 
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/client/booking-confirmation.fxml"));
@@ -156,20 +163,11 @@ public class CalendarController {
 
     @FXML
     private void goBack(ActionEvent event) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/client/master-selection.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/client/master-selection-view.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();
     }
-
-    // Геттеры для выбранной даты и времени
-    //public static String getSelectedDate() {
-    //    return selectedDate;
-    //}
-
-    //public static String getSelectedTime() {
-    //    return selectedTime;
-    //}
 
     private void showError(String message) {
         errorLabel.setText(message);
