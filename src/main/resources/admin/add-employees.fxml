@@ -53,19 +53,19 @@
             </font>
         </Label>
 
-        <Label layoutX="239.0" layoutY="68.0" text="&quot;сотрудники&quot;" textFill="#771011">
+        <Label layoutX="239.0" layoutY="68.0" text="сотрудники" textFill="#771011">
             <font>
                 <Font name="Maika" size="16.0" />
             </font>
         </Label>
 
-        <Button fx:id="backButton" layoutX="50.0" layoutY="381.0" mnemonicParsing="false" style="-fx-background-color: #771011; -fx-background-radius: 20;" text="Назад" textFill="WHITE" onAction="#cancel" AnchorPane.leftAnchor="40.0">
+        <Button fx:id="backButton" layoutX="50.0" layoutY="381.0" mnemonicParsing="false" onAction="#cancel" style="-fx-background-color: #771011; -fx-background-radius: 20;" text="Назад" textFill="WHITE" AnchorPane.leftAnchor="40.0">
             <font>
                 <Font name="Open Sans Regular" size="13.0" />
             </font>
         </Button>
 
-        <Button fx:id="saveButton" layoutX="463.0" layoutY="381.0" mnemonicParsing="false" style="-fx-background-color: #771011; -fx-background-radius: 20;" text="Сохранить" textFill="WHITE" onAction="#saveEmployee" AnchorPane.rightAnchor="40.0">
+        <Button fx:id="saveButton" layoutX="463.0" layoutY="381.0" mnemonicParsing="false" onAction="#saveEmployee" style="-fx-background-color: #771011; -fx-background-radius: 20;" text="Сохранить" textFill="WHITE" AnchorPane.rightAnchor="40.0">
             <font>
                 <Font name="Open Sans Regular" size="13.0" />
             </font>

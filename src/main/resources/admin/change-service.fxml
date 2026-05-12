@@ -10,14 +10,14 @@
 
 <AnchorPane prefHeight="450.0" prefWidth="600.0" style="-fx-background-color: #F9F6F0;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.admin.ChangeServiceController">
     <children>
-        <Label layoutX="170.0" layoutY="30.0" text="Изменить услугу" AnchorPane.topAnchor="30.0">
+        <Label layoutX="170.0" layoutY="30.0" text="Изменить позицию" AnchorPane.topAnchor="30.0">
             <font>
                 <Font name="Maika" size="24.0" />
             </font>
         </Label>
 
         <TextField fx:id="nameField" layoutX="150.0" layoutY="127.0" prefHeight="27.0" prefWidth="372.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" />
-        <TextField fx:id="durationField" layoutX="214.0" layoutY="166.0" prefHeight="27.0" prefWidth="308.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" />
+        <TextField fx:id="durationField" layoutX="253.0" layoutY="166.0" prefHeight="27.0" prefWidth="269.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" />
 
         <ComboBox fx:id="masterComboBox" layoutX="150.0" layoutY="206.0" prefHeight="27.0" prefWidth="372.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" />
 
@@ -56,13 +56,13 @@
             </font>
         </Label>
 
-        <Button fx:id="backButton" layoutX="50.0" layoutY="381.0" mnemonicParsing="false" style="-fx-background-color: #771011; -fx-background-radius: 20;" text="Назад" textFill="WHITE" onAction="#cancel" AnchorPane.leftAnchor="40.0">
+        <Button fx:id="backButton" layoutX="50.0" layoutY="381.0" mnemonicParsing="false" onAction="#cancel" style="-fx-background-color: #771011; -fx-background-radius: 20;" text="Назад" textFill="WHITE" AnchorPane.leftAnchor="40.0">
             <font>
                 <Font name="Open Sans Regular" size="13.0" />
             </font>
         </Button>
 
-        <Button fx:id="saveButton" layoutX="463.0" layoutY="381.0" mnemonicParsing="false" style="-fx-background-color: #771011; -fx-background-radius: 20;" text="Сохранить" textFill="WHITE" onAction="#updateService" AnchorPane.rightAnchor="40.0">
+        <Button fx:id="saveButton" layoutX="463.0" layoutY="381.0" mnemonicParsing="false" onAction="#updateService" style="-fx-background-color: #771011; -fx-background-radius: 20;" text="Сохранить" textFill="WHITE" AnchorPane.rightAnchor="40.0">
             <font>
                 <Font name="Open Sans Regular" size="13.0" />
             </font>
