@@ -16,7 +16,7 @@ public class MainApp extends Application {
         DatabaseConnection.getConnection();
 
         // создаем загрузчик fxml, указывая путь к файлу интерфейса входа
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/main-view.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/admin/menu.fxml"));
 
         // загружаем fxml и создаем сцену
         Scene scene = new Scene(loader.load());

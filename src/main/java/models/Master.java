@@ -10,12 +10,13 @@ public class Master {
     private String hireDate;
     private int positionId;
     private boolean isActive;
-    private String avatarPath;   // путь к аватарке мастера из БД
+    private String avatarPath;   // соответствует photo_url в БД
+    private double salary;
 
-    // конструктор по умолчанию
-    public Master() {}
+    public Master() {
+    }
 
-    // геттеры и сеттеры (только новые и необходимые)
+    // геттеры и сеттеры
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
@@ -45,4 +46,7 @@ public class Master {
 
     public String getAvatarPath() { return avatarPath; }
     public void setAvatarPath(String avatarPath) { this.avatarPath = avatarPath; }
+
+    public double getSalary() { return salary; }
+    public void setSalary(double salary) { this.salary = salary; }
 }
