@@ -5,18 +5,9 @@ public class Service {
     private String name;
     private int durationMinutes;
     private double price;
-    private String imagePath;   // путь к иконке услуги из БД
+    private String imagePath;
 
-    // конструктор по умолчанию
-    public Service() {}
-
-    // конструктор со всеми полями
-    public Service(int id, String name, int durationMinutes, double price, String imagePath) {
-        this.id = id;
-        this.name = name;
-        this.durationMinutes = durationMinutes;
-        this.price = price;
-        this.imagePath = imagePath;
+    public Service() {
     }
 
     // геттеры и сеттеры

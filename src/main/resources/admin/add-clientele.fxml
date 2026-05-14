@@ -1,24 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="450.0" prefWidth="600.0" style="-fx-background-color: #F9F6F0;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #F9F6F0;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.admin.AddClientController">
     <children>
         <Label layoutX="170.0" layoutY="30.0" text="Добавить позицию" AnchorPane.topAnchor="30.0">
             <font>
                 <Font name="Maika" size="24.0" />
             </font>
         </Label>
-        <TextField layoutX="151.0" layoutY="104.0" prefHeight="25.0" prefWidth="372.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" />
-        <TextField layoutX="151.0" layoutY="143.0" prefHeight="25.0" prefWidth="372.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" />
-        <TextField layoutX="151.0" layoutY="183.0" prefHeight="25.0" prefWidth="372.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" />
-        <TextField layoutX="195.0" layoutY="222.0" prefHeight="27.0" prefWidth="328.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" />
-        <TextField layoutX="195.0" layoutY="261.0" prefHeight="27.0" prefWidth="328.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" />
+
+        <TextField fx:id="nameField" layoutX="151.0" layoutY="104.0" prefHeight="25.0" prefWidth="372.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" />
+        <TextField fx:id="phoneField" layoutX="151.0" layoutY="143.0" prefHeight="25.0" prefWidth="372.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" />
+        <TextField fx:id="emailField" layoutX="151.0" layoutY="183.0" prefHeight="25.0" prefWidth="372.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" />
+
+        <ComboBox fx:id="serviceComboBox" layoutX="195.0" layoutY="222.0" prefHeight="27.0" prefWidth="328.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" />
+
+        <TextField fx:id="totalSpentField" editable="false" layoutX="195.0" layoutY="261.0" prefHeight="27.0" prefWidth="328.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" />
+
+        <TextField fx:id="dateField" layoutX="150.0" layoutY="302.0" prefHeight="25.0" prefWidth="372.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" />
+
+        <ComboBox fx:id="statusComboBox" layoutX="151.0" layoutY="339.0" prefHeight="27.0" prefWidth="372.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" />
+
         <Label layoutX="79.0" layoutY="108.0" text="ФИО">
             <font>
                 <Font name="Open Sans Regular" size="13.0" />
@@ -44,33 +53,41 @@
                 <Font name="Open Sans Regular" size="13.0" />
             </font>
         </Label>
+        <Label layoutX="78.0" layoutY="306.0" text="Дата">
+            <font>
+                <Font name="Open Sans Regular" size="13.0" />
+            </font>
+        </Label>
+        <Label layoutX="78.0" layoutY="343.0" text="Статус">
+            <font>
+                <Font name="Open Sans Regular" size="13.0" />
+            </font>
+        </Label>
+
+        <Label fx:id="errorLabel" layoutX="150.0" layoutY="390.0" textFill="red" visible="false">
+            <font>
+                <Font name="Open Sans Regular" size="13.0" />
+            </font>
+        </Label>
+
         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="258.0" layoutY="69.0" text="Клиенты" textFill="#771011">
             <font>
                 <Font name="Maika" size="16.0" />
             </font>
         </Label>
-        <Button layoutX="41.0" layoutY="381.0" mnemonicParsing="false" style="-fx-background-color: #771011; -fx-background-radius: 20;" text="Назад" textFill="WHITE" AnchorPane.leftAnchor="41.0">
+
+        <Button fx:id="backButton" layoutX="41.0" layoutY="430.0" mnemonicParsing="false" onAction="#cancel" style="-fx-background-color: #771011; -fx-background-radius: 20;" text="Назад" textFill="WHITE" AnchorPane.leftAnchor="41.0">
             <font>
                 <Font name="Open Sans Regular" size="13.0" />
             </font>
         </Button>
-        <Button layoutX="474.0" layoutY="381.0" mnemonicParsing="false" style="-fx-background-color: #771011; -fx-background-radius: 20;" text="Сохранить" textFill="WHITE" AnchorPane.rightAnchor="39.0">
+
+        <Button fx:id="saveButton" layoutX="474.0" layoutY="430.0" mnemonicParsing="false" onAction="#saveClient" style="-fx-background-color: #771011; -fx-background-radius: 20;" text="Сохранить" textFill="WHITE" AnchorPane.rightAnchor="39.0">
             <font>
                 <Font name="Open Sans Regular" size="13.0" />
             </font>
         </Button>
-        <HBox alignment="CENTER" layoutY="425.0" prefHeight="25.0" prefWidth="600.0" style="-fx-background-color: #771011; -fx-background-radius: 10 10 0 0;" />
-      <TextField layoutX="150.0" layoutY="302.0" prefHeight="25.0" prefWidth="372.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" />
-      <Label layoutX="78.0" layoutY="306.0" text="Дата">
-         <font>
-            <Font name="Open Sans Regular" size="13.0" />
-         </font>
-      </Label>
-      <TextField layoutX="151.0" layoutY="339.0" prefHeight="25.0" prefWidth="372.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" />
-      <Label layoutX="79.0" layoutY="343.0" text="Статус">
-         <font>
-            <Font name="Open Sans Regular" size="13.0" />
-         </font>
-      </Label>
+
+        <HBox alignment="CENTER" layoutY="475.0" prefHeight="25.0" prefWidth="600.0" style="-fx-background-color: #771011; -fx-background-radius: 10 10 0 0;" />
     </children>
 </AnchorPane>

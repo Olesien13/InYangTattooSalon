@@ -7,10 +7,10 @@ import java.util.List;
 
 public class MasterDao {
 
+    // Получить всех активных мастеров
     public List<Master> getAll() {
         List<Master> masters = new ArrayList<>();
         String sql = "SELECT id, name, phone, specialization, description, rating, hire_date, position_id, is_active, photo_url FROM masters WHERE is_active = 1";
-
         try (Statement stmt = DatabaseConnection.getConnection().createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
@@ -22,6 +22,7 @@ public class MasterDao {
         return masters;
     }
 
+    // Найти мастера по id
     public Master findById(int id) {
         String sql = "SELECT id, name, phone, specialization, description, rating, hire_date, position_id, is_active, photo_url FROM masters WHERE id = ?";
         try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(sql)) {
@@ -36,9 +37,7 @@ public class MasterDao {
         return null;
     }
 
-    /**
-     * Получить мастеров, которые оказывают данную услугу.
-     */
+    // Получить мастеров, выполняющих данную услугу (через master_services)
     public List<Master> getByServiceId(int serviceId) {
         List<Master> masters = new ArrayList<>();
         String sql = "SELECT m.id, m.name, m.phone, m.specialization, m.description, m.rating, m.hire_date, m.position_id, m.is_active, m.photo_url " +
@@ -57,9 +56,7 @@ public class MasterDao {
         return masters;
     }
 
-    /**
-     * Получить портфолио мастера для конкретной услуги.
-     */
+    // Получить портфолио мастера для конкретной услуги
     public List<String> getPortfolioImages(int masterId, int serviceId) {
         List<String> images = new ArrayList<>();
         String sql = "SELECT image_path FROM master_portfolio WHERE master_id = ? AND service_id = ?";
@@ -76,6 +73,7 @@ public class MasterDao {
         return images;
     }
 
+    // Вспомогательный метод для извлечения Master из ResultSet
     private Master extractMaster(ResultSet rs) throws SQLException {
         Master m = new Master();
         m.setId(rs.getInt("id"));
@@ -87,7 +85,7 @@ public class MasterDao {
         m.setHireDate(rs.getString("hire_date"));
         m.setPositionId(rs.getInt("position_id"));
         m.setActive(rs.getInt("is_active") == 1);
-        m.setAvatarPath(rs.getString("photo_url")); // фото аватарки
+        m.setAvatarPath(rs.getString("photo_url"));
         return m;
     }
 }
