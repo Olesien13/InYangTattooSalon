@@ -75,5 +75,10 @@
         </Button>
 
         <HBox alignment="CENTER" layoutY="425.0" prefHeight="25.0" prefWidth="600.0" style="-fx-background-color: #771011; -fx-background-radius: 10 10 0 0;" />
+        <Button fx:id="scheduleButton" alignment="CENTER" layoutX="134.0" layoutY="376.0" mnemonicParsing="false" onAction="#showSchedule" prefHeight="29.0" prefWidth="129.0" style="-fx-background-radius: 20; -fx-background-color: #F9F6F0; -fx-border-color: #771011; -fx-border-radius: 20;" text="Расписание" textAlignment="CENTER" textFill="#771011">
+         <font>
+            <Font name="Open Sans Regular" size="13.0" />
+         </font>
+      </Button>
     </children>
 </AnchorPane>

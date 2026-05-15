@@ -9,6 +9,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import dao.MasterDao;
 import models.Master;
+import utils.UserSession;
 
 import java.io.IOException;
 import java.util.List;
@@ -24,11 +25,13 @@ public class EmployeesController {
     @FXML private TableColumn<Master, String> colHireDate;
     @FXML private TableColumn<Master, Double> colSalary;
 
+
     // Кнопки
     @FXML private Button addButton;
     @FXML private Button editButton;
     @FXML private Button deleteButton;
     @FXML private Button backButton;
+    @FXML private Button scheduleButton;
 
     // Кнопки меню
     @FXML private Button employeesMenuBtn;
@@ -132,6 +135,21 @@ public class EmployeesController {
             } else {
                 showAlert("Ошибка", "Не удалось удалить сотрудника");
             }
+        }
+    }
+
+    @FXML
+    private void showSchedule() {
+        // Убираем проверку на выбор сотрудника
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/admin/schedule.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Расписание мастеров");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Ошибка", "Не удалось открыть расписание");
         }
     }
 
