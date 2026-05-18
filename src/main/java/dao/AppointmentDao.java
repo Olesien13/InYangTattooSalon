@@ -7,20 +7,46 @@ import java.util.List;
 
 public class AppointmentDao {
 
-    // Создать запись
-    public boolean create(Appointment appointment) {
-        String sql = "INSERT INTO appointments (user_id, master_id, service_id, appointment_date, appointment_time, status, size) " +
-                "VALUES (?, ?, ?, ?, ?, ?)";
+    // метод проверяет свободен ли указанный слот у мастера
+    // учитываются записи со статусами pending и confirmed (активные)
+    public boolean isSlotAvailable(int masterId, String date, String time) {
 
+        // формируем sql-запрос: подсчитываем количество записей для данного мастера, даты и времени с активными статусами
+        String sql = "SELECT COUNT(*) FROM appointments WHERE master_id = ? AND appointment_date = ? AND appointment_time = ? AND status IN ('pending', 'confirmed')";
         try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(sql)) {
+            pstmt.setInt(1, masterId);
+            pstmt.setString(2, date);
+            pstmt.setString(3, time);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+
+                // если количество найденных записей равно 0, слот свободен
+                return rs.getInt(1) == 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // в случае ошибки возвращаем true (по умолчанию считаем слот свободным)
+        return true;
+    }
+
+    // метод для создания новой записи в таблице appointments (с учётом размера тату)
+    public boolean createAppointment(Appointment appointment) {
+
+        // sql-запрос на вставку данных (включая size)
+        String sql = "INSERT INTO appointments (user_id, master_id, service_id, appointment_date, appointment_time, status, final_price, size) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(sql)) {
+
+            // устанавливаем значения параметров из переданного объекта appointment
             pstmt.setInt(1, appointment.getUserId());
             pstmt.setInt(2, appointment.getMasterId());
             pstmt.setInt(3, appointment.getServiceId());
-            pstmt.setString(4, appointment.getAppointmentDate());
-            pstmt.setString(5, appointment.getAppointmentTime());
+            pstmt.setString(4, appointment.getDate());
+            pstmt.setString(5, appointment.getTime());
             pstmt.setString(6, appointment.getStatus());
-            pstmt.setString(7, appointment.getSize());
-
+            pstmt.setDouble(7, appointment.getFinalPrice());
+            pstmt.setString(8, appointment.getSize());
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -28,52 +54,49 @@ public class AppointmentDao {
         }
     }
 
-    // Проверить, свободен ли слот
-    public boolean isSlotAvailable(int masterId, String date, String time) {
-        String sql = "SELECT COUNT(*) FROM appointments WHERE master_id = ? " +
-                "AND appointment_date = ? AND appointment_time = ? " +
-                "AND status IN ('pending', 'confirmed')";
-
-        try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(sql)) {
-            pstmt.setInt(1, masterId);
-            pstmt.setString(2, date);
-            pstmt.setString(3, time);
-            ResultSet rs = pstmt.executeQuery();
-            return rs.getInt(1) == 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    // Получить все записи пользователя
-    public List<Appointment> findByUser(int userId) {
-        List<Appointment> appointments = new ArrayList<>();
-        String sql = "SELECT * FROM appointments WHERE user_id = ? ORDER BY appointment_date DESC";
-
+    // возвращает список всех записей пользователя с данными о мастере и услуге
+    public List<Appointment> getByUserId(int userId) {
+        List<Appointment> list = new ArrayList<>();
+        String sql = "SELECT a.*, m.name as master_name, s.name as service_name, s.price as original_price " +
+                "FROM appointments a " +
+                "JOIN masters m ON a.master_id = m.id " +
+                "JOIN services s ON a.service_id = s.id " +
+                "WHERE a.user_id = ? ORDER BY a.appointment_date DESC, a.appointment_time DESC";
         try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(sql)) {
             pstmt.setInt(1, userId);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                appointments.add(extractAppointment(rs));
+                Appointment a = new Appointment();
+                a.setId(rs.getInt("id"));
+                a.setUserId(rs.getInt("user_id"));
+                a.setMasterId(rs.getInt("master_id"));
+                a.setMasterName(rs.getString("master_name"));
+                a.setServiceId(rs.getInt("service_id"));
+                a.setServiceName(rs.getString("service_name"));
+                a.setDate(rs.getString("appointment_date"));
+                a.setTime(rs.getString("appointment_time"));
+                a.setStatus(rs.getString("status"));
+                a.setOriginalPrice(rs.getDouble("original_price"));
+                a.setFinalPrice(rs.getDouble("final_price"));
+                a.setSize(rs.getString("size"));   // добавляем поле размера
+                list.add(a);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return appointments;
+        return list;
     }
 
-    private Appointment extractAppointment(ResultSet rs) throws SQLException {
-        Appointment appointment = new Appointment();
-        appointment.setId(rs.getInt("id"));
-        appointment.setUserId(rs.getInt("user_id"));
-        appointment.setMasterId(rs.getInt("master_id"));
-        appointment.setServiceId(rs.getInt("service_id"));
-        appointment.setAppointmentDate(rs.getString("appointment_date"));
-        appointment.setAppointmentTime(rs.getString("appointment_time"));
-        appointment.setStatus(rs.getString("status"));
-        appointment.setCreatedAt(rs.getString("created_at"));
-        appointment.setSize(rs.getString("size"));
-        return appointment;
+    // обновляет статус записи (для отмены, подтверждения, завершения)
+    public boolean updateStatus(int appointmentId, String status) {
+        String sql = "UPDATE appointments SET status = ? WHERE id = ?";
+        try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(sql)) {
+            pstmt.setString(1, status);
+            pstmt.setInt(2, appointmentId);
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

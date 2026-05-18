@@ -14,6 +14,7 @@ import dao.ServiceDao;
 import models.Appointment;
 import models.Master;
 import models.Service;
+import utils.CurrentAppointment;
 import utils.UserSession;
 
 public class BookingConfirmationController {
@@ -42,19 +43,38 @@ public class BookingConfirmationController {
         masterDao = new MasterDao();
         serviceDao = new ServiceDao();
 
-        // Получаем данные из сессии
-        masterId = UserSession.getSelectedMasterId();
-        serviceId = UserSession.getSelectedServiceId();
+        // Получаем данные из CurrentAppointment (новый класс-хранилище)
+        Master currentMaster = CurrentAppointment.getMaster();
+        Service currentService = CurrentAppointment.getService();
+        selectedDate = CurrentAppointment.getSelectedDate();
+        selectedTime = CurrentAppointment.getSelectedTime();
+
+        if (currentMaster != null) {
+            masterId = currentMaster.getId();
+        } else {
+            showError("Мастер не выбран");
+            return;
+        }
+        if (currentService != null) {
+            serviceId = currentService.getId();
+        } else {
+            showError("Услуга не выбрана");
+            return;
+        }
+
+        // ID пользователя из сессии
         userId = UserSession.getUserId();
-        selectedDate = UserSession.getSelectedDate();
-        selectedTime = UserSession.getSelectedTime();
+        if (userId <= 0) {
+            showError("Пользователь не авторизован");
+            return;
+        }
 
         // Загружаем и отображаем информацию
         loadBookingInfo();
     }
 
     private void loadBookingInfo() {
-        // Получаем информацию о мастере
+        // Получаем информацию о мастере (можно из объекта CurrentAppointment, но для уверенности из БД)
         Master master = masterDao.findById(masterId);
         if (master != null) {
             masterNameLabel.setText("Мастер: " + master.getName());
@@ -102,22 +122,20 @@ public class BookingConfirmationController {
         appointment.setUserId(userId);
         appointment.setMasterId(masterId);
         appointment.setServiceId(serviceId);
-        appointment.setAppointmentDate(selectedDate);
-        appointment.setAppointmentTime(selectedTime);
+        appointment.setDate(selectedDate);
+        appointment.setTime(selectedTime);
         appointment.setStatus("pending");
+        appointment.setFinalPrice(price);   // пока без скидки, можно потом добавить
 
-        boolean success = appointmentDao.create(appointment);
+        boolean success = appointmentDao.createAppointment(appointment); // используем метод createAppointment
 
         if (success) {
-            // Очищаем выбранные данные из сессии
-            UserSession.setSelectedMasterId(-1);
-            UserSession.setSelectedServiceId(-1);
-            UserSession.setSelectedDate(null);
-            UserSession.setSelectedTime(null);
+            // Очищаем выбранные данные
+            CurrentAppointment.clear();
 
             // Переходим в окно "Мои записи"
             try {
-                Parent root = FXMLLoader.load(getClass().getResource("/client/my-bookings.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/client/my-bookings-view.fxml"));
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.setScene(new Scene(root));
                 stage.show();
@@ -132,7 +150,7 @@ public class BookingConfirmationController {
 
     @FXML
     private void goBack(ActionEvent event) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/client/calendar.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/client/calendar-view.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();

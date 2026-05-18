@@ -21,3 +21,11 @@ Thumbs.db
 
 # Ignore logs
 *.log
+
+# SQLite
+*.db
+*.sqlite
+*.db-shm
+*.db-wal
+*.db-journal
+database/
