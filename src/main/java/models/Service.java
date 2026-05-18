@@ -30,4 +30,8 @@ public class Service {
 
     public String getMasterName() { return masterName; }
     public void setMasterName(String masterName) { this.masterName = masterName; }
+
+    public String getMasterId() { return masterId; }
+    public void setMasterId(String masterId) { this.masterId = masterId; }
+
 }

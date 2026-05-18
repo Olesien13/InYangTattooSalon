@@ -8,37 +8,42 @@
 
 <AnchorPane prefHeight="450.0" prefWidth="600.0" style="-fx-background-color: #F9F6F0;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.admin.AdminMenuController">
     <children>
-        <Button fx:id="employeesBtn" contentDisplay="CENTER" layoutX="188.0" layoutY="142.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="226.0" style="-fx-background-color: #771011; -fx-background-radius: 20px;" text="База учета сотрудников" textAlignment="CENTER" textFill="WHITE" onAction="#goToEmployees">
+        <Button fx:id="employeesBtn" contentDisplay="CENTER" layoutX="188.0" layoutY="142.0" mnemonicParsing="false" onAction="#goToEmployees" prefHeight="31.0" prefWidth="226.0" style="-fx-background-color: #771011; -fx-background-radius: 20px;" text="База учета сотрудников" textAlignment="CENTER" textFill="WHITE">
             <font>
                 <Font name="Arial" size="13.0" />
             </font>
         </Button>
 
-        <Button fx:id="consumablesBtn" contentDisplay="CENTER" layoutX="188.0" layoutY="185.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="226.0" style="-fx-background-color: #771011; -fx-background-radius: 20px;" text="База учета расходников" textAlignment="CENTER" textFill="WHITE" onAction="#goToConsumables">
+        <Button fx:id="consumablesBtn" contentDisplay="CENTER" layoutX="188.0" layoutY="185.0" mnemonicParsing="false" onAction="#goToConsumables" prefHeight="31.0" prefWidth="226.0" style="-fx-background-color: #771011; -fx-background-radius: 20px;" text="База учета расходников" textAlignment="CENTER" textFill="WHITE">
             <font>
                 <Font name="Arial" size="13.0" />
             </font>
         </Button>
 
-        <Button fx:id="servicesBtn" contentDisplay="CENTER" layoutX="188.0" layoutY="231.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="226.0" style="-fx-background-color: #771011; -fx-background-radius: 20px;" text="База учета услуг" textAlignment="CENTER" textFill="WHITE" onAction="#goToServices">
+        <Button fx:id="servicesBtn" contentDisplay="CENTER" layoutX="188.0" layoutY="231.0" mnemonicParsing="false" onAction="#goToServices" prefHeight="31.0" prefWidth="226.0" style="-fx-background-color: #771011; -fx-background-radius: 20px;" text="База учета услуг" textAlignment="CENTER" textFill="WHITE">
             <font>
                 <Font name="Arial" size="13.0" />
             </font>
         </Button>
 
-        <Button fx:id="clientsBtn" contentDisplay="CENTER" layoutX="188.0" layoutY="277.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="226.0" style="-fx-background-color: #771011; -fx-background-radius: 20px;" text="База учета клиентов" textAlignment="CENTER" textFill="WHITE" onAction="#goToClients">
+        <Button fx:id="clientsBtn" contentDisplay="CENTER" layoutX="188.0" layoutY="277.0" mnemonicParsing="false" onAction="#goToClients" prefHeight="31.0" prefWidth="226.0" style="-fx-background-color: #771011; -fx-background-radius: 20px;" text="База учета клиентов" textAlignment="CENTER" textFill="WHITE">
             <font>
                 <Font name="Arial" size="13.0" />
             </font>
         </Button>
 
+        <Button fx:id="statisticsBtn" contentDisplay="CENTER" layoutX="187.0" layoutY="323.0" mnemonicParsing="false" onAction="#goToStatistics" prefHeight="31.0" prefWidth="226.0" style="-fx-background-color: #771011; -fx-background-radius: 20px;" text="Статистика" textAlignment="CENTER" textFill="WHITE">
+            <font>
+                <Font name="Arial" size="13.0" />
+            </font>
+        </Button>
         <Label fx:id="menuLabel" layoutX="263.0" layoutY="66.0" text="Меню">
             <font>
                 <Font name="Maika" size="25.0" />
             </font>
         </Label>
 
-        <Button fx:id="backButton" layoutX="243.0" layoutY="323.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-border-color: transparent;" text="Вернуться назад" textFill="#771011" onAction="#logout">
+        <Button fx:id="backButton" layoutX="242.0" layoutY="363.0" mnemonicParsing="false" onAction="#logout" style="-fx-background-color: transparent; -fx-border-color: transparent;" text="Вернуться назад" textFill="#771011">
             <font>
                 <Font name="Open Sans Regular" size="12.0" />
             </font>

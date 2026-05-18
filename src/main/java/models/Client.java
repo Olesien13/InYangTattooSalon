@@ -9,6 +9,8 @@ public class Client {
     private double totalSpent;
     private String registrationDate;
     private String status;
+    private String date;
+    private String size;
 
     public Client() {}
 
@@ -34,6 +36,12 @@ public class Client {
     public String getRegistrationDate() { return registrationDate; }
     public void setRegistrationDate(String registrationDate) { this.registrationDate = registrationDate; }
 
+    public String getDate() { return date; }
+    public void setDate(String date) { this.date = date; }
+
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
+
+    public String getSize() { return size; }
+    public void setSize(String size) { this.size = size; }
 }

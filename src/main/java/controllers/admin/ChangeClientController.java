@@ -40,7 +40,7 @@ public class ChangeClientController {
         );
         serviceComboBox.setEditable(true);
 
-        // Список статусов для комбобокса
+        // Список статусов для комбобокса (на русском)
         statusComboBox.getItems().addAll(
                 "В обработке",
                 "Подтверждено",
@@ -59,6 +59,7 @@ public class ChangeClientController {
         serviceComboBox.setValue(client.getServiceName());
         totalSpentField.setText(String.valueOf(client.getTotalSpent()));
         dateField.setText(client.getRegistrationDate());
+        dateField.setText(client.getDate());
         statusComboBox.setValue(client.getStatus());
     }
 
@@ -87,16 +88,39 @@ public class ChangeClientController {
             userDao.update(user);
         }
 
-        // Обновление статуса записи
         if (dateField.getText() != null && !dateField.getText().isEmpty() && statusComboBox.getValue() != null) {
-            clientDao.updateAppointmentStatus(
-                    currentClient.getId(),
-                    dateField.getText(),
-                    statusComboBox.getValue()
-            );
+            String newStatus = statusComboBox.getValue();
+            System.out.println("Обновляем статус на: " + newStatus);
+
+            clientDao.updateAppointmentStatus(currentClient.getId(), dateField.getText(), newStatus);
+
+            if ("Отменено".equals(newStatus)) {
+                clientDao.updateAppointmentPrice(currentClient.getId(), dateField.getText(), 0);
+            } else {
+                double price = getServicePrice(serviceComboBox.getValue());
+                System.out.println("Цена услуги: " + price);
+                clientDao.updateAppointmentPrice(currentClient.getId(), dateField.getText(), price);
+            }
         }
 
+
         closeWindow();
+    }
+
+
+    // Вспомогательный метод для получения цены услуги
+    private double getServicePrice(String serviceName) {
+        if (serviceName == null) return 0;
+        switch (serviceName) {
+            case "Цветное тату": return 4000;
+            case "Черно-белое тату": return 3000;
+            case "Перекрытие": return 5000;
+            case "Коррекция": return 2000;
+            case "Сведение": return 6000;
+            case "Эскиз": return 500;
+            case "Консультация": return 0;
+            default: return 0;
+        }
     }
 
     @FXML

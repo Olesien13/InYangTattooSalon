@@ -15,6 +15,7 @@
                 <TableColumn fx:id="colEmail" prefWidth="74.0" style="-fx-background-radius: 15; -fx-border-radius: 15;" text="Почта" />
                 <TableColumn fx:id="colServiceName" prefWidth="98.0" style="-fx-background-radius: 15; -fx-border-radius: 15;" text="Название услуги" />
                 <TableColumn fx:id="colTotalSpent" prefWidth="85.0" style="-fx-background-radius: 15; -fx-border-radius: 15;" text="Всего потратил" />
+                <TableColumn fx:id="colSize" prefWidth="80.0" text="Размер" />
                 <TableColumn fx:id="colRegistrationDate" prefWidth="50.0" style="-fx-background-radius: 15; -fx-border-radius: 15;" text="Дата регистрации" />
                 <TableColumn fx:id="colStatus" prefWidth="64.0" style="-fx-background-radius: 15; -fx-border-radius: 15;" text="Статус" />
             </columns>

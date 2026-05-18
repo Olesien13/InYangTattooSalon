@@ -38,6 +38,11 @@ public class AdminMenuController {
         openWindow("/admin/clientele.fxml", "Клиенты");
     }
 
+    @FXML
+    private void goToStatistics() {
+        openWindow("/admin/statistics.fxml", "Статистика");
+    }
+
     // Кнопка "Вернуться назад" - выход из аккаунта
     @FXML
     private void logout() {

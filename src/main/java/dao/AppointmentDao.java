@@ -9,7 +9,7 @@ public class AppointmentDao {
 
     // Создать запись
     public boolean create(Appointment appointment) {
-        String sql = "INSERT INTO appointments (user_id, master_id, service_id, appointment_date, appointment_time, status) " +
+        String sql = "INSERT INTO appointments (user_id, master_id, service_id, appointment_date, appointment_time, status, size) " +
                 "VALUES (?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(sql)) {
@@ -19,6 +19,7 @@ public class AppointmentDao {
             pstmt.setString(4, appointment.getAppointmentDate());
             pstmt.setString(5, appointment.getAppointmentTime());
             pstmt.setString(6, appointment.getStatus());
+            pstmt.setString(7, appointment.getSize());
 
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -72,6 +73,7 @@ public class AppointmentDao {
         appointment.setAppointmentTime(rs.getString("appointment_time"));
         appointment.setStatus(rs.getString("status"));
         appointment.setCreatedAt(rs.getString("created_at"));
+        appointment.setSize(rs.getString("size"));
         return appointment;
     }
 }

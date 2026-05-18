@@ -9,6 +9,7 @@ public class Appointment {
     private String appointmentTime;
     private String status;  // pending, confirmed, completed, cancelled
     private String createdAt;
+    private String size;
 
     public Appointment() {
     }
@@ -37,4 +38,7 @@ public class Appointment {
 
     public String getCreatedAt() { return createdAt; }
     public void setCreatedAt(String createdAt) { this.createdAt = createdAt; }
+
+    public String getSize() { return size; }
+    public void setSize(String size) { this.size = size; }
 }

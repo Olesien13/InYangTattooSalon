@@ -38,8 +38,6 @@ public class Master {
     public String getHireDate() { return hireDate; }
     public void setHireDate(String hireDate) { this.hireDate = hireDate; }
 
-    public int getPositionId() { return positionId; }
-    public void setPositionId(int positionId) { this.positionId = positionId; }
 
     public boolean isActive() { return isActive; }
     public void setActive(boolean active) { isActive = active; }

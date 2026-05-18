@@ -25,6 +25,7 @@ public class ClientsController {
     @FXML private TableColumn<Client, Double> colTotalSpent;
     @FXML private TableColumn<Client, String> colRegistrationDate;
     @FXML private TableColumn<Client, String> colStatus;
+    @FXML private TableColumn<Client, String> colSize;
 
     // Кнопки навигации
     @FXML private Button employeesMenuBtn;
@@ -40,6 +41,7 @@ public class ClientsController {
 
     private ClientDao clientDao;
 
+
     // Инициализация контроллера
     @FXML
     public void initialize() {
@@ -52,6 +54,7 @@ public class ClientsController {
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         colServiceName.setCellValueFactory(new PropertyValueFactory<>("serviceName"));
         colTotalSpent.setCellValueFactory(new PropertyValueFactory<>("totalSpent"));
+        colSize.setCellValueFactory(new PropertyValueFactory<>("size"));
         colRegistrationDate.setCellValueFactory(new PropertyValueFactory<>("registrationDate"));
         colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 

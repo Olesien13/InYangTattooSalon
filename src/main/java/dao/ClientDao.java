@@ -20,7 +20,8 @@ public class ClientDao {
                 COALESCE(s.name, 'Нет записей') as service_name,
                 COALESCE(a.appointment_date, '') as date,
                 COALESCE(a.status, '') as status,
-                COALESCE(s.price, 0) as total_spent
+                COALESCE(a.final_price, s.price, 0) as total_spent,
+                COALESCE(a.size, '') as size
             FROM users u
             LEFT JOIN appointments a ON u.id = a.user_id
             LEFT JOIN services s ON a.service_id = s.id
@@ -51,7 +52,8 @@ public class ClientDao {
                 COALESCE(s.name, 'Нет записей') as service_name,
                 COALESCE(a.appointment_date, '') as date,
                 COALESCE(a.status, '') as status,
-                COALESCE(s.price, 0) as total_spent
+                COALESCE(a.final_price, s.price, 0) as total_spent,
+                COALESCE(a.size, '') as size
             FROM users u
             LEFT JOIN appointments a ON u.id = a.user_id
             LEFT JOIN services s ON a.service_id = s.id
@@ -83,7 +85,8 @@ public class ClientDao {
                 s.name as service_name,
                 a.appointment_date as date,
                 a.status,
-                s.price as total_spent
+                COALESCE(a.final_price, s.price, 0) as total_spent,
+                COALESCE(a.size, '') as size
             FROM users u
             JOIN appointments a ON u.id = a.user_id
             JOIN services s ON a.service_id = s.id
@@ -142,6 +145,21 @@ public class ClientDao {
         }
     }
 
+    // Обновить цену записи
+    public boolean updateAppointmentPrice(int userId, String date, double price) {
+        String sql = "UPDATE appointments SET final_price = ? WHERE user_id = ? AND appointment_date = ?";
+
+        try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(sql)) {
+            pstmt.setDouble(1, price);
+            pstmt.setInt(2, userId);
+            pstmt.setString(3, date);
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     // Удалить клиента (и все его записи)
     public boolean delete(int id) {
         String deleteAppointments = "DELETE FROM appointments WHERE user_id = ?";
@@ -170,9 +188,10 @@ public class ClientDao {
         client.setEmail(rs.getString("email"));
         client.setRegistrationDate(rs.getString("registration_date"));
         client.setServiceName(rs.getString("service_name"));
-        client.setRegistrationDate(rs.getString("date"));
+        client.setDate(rs.getString("date"));
         client.setStatus(rs.getString("status"));
         client.setTotalSpent(rs.getDouble("total_spent"));
+        client.setSize(rs.getString("size"));
         return client;
     }
 }

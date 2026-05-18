@@ -18,7 +18,8 @@ public class ServicesController {
     @FXML private TableColumn<Service, Integer> colId;
     @FXML private TableColumn<Service, String> colName;
     @FXML private TableColumn<Service, Integer> colDuration;
-    @FXML private TableColumn<Service, Double> colPrice;   // колонка мастера удалена
+    @FXML private TableColumn<Service, Double> colPrice;
+    @FXML private TableColumn<Service, String> colMaster;
 
     private ServiceDao serviceDao;
 
@@ -30,6 +31,7 @@ public class ServicesController {
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colDuration.setCellValueFactory(new PropertyValueFactory<>("durationMinutes"));
         colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        colMaster.setCellValueFactory(new PropertyValueFactory<>("masterName"));
 
         loadServices();
     }
