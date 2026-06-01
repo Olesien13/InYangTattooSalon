@@ -6,8 +6,9 @@ public class Service {
     private int durationMinutes;
     private double price;
     private String imagePath;
-    private String masterId;
+    private int masterId;
     private String masterName;
+
 
     public Service() {
     }
@@ -31,7 +32,7 @@ public class Service {
     public String getMasterName() { return masterName; }
     public void setMasterName(String masterName) { this.masterName = masterName; }
 
-    public String getMasterId() { return masterId; }
-    public void setMasterId(String masterId) { this.masterId = masterId; }
+    public int getMasterId() { return masterId; }
+    public void setMasterId(int masterId) { this.masterId = masterId; }
 
 }

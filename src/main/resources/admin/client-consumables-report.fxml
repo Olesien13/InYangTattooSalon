@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import java.net.URL?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="450.0" prefWidth="600.0" style="-fx-background-color: #F9F6F0;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.admin.ClientConsumablesReportController">
+    <stylesheets>
+        <URL value="@style.css" />
+    </stylesheets>
+    <children>
+        <Label layoutX="210.0" layoutY="20.0" text="Отчёт по расходникам" textFill="#771011">
+            <font>
+                <Font name="Maika" size="20.0" />
+            </font>
+        </Label>
+
+        <Label fx:id="clientNameLabel" layoutX="30.0" layoutY="60.0" text="Клиент: " textFill="#771011">
+            <font>
+                <Font name="Open Sans Regular" size="14.0" />
+            </font>
+        </Label>
+
+        <Label layoutX="30.0" layoutY="95.0" text="Выберите запись:" textFill="#771011">
+            <font>
+                <Font name="Open Sans Regular" size="13.0" />
+            </font>
+        </Label>
+
+        <ComboBox fx:id="appointmentComboBox" layoutX="180.0" layoutY="90.0" prefHeight="27.0" prefWidth="380.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" />
+
+        <TableView fx:id="consumablesTable" layoutX="30.0" layoutY="135.0" prefHeight="230.0" prefWidth="540.0" styleClass="table">
+            <columns>
+                <TableColumn fx:id="colConsumableName" prefWidth="250.0" text="Расходный материал">
+                    <styleClass>
+                        <String fx:value="table-header-bok-right" />
+                        <String fx:value="table-header" />
+                    </styleClass>
+                </TableColumn>
+                <TableColumn fx:id="colUsedQuantity" prefWidth="120.0" text="Использовано">
+                    <styleClass>
+                        <String fx:value="table-header" />
+                    </styleClass>
+                </TableColumn>
+                <TableColumn fx:id="colTotalPrice" prefWidth="170.0" text="Стоимость (руб)">
+                    <styleClass>
+                        <String fx:value="table-header-bok-left" />
+                        <String fx:value="table-header" />
+                    </styleClass>
+                </TableColumn>
+            </columns>
+        </TableView>
+
+        <Label fx:id="totalLabel" layoutX="30.0" layoutY="380.0" text="Общая стоимость: 0 руб" textFill="#771011">
+            <font>
+                <Font name="Open Sans Regular" size="14.0" />
+            </font>
+        </Label>
+
+        <Button fx:id="closeButton" alignment="CENTER" layoutX="490.0" layoutY="380.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="29.0" prefWidth="86.0" style="-fx-background-radius: 20; -fx-background-color: #771011;" text="Закрыть" textAlignment="CENTER" textFill="WHITE">
+            <font>
+                <Font name="Open Sans Regular" size="13.0" />
+            </font>
+        </Button>
+
+        <HBox alignment="CENTER" layoutY="425.0" prefHeight="25.0" prefWidth="600.0" style="-fx-background-color: #771011; -fx-background-radius: 10 10 0 0;" />
+    </children>
+</AnchorPane>

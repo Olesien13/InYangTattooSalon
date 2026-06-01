@@ -6,8 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-
 import java.io.IOException;
+
 
 public class AdminMenuController {
 
@@ -15,8 +15,11 @@ public class AdminMenuController {
     @FXML private Button consumablesBtn;
     @FXML private Button servicesBtn;
     @FXML private Button clientsBtn;
+    @FXML private Button statisticsBtn;
     @FXML private Button backButton;
-    @FXML private Button logoutBtn;  // Добавьте эту строку, если нужно
+    @FXML private Button logoutBtn;
+
+
 
     @FXML
     private void goToEmployees() {

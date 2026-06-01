@@ -73,14 +73,14 @@ public class MasterDao {
         return images;
     }
 
-    // метод возвращает список всех должностей из таблицы positions
     public List<String> getAllPositions() {
         List<String> positions = new ArrayList<>();
-        String sql = "SELECT name FROM positions";
+        String sql = "SELECT DISTINCT specialization FROM masters WHERE specialization IS NOT NULL AND specialization != ''";
+
         try (Statement stmt = DatabaseConnection.getConnection().createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                positions.add(rs.getString("name"));
+                positions.add(rs.getString("specialization"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

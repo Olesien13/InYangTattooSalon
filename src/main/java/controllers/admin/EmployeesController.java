@@ -140,19 +140,17 @@ public class EmployeesController {
 
     @FXML
     private void showSchedule() {
-        // Убираем проверку на выбор сотрудника
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/admin/schedule.fxml"));
-            Stage stage = new Stage();
-            stage.setTitle("Расписание мастеров");
+            Stage stage = (Stage) scheduleButton.getScene().getWindow();
             stage.setScene(new Scene(root));
+            stage.setTitle("Расписание мастеров");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
             showAlert("Ошибка", "Не удалось открыть расписание");
         }
     }
-
     // Навигация по меню
     @FXML
     private void goToEmployees() {

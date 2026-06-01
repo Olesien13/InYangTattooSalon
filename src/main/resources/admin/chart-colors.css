@@ -1,0 +1,191 @@
+
+/* КРУГОВАЯ ДИАГРАММА (PieChart) */
+.default-color0.chart-pie { -fx-pie-color: #771011; }  /* Основной бордовый */
+.default-color1.chart-pie { -fx-pie-color: #2C0A0A; }  /* Почти чёрный бордовый */
+.default-color2.chart-pie { -fx-pie-color: #B22222; }  /* Огненно-красный */
+.default-color3.chart-pie { -fx-pie-color: #5C1010; }  /* Тёмный вишнёвый */
+.default-color4.chart-pie { -fx-pie-color: #D32F2F; }  /* Яркий красный */
+.default-color5.chart-pie { -fx-pie-color: #8B1A1A; }  /* Кирпичный */
+.default-color6.chart-pie { -fx-pie-color: #E57373; }  /* Светло-красный */
+.default-color7.chart-pie { -fx-pie-color: #3D0C0C; }  /* Очень тёмный */
+.default-color8.chart-pie { -fx-pie-color: #F44336; }  /* Ярко-красный */
+.default-color9.chart-pie { -fx-pie-color: #FF8A80; }  /* Коралловый */
+
+/* Белая обводка для разделения сегментов */
+.chart-pie {
+    -fx-border-color: #FFFFFF;
+    -fx-border-width: 2px;
+}
+
+/* СТОЛБЧАТАЯ ДИАГРАММА (BarChart) */
+.default-color0.chart-bar { -fx-bar-fill: #771011; }
+.default-color1.chart-bar { -fx-bar-fill: #2C0A0A; }
+.default-color2.chart-bar { -fx-bar-fill: #B22222; }
+.default-color3.chart-bar { -fx-bar-fill: #5C1010; }
+.default-color4.chart-bar { -fx-bar-fill: #D32F2F; }
+.default-color5.chart-bar { -fx-bar-fill: #8B1A1A; }
+.default-color6.chart-bar { -fx-bar-fill: #E57373; }
+.default-color7.chart-bar { -fx-bar-fill: #3D0C0C; }
+.default-color8.chart-bar { -fx-bar-fill: #F44336; }
+.default-color9.chart-bar { -fx-bar-fill: #FF8A80; }
+
+/* Белая обводка для столбцов */
+.chart-bar {
+    -fx-border-color: #FFFFFF;
+    -fx-border-width: 1px;
+    -fx-border-radius: 3px;
+}
+
+.chart-plot-background {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.chart {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.chart-content {
+    -fx-background-color: transparent;
+}
+
+/*
+   СТИЛИ ДЛЯ ВКЛАДОК
+  */
+
+.tab-pane {
+    -fx-background-color: transparent;
+    -fx-tab-min-width: 100px;
+    -fx-tab-max-width: 150px;
+}
+
+.tab-header-area {
+    -fx-alignment: CENTER;
+    -fx-padding: 5 0 0 0;
+}
+
+.tab-header-background {
+    -fx-background-color: transparent;
+}
+
+/* Уменьшенные вкладки */
+.tab {
+    -fx-background-color: #F9F6F0;
+    -fx-border-color: #771011;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-padding: 4 12 4 12;
+    -fx-cursor: hand;
+}
+
+/* Выбранная вкладка */
+.tab:selected {
+    -fx-background-color: #771011;
+}
+
+.tab:selected .tab-label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+/* Невыбранная вкладка */
+.tab .tab-label {
+    -fx-text-fill: #771011;
+    -fx-font-size: 11px;
+    -fx-font-family: "Open Sans Regular";
+    -fx-font-weight: bold;
+}
+
+/* Эффект при наведении */
+.tab:hover {
+    -fx-background-color: rgba(119, 16, 17, 0.1);
+}
+
+.tab:selected:hover {
+    -fx-background-color: #8B1A1A;
+}
+
+/* Содержимое вкладок */
+.tab-content-area {
+    -fx-background-color: #F9F6F0;
+    -fx-padding: 10;
+}
+
+/* Выравнивание вкладок по центру */
+.tab-pane .tab-header-area .headers-region {
+    -fx-alignment: CENTER;
+}
+
+/*
+   ТЕКСТ НА ДИАГРАММАХ
+ */
+
+.chart-pie-label {
+    -fx-fill: #333333 !important;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.axis-tick-label {
+    -fx-text-fill: #333333 !important;
+    -fx-font-size: 10px;
+}
+
+.axis-label {
+    -fx-text-fill: #771011 !important;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.chart-title {
+    -fx-text-fill: #771011 !important;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+/*
+   ЛИНИИ СЕТКИ
+*/
+
+.chart-vertical-grid-lines {
+    -fx-stroke: #E0D0D0;
+}
+
+.chart-horizontal-grid-lines {
+    -fx-stroke: #E0D0D0;
+}
+
+/* Подписи сегментов */
+.chart-pie-label {
+    -fx-fill: #333333 !important;
+    -fx-font-size: 11px !important;
+    -fx-font-weight: bold !important;
+    -fx-visible: true !important;
+    -fx-opacity: 1 !important;
+}
+
+/* Линии от сегментов к подписям */
+.chart-pie-label-line {
+    -fx-stroke: #771011 !important;
+    -fx-stroke-width: 1px !important;
+}
+
+/* Легенда (справа) */
+.chart-legend {
+    -fx-background-color: #F9F6F0;
+    -fx-border-color: #D0C0C0;
+    -fx-border-radius: 5px;
+}
+
+.chart-legend-item {
+    -fx-text-fill: #333333 !important;
+    -fx-font-size: 11px !important;
+}
+
+/* Убираем прозрачность */
+.chart-pie-label {
+    -fx-background-color: transparent;
+}
