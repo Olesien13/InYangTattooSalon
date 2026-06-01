@@ -8,9 +8,13 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import dao.ClientDao;
+import dao.DatabaseConnection;  // ← ДОБАВИТЬ
 import models.Client;
 
 import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 public class ClientsController {
@@ -38,9 +42,9 @@ public class ClientsController {
     @FXML private Button addButton;
     @FXML private Button editButton;
     @FXML private Button deleteButton;
+    @FXML private Button consumablesReportBtn;
 
     private ClientDao clientDao;
-
 
     // Инициализация контроллера
     @FXML
@@ -109,6 +113,47 @@ public class ClientsController {
         }
     }
 
+    // Получить последний ID записи клиента
+    private int getLastAppointmentId(int clientId) {
+        String sql = "SELECT id FROM appointments WHERE user_id = ? ORDER BY appointment_date DESC LIMIT 1";
+        try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(sql)) {
+            pstmt.setInt(1, clientId);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    // Отчёт по расходникам клиента
+    @FXML
+    private void showClientConsumables() {
+        Client selected = clientsTable.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            showAlert("Ошибка", "Выберите клиента");
+            return;
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/admin/client-consumables-report.fxml"));
+            Parent root = loader.load();
+
+            ClientConsumablesReportController controller = loader.getController();
+            controller.setClient(selected);  // Передаём клиента, а не appointmentId
+
+            Stage stage = new Stage();
+            stage.setTitle("Расходники клиента");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Ошибка", "Не удалось открыть отчёт по расходникам");
+        }
+    }
+
     // Универсальный метод для открытия окон добавления и редактирования
     private void openAddEditWindow(String fxmlPath, String title, Client client) {
         try {
@@ -133,39 +178,33 @@ public class ClientsController {
         }
     }
 
-    // Навигация по меню
+    // ==================== Навигация по меню ====================
 
-    // Переход на страницу сотрудников
     @FXML
     private void goToEmployees() {
         openWindow("/admin/employees.fxml", "Сотрудники");
     }
 
-    // Переход на страницу расходников
     @FXML
     private void goToConsumables() {
         openWindow("/admin/consumables.fxml", "Расходники");
     }
 
-    // Переход на страницу услуг
     @FXML
     private void goToServices() {
         openWindow("/admin/service.fxml", "Услуги");
     }
 
-    // Переход на страницу клиентов (текущая страница)
     @FXML
     private void goToClients() {
         // Уже на этой странице
     }
 
-    // Возврат в главное меню
     @FXML
     private void goBack() {
         openWindow("/admin/menu.fxml", "Главное меню");
     }
 
-    // Универсальный метод для переключения окон
     private void openWindow(String fxmlPath, String title) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
@@ -179,7 +218,6 @@ public class ClientsController {
         }
     }
 
-    // Показать сообщение
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);

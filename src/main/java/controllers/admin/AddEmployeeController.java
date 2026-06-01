@@ -14,8 +14,8 @@ public class AddEmployeeController {
     @FXML private TextField phoneField;
     @FXML private ComboBox<String> positionComboBox;
     @FXML private TextField hireDateField;
+    @FXML private TextField salaryField;
     @FXML private Label errorLabel;
-    // поле salaryField удалено (или можно закомментировать)
 
     private MasterDao masterDao;
 
@@ -55,12 +55,24 @@ public class AddEmployeeController {
         master.setHireDate(hireDateField.getText().trim());
         master.setActive(true);
         master.setRating(0.0);
-        // зарплату не сохраняем
 
-        int masterId = masterDao.createAndGetId(master); // создаём мастера
+        // Зарплата
+        double salary = 0;
+        if (!salaryField.getText().trim().isEmpty()) {
+            try {
+                salary = Double.parseDouble(salaryField.getText().trim());
+            } catch (NumberFormatException e) {
+                salary = 0;
+            }
+        }
+        master.setSalary(salary);
+
+        int masterId = masterDao.createAndGetId(master);
 
         if (masterId > 0) {
-            // зарплату не сохраняем – убрали saveSalary
+            if (salary > 0) {
+                masterDao.saveSalary(masterId, salary);
+            }
             closeWindow();
         } else {
             showError("Ошибка при сохранении сотрудника");

@@ -9,22 +9,19 @@ public class StatisticsDao {
     public Map<String, Double> getMonthlyRevenue() {
         Map<String, Double> revenue = new HashMap<>();
         String sql = """
-        SELECT 
-            strftime('%Y-%m', appointment_date) as month,
-            SUM(final_price) as total
-        FROM appointments
-        WHERE status = 'Выполнено' 
-            AND strftime('%Y-%m', appointment_date) IN ('2026-03', '2026-04', '2026-05')
-        GROUP BY strftime('%Y-%m', appointment_date)
-        ORDER BY month
-    """;
+            SELECT 
+                strftime('%Y-%m', appointment_date) as month,
+                SUM(final_price) as total
+            FROM appointments
+            WHERE status = 'Выполнено'
+            GROUP BY strftime('%Y-%m', appointment_date)
+            ORDER BY month
+        """;
 
         try (Statement stmt = DatabaseConnection.getConnection().createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                String month = rs.getString("month");
-                double total = rs.getDouble("total");
-                revenue.put(month, total);
+                revenue.put(rs.getString("month"), rs.getDouble("total"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -32,25 +29,23 @@ public class StatisticsDao {
         return revenue;
     }
 
-    public Map<String, Double> getYearlyRevenue(int year) {
+    public Map<String, Double> getMasterRevenue() {
         Map<String, Double> revenue = new HashMap<>();
         String sql = """
             SELECT 
-                strftime('%m', appointment_date) as month,
-                SUM(final_price) as total
-            FROM appointments
-            WHERE status = 'Выполнено' AND strftime('%Y', appointment_date) = ?
-            GROUP BY strftime('%m', appointment_date)
-            ORDER BY month
+                m.name as master_name,
+                SUM(a.final_price) as total
+            FROM appointments a
+            JOIN masters m ON a.master_id = m.id
+            WHERE a.status = 'Выполнено'
+            GROUP BY m.id
+            ORDER BY total DESC
         """;
 
-        try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(sql)) {
-            pstmt.setString(1, String.valueOf(year));
-            ResultSet rs = pstmt.executeQuery();
+        try (Statement stmt = DatabaseConnection.getConnection().createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                String month = rs.getString("month");
-                double total = rs.getDouble("total");
-                revenue.put(month, total);
+                revenue.put(rs.getString("master_name"), rs.getDouble("total"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

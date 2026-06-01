@@ -3,7 +3,9 @@ package dao;
 import models.Client;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ClientDao {
 
@@ -178,6 +180,36 @@ public class ClientDao {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public List<Map<String, Object>> getClientConsumables(int appointmentId) {
+        List<Map<String, Object>> consumables = new ArrayList<>();
+        String sql = """
+        SELECT 
+            c.name as consumable_name,
+            ac.used_quantity as total_quantity,
+            ac.used_quantity * c.price as total_price
+        FROM appointment_consumables ac
+        JOIN consumables c ON ac.consumable_id = c.id
+        JOIN appointments a ON ac.appointment_id = a.id
+        WHERE ac.appointment_id = ? AND a.status != 'Отменено'
+        ORDER BY total_price DESC
+    """;
+
+        try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(sql)) {
+            pstmt.setInt(1, appointmentId);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Map<String, Object> row = new HashMap<>();
+                row.put("consumable_name", rs.getString("consumable_name"));
+                row.put("total_quantity", rs.getDouble("total_quantity"));
+                row.put("total_price", rs.getDouble("total_price"));
+                consumables.add(row);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return consumables;
     }
 
     private Client extractClient(ResultSet rs) throws SQLException {
