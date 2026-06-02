@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<!-- окно добавления расписания -->
+
+<AnchorPane prefHeight="450.0" prefWidth="600.0" style="-fx-background-color: #F9F6F0;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.admin.Shokina.AddScheduleController">
+
+    <children>
+
+        <!-- заголовок по центру -->
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="170.0" layoutY="30.0" text="Добавить позицию" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+            <font>
+                <Font name="Maika" size="24.0" />
+            </font>
+        </Label>
+
+        <!-- подзаголовок -->
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="250.0" layoutY="70.0" text="Расписание" textFill="#771011" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
+            <font>
+                <Font name="Maika" size="16.0" />
+            </font>
+        </Label>
+
+        <!-- мастер -->
+        <Label layoutX="80.0" layoutY="100.0" text="Мастер" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="100.0">
+            <font>
+                <Font name="Open Sans Regular" size="13.0" />
+            </font>
+        </Label>
+        <ComboBox fx:id="masterComboBox" layoutX="80.0" layoutY="120.0" prefHeight="27.0" prefWidth="440.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="120.0" />
+
+        <!-- день недели -->
+        <Label layoutX="80.0" layoutY="170.0" text="День недели" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="170.0">
+            <font>
+                <Font name="Open Sans Regular" size="13.0" />
+            </font>
+        </Label>
+        <ComboBox fx:id="dayComboBox" layoutX="80.0" layoutY="190.0" prefHeight="27.0" prefWidth="440.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="190.0" />
+
+        <!-- время начала и окончания в hbox -->
+        <Label layoutX="80.0" layoutY="240.0" text="Время работы (начало - окончание)" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="240.0">
+            <font>
+                <Font name="Open Sans Regular" size="13.0" />
+            </font>
+        </Label>
+
+        <HBox layoutX="80.0" layoutY="260.0" spacing="20.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="260.0">
+            <TextField fx:id="startTimeField" prefHeight="27.0" promptText="10:00" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" HBox.hgrow="ALWAYS" />
+            <TextField fx:id="endTimeField" prefHeight="27.0" promptText="18:00" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" HBox.hgrow="ALWAYS" />
+        </HBox>
+
+        <!-- ошибки -->
+        <Label fx:id="errorLabel" layoutX="80.0" layoutY="310.0" prefHeight="27.0" prefWidth="440.0" textFill="red" visible="false" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="310.0">
+            <font>
+                <Font name="Open Sans Regular" size="13.0" />
+            </font>
+        </Label>
+
+        <!-- кнопки -->
+        <Button fx:id="backButton" layoutX="50.0" layoutY="381.0" mnemonicParsing="false" onAction="#cancel" style="-fx-background-color: #771011; -fx-background-radius: 20;" text="Назад" textFill="WHITE" AnchorPane.bottomAnchor="44.0" AnchorPane.leftAnchor="40.0">
+            <font>
+                <Font name="Open Sans Regular" size="13.0" />
+            </font>
+        </Button>
+
+        <Button fx:id="saveButton" layoutX="463.0" layoutY="381.0" mnemonicParsing="false" onAction="#saveSchedule" style="-fx-background-color: #771011; -fx-background-radius: 20;" text="Сохранить" textFill="WHITE" AnchorPane.bottomAnchor="44.0" AnchorPane.rightAnchor="40.0">
+            <font>
+                <Font name="Open Sans Regular" size="13.0" />
+            </font>
+        </Button>
+
+        <!-- декоративная полоса -->
+        <HBox alignment="CENTER" layoutY="425.0" prefHeight="25.0" prefWidth="600.0" style="-fx-background-color: #771011; -fx-background-radius: 10 10 0 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+
+    </children>
+</AnchorPane>

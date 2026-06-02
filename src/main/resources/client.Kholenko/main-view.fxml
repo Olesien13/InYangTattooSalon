@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #F9F6F0;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.client.Kholenko.MainController">
+   <stylesheets>
+      <URL value="@styles.css" />
+   </stylesheets>
+
+   <children>
+      <HBox alignment="CENTER" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+         <children>
+            <TabPane fx:id="mainTabPane" cacheShape="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="602.0" tabClosingPolicy="UNAVAILABLE">
+               <tabs>
+                  <Tab id="first" text="Новая запись">
+                     <content>
+                        <AnchorPane prefHeight="427.0" prefWidth="0.0">
+                           <children>
+                              <Label id="heading" layoutX="237.0" layoutY="30.0" text="Выберите услугу">
+                                 <font>
+                                    <Font name="Maika" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Region layoutX="210.0" layoutY="52.0" prefHeight="1.0" prefWidth="192.0" style="-fx-background-color: #771011;" />
+                              <TilePane fx:id="servicesTilePane" alignment="TOP_CENTER" hgap="20.0" layoutY="84.0" prefColumns="3" prefHeight="308.0" prefWidth="600.0" vgap="25.0" />
+                           </children>
+
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab closable="false" text="Мои записи">
+                     <content>
+                        <fx:include source="my-bookings-view.fxml" />
+                     </content>
+                  </Tab>
+                  <Tab id="last" closable="false" text="Профиль">
+                     <content>
+                        <fx:include source="profile-view.fxml" />
+                     </content>
+                  </Tab>
+               </tabs>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </TabPane>
+         </children>
+      </HBox>
+
+      <!-- Нижний футер -->
+      <HBox alignment="CENTER" prefHeight="25.0" styleClass="fotter" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+         <children>
+            <Label styleClass="fotter" text="⏰ ПН-ВС 10–21  |  📍 ул. Ленина, 5  |  📞 +7 (999) 123-45-67" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

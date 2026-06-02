@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #F9F6F0;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.client.Kholenko.BookingFormController">
+   <stylesheets>
+      <URL value="@styles.css" />
+   </stylesheets>
+
+   <children>
+      <!-- Меню -->
+      <HBox alignment="CENTER" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+         <TabPane prefHeight="50.0" prefWidth="618.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+               <Tab id="first" text="Новая запись" />
+               <Tab text="Мои записи" />
+               <Tab id="last" text="Профиль" />
+            </tabs>
+         </TabPane>
+      </HBox>
+      <Region layoutX="218.0" layoutY="90.0" prefHeight="1.0" prefWidth="164.0" style="-fx-background-color: #771011;" />
+
+      <!-- Заголовок -->
+      <VBox alignment="CENTER" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="70">
+         <Label styleClass="forma-header" text="заполните данные">
+            <font><Font name="Maika" size="13.0" /></font>
+         </Label>
+      </VBox>
+
+      <!-- Информация -->
+      <Label fx:id="infoLabel" alignment="CENTER" layoutX="20.0" layoutY="103.0" text="Цветное тату | Александр | 15 апреля 2026 | 11:30" wrapText="true" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="103.0" />
+
+      <!-- Поля (вертикально) -->
+      <VBox layoutX="31.2" layoutY="140.8" prefHeight="228.0" prefWidth="539.0" spacing="15" AnchorPane.bottomAnchor="149.80000000000007" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="140.6">
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="10">
+               <Label prefWidth="70" text="ФИО" />
+               <TextField fx:id="fullNameField" styleClass="forma-texarea" HBox.hgrow="ALWAYS" />
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="10">
+               <Label prefWidth="70" text="Телефон" />
+               <TextField fx:id="phoneField" styleClass="forma-texarea" HBox.hgrow="ALWAYS" />
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="10">
+               <Label prefWidth="70" text="Email" />
+               <TextField fx:id="emailField" prefHeight="27.0" prefWidth="453.0" styleClass="forma-texarea" HBox.hgrow="ALWAYS" />
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="10">
+               <Label prefWidth="70" text="Размер тату" />
+               <ComboBox fx:id="sizeComboBox" prefHeight="28.0" prefWidth="455.0" styleClass="forma-texarea" HBox.hgrow="ALWAYS" />
+            </HBox>
+            <Label text="Прикрепить референс (эскиз/фото):" />
+            <Button fx:id="uploadButton" maxWidth="150" styleClass="forma-btn" text="Выбрать файлы" underline="true" />
+         </children>
+      </VBox>
+
+      <!-- Кнопка Записаться по центру -->
+      <Button fx:id="submitButton" layoutX="200.0" layoutY="384.99999999999994" onAction="#submitBooking" styleClass="forma-btn-zapis" text="Записаться" AnchorPane.bottomAnchor="100.60000000000002" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" />
+
+      <!-- Кнопка Назад (если нужна) расположена отдельно -->
+      <HBox alignment="CENTER" layoutX="20.0" layoutY="453.4" spacing="10" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+         <Button fx:id="backButton" onAction="#goBack" styleClass="button-deystvie" text="← Назад" />
+         <Region HBox.hgrow="ALWAYS" />
+      </HBox>
+
+      <!-- Футер -->
+      <HBox alignment="CENTER" prefHeight="25.0" styleClass="fotter" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+         <children>
+            <Label styleClass="fotter" text="⏰ ПН-ВС 10–21  |  📍 ул. Ленина, 5  |  📞 +7 (999) 123-45-67" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<!-- главное меню администратора -->
+
+<AnchorPane prefHeight="450.0" prefWidth="600.0" style="-fx-background-color: #F9F6F0;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.admin.Shokina.AdminMenuController">
+
+    <children>
+
+        <!-- заголовок по центру -->
+        <Label fx:id="menuLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="263.0" layoutY="66.0" text="Меню" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="66.0">
+            <font>
+                <Font name="Maika" size="25.0" />
+            </font>
+        </Label>
+
+        <!-- контейнер для кнопок (вертикальный) -->
+        <VBox alignment="CENTER" spacing="15" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="120.0">
+            <Button fx:id="employeesBtn" contentDisplay="CENTER" mnemonicParsing="false" onAction="#goToEmployees" prefWidth="250.0" style="-fx-background-color: #771011; -fx-background-radius: 20px;" text="База учета сотрудников" textAlignment="CENTER" textFill="WHITE">
+                <font>
+                    <Font name="Arial" size="13.0" />
+                </font>
+            </Button>
+
+            <Button fx:id="consumablesBtn" contentDisplay="CENTER" mnemonicParsing="false" onAction="#goToConsumables" prefWidth="250.0" style="-fx-background-color: #771011; -fx-background-radius: 20px;" text="База учета расходников" textAlignment="CENTER" textFill="WHITE">
+                <font>
+                    <Font name="Arial" size="13.0" />
+                </font>
+            </Button>
+
+            <Button fx:id="servicesBtn" contentDisplay="CENTER" mnemonicParsing="false" onAction="#goToServices" prefWidth="250.0" style="-fx-background-color: #771011; -fx-background-radius: 20px;" text="База учета услуг" textAlignment="CENTER" textFill="WHITE">
+                <font>
+                    <Font name="Arial" size="13.0" />
+                </font>
+            </Button>
+
+            <Button fx:id="clientsBtn" contentDisplay="CENTER" mnemonicParsing="false" onAction="#goToClients" prefWidth="250.0" style="-fx-background-color: #771011; -fx-background-radius: 20px;" text="База учета клиентов" textAlignment="CENTER" textFill="WHITE">
+                <font>
+                    <Font name="Arial" size="13.0" />
+                </font>
+            </Button>
+
+            <Button fx:id="statisticsBtn" contentDisplay="CENTER" mnemonicParsing="false" onAction="#goToStatistics" prefWidth="250.0" style="-fx-background-color: #771011; -fx-background-radius: 20px;" text="Статистика" textAlignment="CENTER" textFill="WHITE">
+                <font>
+                    <Font name="Arial" size="13.0" />
+                </font>
+            </Button>
+        </VBox>
+
+        <!-- кнопка выхода -->
+        <Button fx:id="backButton" layoutX="242.0" layoutY="363.0" mnemonicParsing="false" onAction="#logout" style="-fx-background-color: transparent; -fx-border-color: transparent;" text="Вернуться назад" textFill="#771011" AnchorPane.bottomAnchor="62.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <font>
+                <Font name="Open Sans Regular" size="12.0" />
+            </font>
+        </Button>
+
+        <!-- декоративная полоса -->
+        <HBox alignment="CENTER" layoutY="425.0" prefHeight="25.0" prefWidth="600.0" style="-fx-background-color: #771011; -fx-background-radius: 10 10 0 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+
+    </children>
+</AnchorPane>

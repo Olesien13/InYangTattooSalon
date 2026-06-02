@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #F9F6F0;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.client.Kholenko.CalendarController">
+   <stylesheets>
+      <URL value="@styles.css" />
+   </stylesheets>
+
+   <children>
+      <!-- Меню -->
+      <HBox alignment="CENTER" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+         <TabPane prefHeight="50.0" prefWidth="601.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+               <Tab id="first" text="Новая запись" />
+               <Tab text="Мои записи" />
+               <Tab id="last" text="Профиль" />
+            </tabs>
+         </TabPane>
+      </HBox>
+      <Pane layoutX="200.0" layoutY="86.0" prefHeight="26.0" prefWidth="200.0">
+         <children>
+            <Label alignment="TOP_LEFT" contentDisplay="BOTTOM" layoutY="-3.0" text="Выбор даты и времени">
+               <font>
+                  <Font name="Maika" size="13.0" />
+               </font>
+               <graphic>
+                  <Region prefHeight="1.0" prefWidth="194.0" style="-fx-background-color: #771011;" />
+               </graphic>
+            </Label>
+         </children>
+      </Pane>
+
+      <!-- Информация о выбранных услуге и мастере -->
+      <Label fx:id="infoLabel" alignment="CENTER" text="Цветное тату | Александр" textFill="#1a1a1a" wrapText="true" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="110" />
+
+      <!-- Основной контейнер – растягивается, чтобы занять всё пространство -->
+      <VBox layoutX="58.4" prefWidth="522.0" spacing="10" AnchorPane.bottomAnchor="80" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="140">
+         <children>
+            <!-- Календарь (месяц и сетка) -->
+            <VBox alignment="CENTER" prefHeight="66.0" prefWidth="537.0" spacing="10" styleClass="calendar-container">
+               <HBox alignment="CENTER" spacing="20">
+                  <Button fx:id="prevMonthButton" styleClass="calendar-nav" text="&lt;" />
+                  <Label fx:id="monthYearLabel" styleClass="calendar-month" />
+                  <Button fx:id="nextMonthButton" styleClass="calendar-nav" text="&gt;" />
+               </HBox>
+               <GridPane fx:id="calendarGrid" alignment="CENTER" hgap="5" vgap="5" />
+               <VBox.margin>
+                  <Insets left="100.0" right="100.0" />
+               </VBox.margin>
+            </VBox>
+
+            <!-- Временные слоты -->
+            <FlowPane fx:id="timeSlotsContainer" alignment="CENTER" hgap="15" vgap="10" />
+         </children>
+      </VBox>
+
+      <!-- Кнопки навигации внизу -->
+      <HBox alignment="CENTER" spacing="10" AnchorPane.bottomAnchor="40" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+         <Button fx:id="backButton" onAction="#goBack" styleClass="button-deystvie" text="← Назад" />
+         <Region HBox.hgrow="ALWAYS" />
+         <Button fx:id="nextButton" styleClass="button-deystvie" text="Далее →" />
+      </HBox>
+
+      <!-- Футер -->
+      <HBox alignment="CENTER" prefHeight="25.0" styleClass="fotter" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+         <children>
+            <Label styleClass="fotter" text="⏰ ПН-ВС 10–21  |  📍 ул. Ленина, 5  |  📞 +7 (999) 123-45-67" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

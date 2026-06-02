@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #F9F6F0;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.client.Kholenko.MasterSelectionController">
+   <stylesheets>
+      <URL value="@styles.css" />
+   </stylesheets>
+
+   <children>
+      <!-- Верхнее меню (центрированное) -->
+      <HBox alignment="CENTER" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+         <TabPane prefHeight="50.0" prefWidth="601.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+               <Tab id="first" text="Новая запись" />
+               <Tab text="Мои записи" />
+               <Tab id="last" text="Профиль" />
+            </tabs>
+         </TabPane>
+      </HBox>
+
+      <!-- Левый блок: заголовок + список мастеров -->
+      <VBox layoutX="4.0" layoutY="64.0" prefHeight="356.0" prefWidth="223.0" spacing="10" AnchorPane.bottomAnchor="80" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="64.0">
+         <Label fx:id="titleLabel" styleClass="section-title" text="Мастера черно-белое тату">
+            <font><Font name="Maika" size="13.0" /></font>
+         </Label>
+         <Region prefHeight="1.0" prefWidth="60.0" style="-fx-background-color: #771011;" />
+         <VBox alignment="TOP_CENTER" prefWidth="150" spacing="10">
+            <ToggleButton fx:id="alexBtn" styleClass="masters-button" text="Александр" />
+            <ToggleButton fx:id="vikaBtn" styleClass="masters-button" text="Виктория" />
+            <ToggleButton fx:id="dmitryBtn" styleClass="masters-button" text="Дмитрий" />
+            <ToggleButton fx:id="dariaBtn" styleClass="masters-button" text="Дарья" />
+         </VBox>
+      </VBox>
+
+      <!-- Правый блок: описание, фото, портфолио -->
+      <VBox layoutX="259.2" layoutY="68.6" prefHeight="350.0" prefWidth="337.0" spacing="15" AnchorPane.bottomAnchor="81.80000000000007" AnchorPane.leftAnchor="259.2" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="68.6">
+         <children>
+            <!-- Блок Описание + фото -->
+            <HBox alignment="TOP_LEFT" spacing="15">
+               <VBox alignment="TOP_CENTER" spacing="5" HBox.hgrow="ALWAYS">
+                  <Label styleClass="section-title" text="Описание">
+                     <font><Font name="Maika" size="13.0" /></font>
+                  </Label>
+                  <Region prefHeight="1.0" prefWidth="60.0" style="-fx-background-color: #771011;" />
+                  <Label fx:id="descriptionLabel" wrapText="true" />
+               </VBox>
+               <ImageView fx:id="masterPhoto" fitHeight="100" fitWidth="100" preserveRatio="true" />
+            </HBox>
+
+            <!-- Блок Примеры работ -->
+            <VBox alignment="TOP_CENTER" prefHeight="31.0" prefWidth="291.0" spacing="5">
+               <Label styleClass="section-title" text="Примеры работ">
+                  <font><Font name="Maika" size="13.0" /></font>
+               </Label>
+               <Region prefHeight="2.0" prefWidth="288.0" style="-fx-background-color: #771011;" />
+               <VBox fx:id="portfolioVBox" spacing="10" />
+            </VBox>
+         </children>
+      </VBox>
+
+      <!-- Кнопки навигации внизу -->
+      <HBox alignment="CENTER" spacing="10" AnchorPane.bottomAnchor="40" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+         <Button fx:id="backButton" onAction="#goBack" styleClass="button-deystvie" text="← Назад" />
+         <Region HBox.hgrow="ALWAYS" />
+         <Button fx:id="nextButton" onAction="#goToCalendar" styleClass="button-deystvie" text="Далее →" />
+      </HBox>
+
+      <!-- Футер -->
+      <HBox alignment="CENTER" prefHeight="25.0" styleClass="fotter" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+         <children>
+            <Label styleClass="fotter" text="⏰ ПН-ВС 10–21  |  📍 ул. Ленина, 5  |  📞 +7 (999) 123-45-67" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
