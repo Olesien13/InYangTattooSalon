@@ -8,27 +8,29 @@ import dao.UserDao;
 import models.Client;
 import models.User;
 
+// контроллер окна редактирования клиента
+
 public class ChangeClientController {
 
-    @FXML private TextField nameField;
-    @FXML private TextField phoneField;
-    @FXML private TextField emailField;
-    @FXML private ComboBox<String> serviceComboBox;
-    @FXML private TextField dateField;
-    @FXML private ComboBox<String> statusComboBox;
-    @FXML private Label errorLabel;
-    @FXML private TextField priceField;
+    @FXML private TextField nameField;                    // поле фио
+    @FXML private TextField phoneField;                   // поле телефон
+    @FXML private TextField emailField;                   // поле почта
+    @FXML private ComboBox<String> serviceComboBox;       // выбор услуги
+    @FXML private TextField dateField;                    // дата записи
+    @FXML private ComboBox<String> statusComboBox;        // статус записи
+    @FXML private Label errorLabel;                       // метка ошибок
+    @FXML private TextField priceField;                   // поле цена
 
-    private ClientDao clientDao;
-    private UserDao userDao;
-    private Client currentClient;
+    private ClientDao clientDao;       // dao для работы с клиентами
+    private UserDao userDao;           // dao для работы с пользователями
+    private Client currentClient;      // редактируемый клиент
 
     @FXML
     public void initialize() {
         clientDao = new ClientDao();
         userDao = new UserDao();
 
-        // Список услуг для комбобокса
+        // список услуг
         serviceComboBox.getItems().addAll(
                 "Цветное тату",
                 "Черно-белое тату",
@@ -40,7 +42,7 @@ public class ChangeClientController {
         );
         serviceComboBox.setEditable(true);
 
-        // Список статусов для комбобокса (на русском)
+        // список статусов
         statusComboBox.getItems().addAll(
                 "В обработке",
                 "Подтверждено",
@@ -50,6 +52,7 @@ public class ChangeClientController {
         statusComboBox.setEditable(false);
     }
 
+    // передача данных из ClientsController
     public void setClient(Client client) {
         this.currentClient = client;
 
@@ -62,6 +65,7 @@ public class ChangeClientController {
         statusComboBox.setValue(client.getStatus());
     }
 
+    // сохранение изменений
     @FXML
     private void updateClient() {
         if (nameField.getText().trim().isEmpty()) {
@@ -69,10 +73,9 @@ public class ChangeClientController {
             return;
         }
 
-        // Получаем пользователя
+        // обновление данных пользователя
         User user = userDao.findById(currentClient.getId());
         if (user != null) {
-            // Разделяем ФИО на части
             String[] nameParts = nameField.getText().trim().split(" ", 3);
             String lastName = nameParts[0];
             String firstName = nameParts.length > 1 ? nameParts[1] : "";
@@ -87,7 +90,7 @@ public class ChangeClientController {
             userDao.update(user);
         }
 
-        // Получаем новую цену из поля
+        // получение новой цены
         double newPrice = 0;
         try {
             newPrice = Double.parseDouble(priceField.getText().trim());
@@ -96,6 +99,7 @@ public class ChangeClientController {
             return;
         }
 
+        // обновление статуса и цены записи
         if (dateField.getText() != null && !dateField.getText().isEmpty() && statusComboBox.getValue() != null) {
             String newStatus = statusComboBox.getValue();
 
@@ -104,7 +108,6 @@ public class ChangeClientController {
             if ("Отменено".equals(newStatus)) {
                 clientDao.updateAppointmentPrice(currentClient.getId(), dateField.getText(), 0);
             } else {
-                // Используем новую цену из поля
                 clientDao.updateAppointmentPrice(currentClient.getId(), dateField.getText(), newPrice);
             }
         }
@@ -112,6 +115,7 @@ public class ChangeClientController {
         closeWindow();
     }
 
+    // отмена и закрытие
     @FXML
     private void cancel() {
         closeWindow();

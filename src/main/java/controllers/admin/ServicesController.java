@@ -9,42 +9,47 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import dao.ServiceDao;
 import models.Service;
-
 import java.io.IOException;
+
+// контроллер окна управления услугами
 
 public class ServicesController {
 
-    @FXML private TableView<Service> servicesTable;
-    @FXML private TableColumn<Service, Integer> colId;
-    @FXML private TableColumn<Service, String> colName;
-    @FXML private TableColumn<Service, Integer> colDuration;
-    @FXML private TableColumn<Service, Double> colPrice;
-    @FXML private TableColumn<Service, String> colMaster;
+    @FXML private TableView<Service> servicesTable;           // таблица услуг
+    @FXML private TableColumn<Service, Integer> colId;        // колонка id
+    @FXML private TableColumn<Service, String> colName;       // колонка название
+    @FXML private TableColumn<Service, Integer> colDuration;  // колонка время выполнения
+    @FXML private TableColumn<Service, Double> colPrice;      // колонка цена
+    @FXML private TableColumn<Service, String> colMaster;     // колонка мастер
 
-    private ServiceDao serviceDao;
+    private ServiceDao serviceDao;   // dao для работы с услугами
 
     @FXML
     public void initialize() {
         serviceDao = new ServiceDao();
 
+        // привязка колонок к полям модели Service
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colDuration.setCellValueFactory(new PropertyValueFactory<>("durationMinutes"));
         colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
         colMaster.setCellValueFactory(new PropertyValueFactory<>("masterName"));
 
-        loadServices();
+        loadServices();   // загрузка списка услуг
     }
 
+    // загрузка списка услуг из бд
     private void loadServices() {
         servicesTable.getItems().setAll(serviceDao.getAll());
     }
 
+    // открыть окно добавления услуги
     @FXML
     private void addService() {
         openAddEditWindow("/admin/add-service.fxml", "Добавить услугу", null);
     }
 
+    // открыть окно редактирования выбранной услуги
     @FXML
     private void editService() {
         Service selected = servicesTable.getSelectionModel().getSelectedItem();
@@ -55,6 +60,7 @@ public class ServicesController {
         openAddEditWindow("/admin/change-service.fxml", "Редактировать услугу", selected);
     }
 
+    // удалить выбранную услугу
     @FXML
     private void deleteService() {
         Service selected = servicesTable.getSelectionModel().getSelectedItem();
@@ -70,13 +76,14 @@ public class ServicesController {
 
         if (confirm.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
             if (serviceDao.delete(selected.getId())) {
-                loadServices();
+                loadServices();   // обновить таблицу после удаления
             } else {
                 showAlert("Ошибка", "Не удалось удалить услугу");
             }
         }
     }
 
+    // универсальный метод для открытия окон добавления и редактирования
     private void openAddEditWindow(String fxmlPath, String title, Service service) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
@@ -92,21 +99,30 @@ public class ServicesController {
             Stage stage = new Stage();
             stage.setTitle(title);
             stage.setScene(new Scene(root));
-            stage.showAndWait();
-            loadServices();
+            stage.showAndWait();       // ждём закрытия окна
+            loadServices();            // обновить таблицу
         } catch (IOException e) {
             e.printStackTrace();
             showAlert("Ошибка", "Не удалось открыть окно: " + title);
         }
     }
 
-    // Навигация по меню (без изменений)
+    // переход на страницу сотрудников
     @FXML private void goToEmployees() { openWindow("/admin/employees.fxml", "Сотрудники"); }
+
+    // переход на страницу расходников
     @FXML private void goToConsumables() { openWindow("/admin/consumables.fxml", "Расходники"); }
+
+    // текущая страница услуг
     @FXML private void goToServices() { /* уже здесь */ }
+
+    // переход на страницу клиентов
     @FXML private void goToClients() { openWindow("/admin/clientele.fxml", "Клиенты"); }
+
+    // возврат в главное меню
     @FXML private void goBack() { openWindow("/admin/menu.fxml", "Главное меню"); }
 
+    // универсальный метод для переключения окон
     private void openWindow(String fxmlPath, String title) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
@@ -120,6 +136,7 @@ public class ServicesController {
         }
     }
 
+    // показать сообщение об ошибке
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);

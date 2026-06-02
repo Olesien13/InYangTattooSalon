@@ -6,22 +6,25 @@ import javafx.stage.Stage;
 import dao.ConsumableDao;
 import models.Consumable;
 
+// контроллер окна редактирования расходного материала
+
 public class ChangeConsumableController {
 
-    @FXML private TextField nameField;
-    @FXML private TextField quantityField;
-    @FXML private TextField priceField;
-    @FXML private TextField unitField;
-    @FXML private Label errorLabel;
+    @FXML private TextField nameField;        // поле название
+    @FXML private TextField quantityField;    // поле количество
+    @FXML private TextField priceField;       // поле цена
+    @FXML private TextField unitField;        // поле единица измерения
+    @FXML private Label errorLabel;           // метка ошибок
 
-    private ConsumableDao consumableDao;
-    private Consumable currentConsumable;
+    private ConsumableDao consumableDao;      // dao для работы с расходниками
+    private Consumable currentConsumable;     // редактируемый расходник
 
     @FXML
     public void initialize() {
         consumableDao = new ConsumableDao();
     }
 
+    // передача данных из ConsumablesController
     public void setConsumable(Consumable consumable) {
         this.currentConsumable = consumable;
 
@@ -31,6 +34,7 @@ public class ChangeConsumableController {
         unitField.setText(consumable.getUnit());
     }
 
+    // сохранение изменений
     @FXML
     private void updateConsumable() {
         if (nameField.getText().trim().isEmpty()) {
@@ -61,6 +65,7 @@ public class ChangeConsumableController {
         }
     }
 
+    // отмена и закрытие
     @FXML
     private void cancel() {
         closeWindow();

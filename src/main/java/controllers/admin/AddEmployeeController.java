@@ -5,34 +5,37 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import dao.MasterDao;
 import models.Master;
-
 import java.util.List;
+
+// контроллер окна добавления сотрудника
 
 public class AddEmployeeController {
 
-    @FXML private TextField nameField;
-    @FXML private TextField phoneField;
-    @FXML private ComboBox<String> positionComboBox;
-    @FXML private TextField hireDateField;
-    @FXML private TextField salaryField;
-    @FXML private Label errorLabel;
+    @FXML private TextField nameField;                    // поле фио
+    @FXML private TextField phoneField;                   // поле телефон
+    @FXML private ComboBox<String> positionComboBox;      // выбор должности
+    @FXML private TextField hireDateField;                // дата трудоустройства
+    @FXML private TextField salaryField;                  // зарплата
+    @FXML private Label errorLabel;                       // метка ошибок
 
-    private MasterDao masterDao;
+    private MasterDao masterDao;   // dao для работы с мастерами
 
     @FXML
     public void initialize() {
         masterDao = new MasterDao();
-        loadPositions();
+        loadPositions();   // загрузка списка должностей
     }
 
+    // загрузка списка должностей
     private void loadPositions() {
         List<String> positions = masterDao.getAllPositions();
         positionComboBox.getItems().setAll(positions);
         if (!positions.isEmpty()) {
-            positionComboBox.setValue(positions.get(0));
+            positionComboBox.setValue(positions.get(0));   // выбор первой должности по умолчанию
         }
     }
 
+    // сохранение нового сотрудника
     @FXML
     private void saveEmployee() {
         if (nameField.getText().trim().isEmpty()) {
@@ -56,7 +59,6 @@ public class AddEmployeeController {
         master.setActive(true);
         master.setRating(0.0);
 
-        // Зарплата
         double salary = 0;
         if (!salaryField.getText().trim().isEmpty()) {
             try {
@@ -79,6 +81,7 @@ public class AddEmployeeController {
         }
     }
 
+    // отмена и закрытие
     @FXML
     private void cancel() {
         closeWindow();

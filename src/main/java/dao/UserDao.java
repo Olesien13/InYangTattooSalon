@@ -3,9 +3,11 @@ package dao;
 import models.User;
 import java.sql.*;
 
+// dao для работы с пользователями
+
 public class UserDao {
 
-    // Найти пользователя по email
+    // найти пользователя по email
     public User findByEmail(String email) {
         String sql = "SELECT * FROM users WHERE email = ?";
 
@@ -22,7 +24,7 @@ public class UserDao {
         return null;
     }
 
-    // Найти пользователя по id
+    // найти пользователя по id
     public User findById(int id) {
         String sql = "SELECT * FROM users WHERE id = ?";
 
@@ -39,7 +41,7 @@ public class UserDao {
         return null;
     }
 
-    // Создать нового пользователя
+    // создать нового пользователя
     public boolean create(User user) {
         String sql = "INSERT INTO users (email, password_hash, first_name, last_name, middle_name, phone, role) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -60,7 +62,7 @@ public class UserDao {
         }
     }
 
-    // Обновить пользователя
+    // обновить пользователя (полное обновление)
     public boolean update(User user) {
         String sql = "UPDATE users SET first_name=?, last_name=?, middle_name=?, phone=?, password_hash=? WHERE id=?";
 
@@ -79,7 +81,7 @@ public class UserDao {
         }
     }
 
-    // Проверка логина
+    // проверка логина
     public User login(String email, String password) {
         User user = findByEmail(email);
         if (user != null && user.getPasswordHash().equals(password)) {
@@ -88,7 +90,7 @@ public class UserDao {
         return null;
     }
 
-    // Получить всех пользователей (для админа)
+    // получить всех клиентов (для админа)
     public java.util.List<User> getAll() {
         java.util.List<User> users = new java.util.ArrayList<>();
         String sql = "SELECT * FROM users WHERE role = 'client'";
@@ -104,6 +106,7 @@ public class UserDao {
         return users;
     }
 
+    // извлечение пользователя из resultset
     private User extractUser(ResultSet rs) throws SQLException {
         User user = new User();
         user.setId(rs.getInt("id"));
@@ -118,7 +121,7 @@ public class UserDao {
         return user;
     }
 
-    //Обновить данные пользователя (имя, фамилия, телефон, email)
+    // обновить данные пользователя (имя, фамилия, телефон, email) – дублирует частично update
     public boolean updateUser(User user) {
         String sql = "UPDATE users SET first_name = ?, last_name = ?, phone = ?, email = ? WHERE id = ?";
         try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(sql)) {
@@ -134,6 +137,7 @@ public class UserDao {
         }
     }
 
+    // обновить только пароль
     public boolean updatePassword(int userId, String newPasswordHash) {
         String sql = "UPDATE users SET password_hash = ? WHERE id = ?";
         try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(sql)) {
@@ -146,8 +150,8 @@ public class UserDao {
         }
     }
 
+    // увеличить счётчик выполненных услуг и обновить скидку
     public void incrementCompletedServicesAndUpdateDiscount(int userId) {
-        // 1. Увеличиваем completed_services_count
         String incSql = "UPDATE users SET completed_services_count = completed_services_count + 1 WHERE id = ?";
         try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(incSql)) {
             pstmt.setInt(1, userId);
@@ -155,7 +159,7 @@ public class UserDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        // 2. Пересчитываем скидку
+
         String selectSql = "SELECT completed_services_count FROM users WHERE id = ?";
         try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(selectSql)) {
             pstmt.setInt(1, userId);
@@ -166,7 +170,7 @@ public class UserDao {
                 if (count >= 10) newDiscount = 15;
                 else if (count >= 5) newDiscount = 10;
                 else if (count >= 1) newDiscount = 5;
-                // Обновляем скидку
+
                 String updateSql = "UPDATE users SET discount = ? WHERE id = ?";
                 try (PreparedStatement pstmt2 = DatabaseConnection.getConnection().prepareStatement(updateSql)) {
                     pstmt2.setInt(1, newDiscount);

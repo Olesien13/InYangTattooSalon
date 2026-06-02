@@ -8,45 +8,49 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import java.io.IOException;
 
+// контроллер главного меню администратора
 
 public class AdminMenuController {
 
+    // кнопки меню
     @FXML private Button employeesBtn;
     @FXML private Button consumablesBtn;
     @FXML private Button servicesBtn;
     @FXML private Button clientsBtn;
     @FXML private Button statisticsBtn;
     @FXML private Button backButton;
-    @FXML private Button logoutBtn;
 
-
-
+    // переход к сотрудникам
     @FXML
     private void goToEmployees() {
         openWindow("/admin/employees.fxml", "Сотрудники");
     }
 
+    // переход к расходникам
     @FXML
     private void goToConsumables() {
         openWindow("/admin/consumables.fxml", "Расходники");
     }
 
+    // переход к услугам
     @FXML
     private void goToServices() {
         openWindow("/admin/service.fxml", "Услуги");
     }
 
+    // переход к клиентам
     @FXML
     private void goToClients() {
         openWindow("/admin/clientele.fxml", "Клиенты");
     }
 
+    // переход к статистике
     @FXML
     private void goToStatistics() {
         openWindow("/admin/statistics.fxml", "Статистика");
     }
 
-    // Кнопка "Вернуться назад" - выход из аккаунта
+    // выход из аккаунта (возврат на окно входа)
     @FXML
     private void logout() {
         try {
@@ -60,6 +64,7 @@ public class AdminMenuController {
         }
     }
 
+    // универсальный метод для открытия окон
     private void openWindow(String fxmlPath, String title) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));

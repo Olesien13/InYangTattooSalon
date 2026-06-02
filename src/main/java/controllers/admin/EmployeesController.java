@@ -9,14 +9,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import dao.MasterDao;
 import models.Master;
-import utils.UserSession;
-
 import java.io.IOException;
 import java.util.List;
 
+// контроллер окна управления сотрудниками
+
 public class EmployeesController {
 
-    // Таблица и колонки
+    // таблица и колонки
     @FXML private TableView<Master> employeesTable;
     @FXML private TableColumn<Master, Integer> colId;
     @FXML private TableColumn<Master, String> colName;
@@ -25,15 +25,14 @@ public class EmployeesController {
     @FXML private TableColumn<Master, String> colHireDate;
     @FXML private TableColumn<Master, Double> colSalary;
 
-
-    // Кнопки
+    // кнопки действий
     @FXML private Button addButton;
     @FXML private Button editButton;
     @FXML private Button deleteButton;
     @FXML private Button backButton;
     @FXML private Button scheduleButton;
 
-    // Кнопки меню
+    // кнопки меню (навигация)
     @FXML private Button employeesMenuBtn;
     @FXML private Button consumablesMenuBtn;
     @FXML private Button servicesMenuBtn;
@@ -45,7 +44,7 @@ public class EmployeesController {
     public void initialize() {
         masterDao = new MasterDao();
 
-        // Настройка колонок таблицы
+        // привязка колонок к полям модели Master
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
@@ -53,16 +52,16 @@ public class EmployeesController {
         colHireDate.setCellValueFactory(new PropertyValueFactory<>("hireDate"));
         colSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
 
-        // Загрузка данных
-        loadEmployees();
+        loadEmployees();   // загрузка списка сотрудников
     }
 
+    // загрузка списка сотрудников из бд
     private void loadEmployees() {
         List<Master> masters = masterDao.getAll();
         employeesTable.getItems().setAll(masters);
     }
 
-    // Добавить сотрудника
+    // открыть окно добавления сотрудника
     @FXML
     private void addEmployee() {
         try {
@@ -71,15 +70,15 @@ public class EmployeesController {
             Stage stage = new Stage();
             stage.setTitle("Добавить сотрудника");
             stage.setScene(new Scene(root));
-            stage.showAndWait(); // Ждём, пока окно не закроется
-            loadEmployees(); // Обновляем таблицу после закрытия
+            stage.showAndWait();
+            loadEmployees();   // обновить таблицу
         } catch (IOException e) {
             e.printStackTrace();
             showAlert("Ошибка", "Не удалось открыть окно добавления");
         }
     }
 
-    // Редактировать сотрудника
+    // открыть окно редактирования выбранного сотрудника
     @FXML
     private void editEmployee() {
         Master selected = employeesTable.getSelectionModel().getSelectedItem();
@@ -92,7 +91,6 @@ public class EmployeesController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/admin/change-employees.fxml"));
             Parent root = loader.load();
 
-            // Передаём выбранного сотрудника в контроллер
             ChangeEmployeeController controller = loader.getController();
             controller.setMaster(selected);
 
@@ -100,44 +98,38 @@ public class EmployeesController {
             stage.setTitle("Редактировать сотрудника");
             stage.setScene(new Scene(root));
             stage.showAndWait();
-            loadEmployees(); // Обновляем таблицу после закрытия
+            loadEmployees();
         } catch (IOException e) {
             e.printStackTrace();
             showAlert("Ошибка", "Не удалось открыть окно редактирования");
         }
     }
 
-    // Удалить сотрудника
+    // удалить выбранного сотрудника
     @FXML
     private void deleteEmployee() {
-        // Получаем выбранного сотрудника
         Master selected = employeesTable.getSelectionModel().getSelectedItem();
-
-        // Проверяем, выбран ли кто-то
         if (selected == null) {
             showAlert("Ошибка", "Выберите сотрудника для удаления");
             return;
         }
 
-        // Подтверждение удаления
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
         confirm.setTitle("Подтверждение удаления");
         confirm.setHeaderText("Удаление сотрудника");
         confirm.setContentText("Вы уверены, что хотите удалить " + selected.getName() + "?");
 
-        // Если пользователь нажал OK
         if (confirm.showAndWait().get() == ButtonType.OK) {
-            boolean deleted = masterDao.delete(selected.getId());
-
-            if (deleted) {
+            if (masterDao.delete(selected.getId())) {
                 showAlert("Успех", "Сотрудник успешно удалён");
-                loadEmployees(); // Обновляем таблицу
+                loadEmployees();
             } else {
                 showAlert("Ошибка", "Не удалось удалить сотрудника");
             }
         }
     }
 
+    // открыть окно расписания мастеров
     @FXML
     private void showSchedule() {
         try {
@@ -151,9 +143,10 @@ public class EmployeesController {
             showAlert("Ошибка", "Не удалось открыть расписание");
         }
     }
-    // Навигация по меню
+    // навигация по меню
     @FXML
     private void goToEmployees() {
+        // уже на этой странице
     }
 
     @FXML
@@ -176,6 +169,7 @@ public class EmployeesController {
         openWindow("/admin/menu.fxml", "Главное меню");
     }
 
+    // универсальный метод для переключения окон
     private void openWindow(String fxmlPath, String title) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
@@ -189,6 +183,7 @@ public class EmployeesController {
         }
     }
 
+    // показать сообщение
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);

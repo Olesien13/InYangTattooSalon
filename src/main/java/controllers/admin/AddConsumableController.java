@@ -6,22 +6,25 @@ import javafx.stage.Stage;
 import dao.ConsumableDao;
 import models.Consumable;
 
+// контроллер окна добавления расходного материала
+
 public class AddConsumableController {
 
-    @FXML private TextField nameField;
-    @FXML private TextField quantityField;
-    @FXML private TextField priceField;
-    @FXML private TextField unitField;
-    @FXML private Label errorLabel;
+    @FXML private TextField nameField;        // поле название
+    @FXML private TextField quantityField;    // поле количество
+    @FXML private TextField priceField;       // поле цена
+    @FXML private TextField unitField;        // поле единица измерения
+    @FXML private Label errorLabel;           // метка ошибок
 
-    private ConsumableDao consumableDao;
+    private ConsumableDao consumableDao;   // dao для работы с расходниками
 
     @FXML
     public void initialize() {
         consumableDao = new ConsumableDao();
-        unitField.setText("шт"); // Значение по умолчанию
+        unitField.setText("шт");   // значение по умолчанию
     }
 
+    // сохранение нового расходника
     @FXML
     private void saveConsumable() {
         if (nameField.getText().trim().isEmpty()) {
@@ -34,15 +37,13 @@ public class AddConsumableController {
         consumable.setUnit(unitField.getText().trim());
 
         try {
-            int quantity = Integer.parseInt(quantityField.getText().trim());
-            consumable.setQuantity(quantity);
+            consumable.setQuantity(Integer.parseInt(quantityField.getText().trim()));
         } catch (NumberFormatException e) {
             consumable.setQuantity(0);
         }
 
         try {
-            double price = Double.parseDouble(priceField.getText().trim());
-            consumable.setPrice(price);
+            consumable.setPrice(Double.parseDouble(priceField.getText().trim()));
         } catch (NumberFormatException e) {
             consumable.setPrice(0);
         }
@@ -55,6 +56,7 @@ public class AddConsumableController {
         }
     }
 
+    // отмена и закрытие
     @FXML
     private void cancel() {
         closeWindow();

@@ -5,9 +5,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+// dao для работы с мастерами
+
 public class MasterDao {
 
-    // метод возвращает список всех активных мастеров
+    // список всех активных мастеров
     public List<Master> getAll() {
         List<Master> masters = new ArrayList<>();
         String sql = "SELECT id, name, phone, specialization, description, rating, hire_date, is_active, photo_url FROM masters WHERE is_active = 1";
@@ -22,7 +24,7 @@ public class MasterDao {
         return masters;
     }
 
-    // метод находит мастера по его идентификатору id
+    // поиск мастера по id
     public Master findById(int id) {
         String sql = "SELECT id, name, phone, specialization, description, rating, hire_date, is_active, photo_url FROM masters WHERE id = ?";
         try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(sql)) {
@@ -37,7 +39,7 @@ public class MasterDao {
         return null;
     }
 
-    // метод возвращает список мастеров, которые могут выполнить указанную услугу (использует таблицу master_services)
+    // мастера, которые могут выполнить услугу
     public List<Master> getByServiceId(int serviceId) {
         List<Master> masters = new ArrayList<>();
         String sql = "SELECT m.id, m.name, m.phone, m.specialization, m.description, m.rating, m.hire_date, m.is_active, m.photo_url " +
@@ -56,7 +58,7 @@ public class MasterDao {
         return masters;
     }
 
-    // метод возвращает список путей к изображениям портфолио мастера для конкретной услуги
+    // портфолио мастера для услуги
     public List<String> getPortfolioImages(int masterId, int serviceId) {
         List<String> images = new ArrayList<>();
         String sql = "SELECT image_path FROM master_portfolio WHERE master_id = ? AND service_id = ?";
@@ -73,6 +75,7 @@ public class MasterDao {
         return images;
     }
 
+    // все уникальные специализации (для выпадающего списка должностей)
     public List<String> getAllPositions() {
         List<String> positions = new ArrayList<>();
         String sql = "SELECT DISTINCT specialization FROM masters WHERE specialization IS NOT NULL AND specialization != ''";
@@ -88,7 +91,7 @@ public class MasterDao {
         return positions;
     }
 
-    // метод обновляет данные мастера (без учёта зарплаты)
+    // обновление данных мастера (без зарплаты)
     public boolean update(Master master) {
         String sql = "UPDATE masters SET name=?, phone=?, specialization=?, hire_date=?, is_active=? WHERE id=?";
         try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(sql)) {
@@ -105,7 +108,7 @@ public class MasterDao {
         }
     }
 
-    // метод добавляет новую запись о зарплате мастера (в таблицу salaries)
+    // добавление записи о зарплате
     public boolean updateSalary(int masterId, double salary) {
         String sql = "INSERT INTO salaries (master_id, salary_amount, payment_date) VALUES (?, ?, DATE('now'))";
         try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(sql)) {
@@ -118,7 +121,7 @@ public class MasterDao {
         }
     }
 
-    // метод сохраняет зарплату (аналогичен updateSalary, оставлен для совместимости)
+    // сохранение зарплаты (дублирует updateSalary)
     public boolean saveSalary(int masterId, double salary) {
         String sql = "INSERT INTO salaries (master_id, salary_amount, payment_date) VALUES (?, ?, DATE('now'))";
         try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(sql)) {
@@ -131,9 +134,8 @@ public class MasterDao {
         }
     }
 
-    // метод удаляет мастера и связанные с ним записи (зарплаты, портфолио, связи с услугами)
+    // удаление мастера и связанных записей
     public boolean delete(int id) {
-        // удаляем зарплаты
         String deleteSalaries = "DELETE FROM salaries WHERE master_id = ?";
         try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(deleteSalaries)) {
             pstmt.setInt(1, id);
@@ -141,7 +143,6 @@ public class MasterDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        // удаляем портфолио
         String deletePortfolio = "DELETE FROM master_portfolio WHERE master_id = ?";
         try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(deletePortfolio)) {
             pstmt.setInt(1, id);
@@ -149,7 +150,6 @@ public class MasterDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        // удаляем связи с услугами
         String deleteServices = "DELETE FROM master_services WHERE master_id = ?";
         try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(deleteServices)) {
             pstmt.setInt(1, id);
@@ -157,7 +157,6 @@ public class MasterDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        // удаляем мастера
         String sql = "DELETE FROM masters WHERE id = ?";
         try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(sql)) {
             pstmt.setInt(1, id);
@@ -168,7 +167,7 @@ public class MasterDao {
         }
     }
 
-    // метод создает нового мастера и возвращает его сгенерированный id, а также сохраняет зарплату
+    // создание мастера с возвратом id
     public int createAndGetId(Master master) {
         String sql = "INSERT INTO masters (name, phone, specialization, hire_date, is_active, rating) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -192,7 +191,7 @@ public class MasterDao {
         return -1;
     }
 
-    // вспомогательный метод для получения последней зарплаты мастера
+    // получение последней зарплаты мастера
     private double getLatestSalary(int masterId) {
         String sql = "SELECT salary_amount FROM salaries WHERE master_id = ? ORDER BY payment_date DESC LIMIT 1";
         try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(sql)) {
@@ -207,7 +206,7 @@ public class MasterDao {
         return 0;
     }
 
-    // вспомогательный метод для извлечения объекта Master из ResultSet
+    // извлечение мастера из resultset
     private Master extractMaster(ResultSet rs) throws SQLException {
         Master m = new Master();
         m.setId(rs.getInt("id"));
@@ -219,7 +218,6 @@ public class MasterDao {
         m.setHireDate(rs.getString("hire_date"));
         m.setActive(rs.getInt("is_active") == 1);
         m.setAvatarPath(rs.getString("photo_url"));
-        // получаем зарплату
         m.setSalary(getLatestSalary(m.getId()));
         return m;
     }

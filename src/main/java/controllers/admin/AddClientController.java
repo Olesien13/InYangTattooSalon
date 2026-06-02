@@ -7,24 +7,25 @@ import dao.UserDao;
 import models.User;
 import utils.PasswordUtils;
 
+// контроллер окна добавления клиента
+
 public class AddClientController {
 
-    @FXML private TextField nameField;
-    @FXML private TextField phoneField;
-    @FXML private TextField emailField;
-    @FXML private ComboBox<String> serviceComboBox;
-    @FXML private ComboBox<String> statusComboBox;
-    @FXML private TextField totalSpentField;
-    @FXML private TextField dateField;
-    @FXML private Label errorLabel;
+    @FXML private TextField nameField;                // поле фио
+    @FXML private TextField phoneField;               // поле телефон
+    @FXML private TextField emailField;               // поле почта
+    @FXML private ComboBox<String> serviceComboBox;   // выбор услуги
+    @FXML private ComboBox<String> statusComboBox;    // статус
+    @FXML private TextField totalSpentField;          // поле суммы
+    @FXML private TextField dateField;                // поле даты
+    @FXML private Label errorLabel;                   // метка ошибок
 
-    private UserDao userDao;
+    private UserDao userDao;   // dao для работы с пользователями
 
     @FXML
     public void initialize() {
         userDao = new UserDao();
 
-        // Список услуг для комбобокса
         serviceComboBox.getItems().addAll(
                 "Цветное тату",
                 "Черно-белое тату",
@@ -36,7 +37,6 @@ public class AddClientController {
         );
         serviceComboBox.setEditable(true);
 
-        // Список статусов для комбобокса
         statusComboBox.getItems().addAll(
                 "В обработке",
                 "Подтверждено",
@@ -47,9 +47,9 @@ public class AddClientController {
         statusComboBox.setValue("В обработке");
     }
 
+    // сохранение нового клиента
     @FXML
     private void saveClient() {
-        // Проверка на пустые поля
         if (nameField.getText().trim().isEmpty()) {
             showError("Введите ФИО клиента");
             return;
@@ -59,21 +59,17 @@ public class AddClientController {
             return;
         }
 
-        // Проверка на существующего пользователя
         if (userDao.findByEmail(emailField.getText().trim()) != null) {
             showError("Пользователь с таким email уже существует");
             return;
         }
 
-        // Создание нового пользователя
         User user = new User();
         user.setEmail(emailField.getText().trim());
 
-        // Генерация временного пароля
         String tempPassword = generateTempPassword();
         user.setPasswordHash(PasswordUtils.hashPassword(tempPassword));
 
-        // Разделяем ФИО на части
         String[] nameParts = nameField.getText().trim().split(" ", 3);
         String lastName = nameParts[0];
         String firstName = nameParts.length > 1 ? nameParts[1] : "";
@@ -82,7 +78,6 @@ public class AddClientController {
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setMiddleName(middleName);
-
         user.setPhone(phoneField.getText().trim());
         user.setRole("client");
 
@@ -119,6 +114,7 @@ public class AddClientController {
         alert.showAndWait();
     }
 
+    // генерация временного пароля
     private String generateTempPassword() {
         String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         StringBuilder password = new StringBuilder();

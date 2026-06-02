@@ -6,26 +6,30 @@ import javafx.stage.Stage;
 import dao.MasterScheduleDao;
 import models.MasterSchedule;
 
+// контроллер окна редактирования расписания
+
 public class ChangeScheduleController {
 
-    @FXML private ComboBox<String> dayComboBox;
-    @FXML private TextField startTimeField;
-    @FXML private TextField endTimeField;
-    @FXML private Label errorLabel;
+    @FXML private ComboBox<String> dayComboBox;      // выбор дня недели
+    @FXML private TextField startTimeField;          // время начала
+    @FXML private TextField endTimeField;            // время окончания
+    @FXML private Label errorLabel;                  // метка ошибок
 
-    private MasterScheduleDao scheduleDao;
-    private MasterSchedule currentSchedule;
+    private MasterScheduleDao scheduleDao;           // dao для работы с расписанием
+    private MasterSchedule currentSchedule;          // редактируемая запись
 
     @FXML
     public void initialize() {
         scheduleDao = new MasterScheduleDao();
 
+        // заполнение выпадающего списка днями недели
         dayComboBox.getItems().addAll(
                 "Понедельник", "Вторник", "Среда",
                 "Четверг", "Пятница", "Суббота", "Воскресенье"
         );
     }
 
+    // передача данных из ScheduleController
     public void setSchedule(MasterSchedule schedule) {
         this.currentSchedule = schedule;
 
@@ -34,6 +38,7 @@ public class ChangeScheduleController {
         endTimeField.setText(schedule.getEndTime());
     }
 
+    // сохранение изменений
     @FXML
     private void updateSchedule() {
         if (dayComboBox.getValue() == null) {
@@ -62,6 +67,7 @@ public class ChangeScheduleController {
         }
     }
 
+    // отмена и закрытие
     @FXML
     private void cancel() {
         closeWindow();
@@ -77,6 +83,7 @@ public class ChangeScheduleController {
         errorLabel.setVisible(true);
     }
 
+    // преобразование названия дня в число (1-7)
     private int convertDayToNumber(String dayName) {
         switch (dayName) {
             case "Понедельник": return 1;
@@ -90,6 +97,7 @@ public class ChangeScheduleController {
         }
     }
 
+    // преобразование числа в название дня
     private String convertNumberToDay(int number) {
         switch (number) {
             case 1: return "Понедельник";
