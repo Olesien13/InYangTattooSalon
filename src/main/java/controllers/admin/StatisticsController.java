@@ -10,24 +10,24 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import dao.StatisticsDao;
-
 import java.io.IOException;
 import java.util.Map;
 
+// контроллер окна статистики (доход компании и заработок мастеров)
+
 public class StatisticsController {
 
-    @FXML private PieChart revenueChart;
-    @FXML private BarChart<String, Number> masterRevenueBarChart;
-    @FXML private Button backButton;
+    @FXML private PieChart revenueChart;                 // круговая диаграмма дохода по месяцам
+    @FXML private BarChart<String, Number> masterRevenueBarChart; // столбчатая диаграмма заработка мастеров
+    @FXML private Button backButton;                     // кнопка возврата в меню
 
     @FXML
     public void initialize() {
-        loadPieChart();
-        loadBarChart();
+        loadPieChart();   // загрузка круговой диаграммы
+        loadBarChart();   // загрузка столбчатой диаграммы
     }
 
-
-
+    // загрузка данных для круговой диаграммы (доход по месяцам)
     private void loadPieChart() {
         StatisticsDao dao = new StatisticsDao();
         Map<String, Double> monthlyRevenue = dao.getMonthlyRevenue();
@@ -37,21 +37,13 @@ public class StatisticsController {
         for (Map.Entry<String, Double> entry : monthlyRevenue.entrySet()) {
             String month = entry.getKey();
             double amount = entry.getValue();
-            // Формируем подпись: месяц и сумма
             String label = month + " - " + Math.round(amount) + " руб";
             PieChart.Data data = new PieChart.Data(label, amount);
             revenueChart.getData().add(data);
         }
-
-        // Показываем легенду
-        revenueChart.setLegendVisible(true);
-
-        // Добавляем подписи прямо на сегменты (для больших сегментов)
-        for (PieChart.Data data : revenueChart.getData()) {
-            data.setName(data.getName());
-        }
     }
 
+    // загрузка данных для столбчатой диаграммы (заработок мастеров)
     private void loadBarChart() {
         StatisticsDao dao = new StatisticsDao();
         Map<String, Double> masterRevenue = dao.getMasterRevenue();
@@ -67,6 +59,7 @@ public class StatisticsController {
         masterRevenueBarChart.getData().add(series);
     }
 
+    // возврат в главное меню администратора
     @FXML
     private void goBack() {
         try {

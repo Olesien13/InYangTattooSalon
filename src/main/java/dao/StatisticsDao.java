@@ -4,8 +4,11 @@ import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 
+// dao для получения статистических данных
+
 public class StatisticsDao {
 
+    // доход компании по месяцам (только выполненные записи)
     public Map<String, Double> getMonthlyRevenue() {
         Map<String, Double> revenue = new HashMap<>();
         String sql = """
@@ -29,6 +32,7 @@ public class StatisticsDao {
         return revenue;
     }
 
+    // заработок каждого мастера с клиентов (только выполненные записи)
     public Map<String, Double> getMasterRevenue() {
         Map<String, Double> revenue = new HashMap<>();
         String sql = """

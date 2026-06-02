@@ -10,30 +10,33 @@ import models.Service;
 
 import java.util.List;
 
+// контроллер окна редактирования услуги
+
 public class ChangeServiceController {
 
-    @FXML private TextField nameField;
-    @FXML private TextField durationField;
-    @FXML private TextField priceField;
-    @FXML private Label errorLabel;
-    @FXML private ComboBox<Master> masterComboBox;
+    @FXML private TextField nameField;              // поле название
+    @FXML private TextField durationField;          // поле время выполнения
+    @FXML private TextField priceField;             // поле цена
+    @FXML private Label errorLabel;                 // метка ошибок
+    @FXML private ComboBox<Master> masterComboBox;  // выбор мастера
 
-    private ServiceDao serviceDao;
-    private MasterDao masterDao;
-    private Service currentService;
+    private ServiceDao serviceDao;    // dao для работы с услугами
+    private MasterDao masterDao;      // dao для работы с мастерами
+    private Service currentService;   // редактируемая услуга
 
     @FXML
     public void initialize() {
         serviceDao = new ServiceDao();
         masterDao = new MasterDao();
-        loadMasters();
+        loadMasters();   // загрузка списка мастеров
     }
 
+    // загрузка списка мастеров в combobox
     private void loadMasters() {
         List<Master> masters = masterDao.getAll();
         masterComboBox.getItems().setAll(masters);
 
-        // Отображаем имя мастера в выпадающем списке
+        // отображение имени мастера
         masterComboBox.setCellFactory(lv -> new ListCell<Master>() {
             @Override
             protected void updateItem(Master master, boolean empty) {
@@ -50,6 +53,7 @@ public class ChangeServiceController {
         });
     }
 
+    // передача данных из ServicesController
     public void setService(Service service) {
         this.currentService = service;
 
@@ -57,7 +61,7 @@ public class ChangeServiceController {
         durationField.setText(String.valueOf(service.getDurationMinutes()));
         priceField.setText(String.valueOf(service.getPrice()));
 
-        // Устанавливаем выбранного мастера в ComboBox
+        // установка выбранного мастера
         if (service.getMasterId() > 0) {
             for (Master master : masterComboBox.getItems()) {
                 if (master.getId() == service.getMasterId()) {
@@ -68,6 +72,7 @@ public class ChangeServiceController {
         }
     }
 
+    // сохранение изменений
     @FXML
     private void updateService() {
         if (nameField.getText().trim().isEmpty()) {
@@ -75,7 +80,6 @@ public class ChangeServiceController {
             return;
         }
 
-        // Проверка выбора мастера
         Master selectedMaster = masterComboBox.getValue();
         if (selectedMaster == null) {
             showError("Выберите мастера");
@@ -98,18 +102,17 @@ public class ChangeServiceController {
             return;
         }
 
-        // Обновляем услугу
         boolean updated = serviceDao.update(currentService);
 
         if (updated) {
-            // Обновляем связь с мастером
-            serviceDao.linkWithMaster(currentService.getId(), selectedMaster.getId());
+            serviceDao.linkWithMaster(currentService.getId(), selectedMaster.getId());  // обновление связи
             closeWindow();
         } else {
             showError("Ошибка при обновлении");
         }
     }
 
+    // отмена и закрытие
     @FXML
     private void cancel() {
         closeWindow();

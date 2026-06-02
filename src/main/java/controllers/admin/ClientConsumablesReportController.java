@@ -2,40 +2,40 @@ package controllers.admin;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import dao.ClientDao;
 import dao.DatabaseConnection;
 import models.Client;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// контроллер окна отчёта по расходникам клиента
+
 public class ClientConsumablesReportController {
 
-    @FXML private Label clientNameLabel;
-    @FXML private ComboBox<String> appointmentComboBox;
-    @FXML private TableView<Map<String, Object>> consumablesTable;
+    @FXML private Label clientNameLabel;                              // имя клиента
+    @FXML private ComboBox<String> appointmentComboBox;               // выбор записи
+    @FXML private TableView<Map<String, Object>> consumablesTable;    // таблица расходников
     @FXML private TableColumn<Map<String, Object>, String> colConsumableName;
     @FXML private TableColumn<Map<String, Object>, Double> colUsedQuantity;
     @FXML private TableColumn<Map<String, Object>, Double> colTotalPrice;
-    @FXML private Label totalLabel;
-    @FXML private Button closeButton;
+    @FXML private Label totalLabel;                                   // общая стоимость
+    @FXML private Button closeButton;                                 // кнопка закрытия
 
     private ClientDao clientDao;
     private Client client;
-    private List<Integer> appointmentIds = new ArrayList<>();
-    private List<String> appointmentDisplay = new ArrayList<>();
+    private List<Integer> appointmentIds = new ArrayList<>();          // список id записей
+    private List<String> appointmentDisplay = new ArrayList<>();      // список для отображения
 
     @FXML
     public void initialize() {
         clientDao = new ClientDao();
 
+        // настройка колонок таблицы
         colConsumableName.setCellValueFactory(cellData ->
                 new javafx.beans.property.SimpleStringProperty(
                         (String) cellData.getValue().get("consumable_name")
@@ -52,6 +52,7 @@ public class ClientConsumablesReportController {
                 ).asObject()
         );
 
+        // обработчик выбора записи в combobox
         appointmentComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 int selectedIndex = appointmentComboBox.getSelectionModel().getSelectedIndex();
@@ -62,12 +63,14 @@ public class ClientConsumablesReportController {
         });
     }
 
+    // установка клиента и загрузка его записей
     public void setClient(Client client) {
         this.client = client;
         clientNameLabel.setText("Клиент: " + client.getName());
         loadAppointments();
     }
 
+    // загрузка списка записей клиента
     private void loadAppointments() {
         appointmentIds.clear();
         appointmentDisplay.clear();
@@ -113,6 +116,7 @@ public class ClientConsumablesReportController {
         }
     }
 
+    // загрузка расходников для выбранной записи
     private void loadData(int appointmentId) {
         List<Map<String, Object>> consumables = clientDao.getClientConsumables(appointmentId);
         consumablesTable.getItems().setAll(consumables);
@@ -124,6 +128,7 @@ public class ClientConsumablesReportController {
         totalLabel.setText("Общая стоимость расходников: " + total + " руб");
     }
 
+    // закрытие окна
     @FXML
     private void closeWindow() {
         Stage stage = (Stage) closeButton.getScene().getWindow();

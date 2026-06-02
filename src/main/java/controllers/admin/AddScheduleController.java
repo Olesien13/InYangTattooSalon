@@ -7,32 +7,32 @@ import dao.MasterDao;
 import dao.MasterScheduleDao;
 import models.Master;
 import models.MasterSchedule;
-import utils.UserSession;
-
 import java.util.List;
+
+// контроллер окна добавления рабочего дня
 
 public class AddScheduleController {
 
-    @FXML private ComboBox<Master> masterComboBox;
-    @FXML private ComboBox<String> dayComboBox;
-    @FXML private TextField startTimeField;
-    @FXML private TextField endTimeField;
-    @FXML private Label errorLabel;
+    @FXML private ComboBox<Master> masterComboBox;   // выбор мастера
+    @FXML private ComboBox<String> dayComboBox;      // выбор дня недели
+    @FXML private TextField startTimeField;          // время начала
+    @FXML private TextField endTimeField;            // время окончания
+    @FXML private Label errorLabel;                  // метка ошибок
 
-    private MasterScheduleDao scheduleDao;
-    private MasterDao masterDao;
+    private MasterScheduleDao scheduleDao;   // dao для работы с расписанием
+    private MasterDao masterDao;             // dao для работы с мастерами
 
     @FXML
     public void initialize() {
         scheduleDao = new MasterScheduleDao();
         masterDao = new MasterDao();
 
-        // Загружаем список мастеров
+        // загрузка списка мастеров
         List<Master> masters = masterDao.getAll();
         masterComboBox.getItems().setAll(masters);
         masterComboBox.setPromptText("Выберите мастера");
 
-        // Настройка отображения имени мастера в ComboBox
+        // отображение имени мастера
         masterComboBox.setCellFactory(lv -> new ListCell<Master>() {
             @Override
             protected void updateItem(Master master, boolean empty) {
@@ -48,7 +48,7 @@ public class AddScheduleController {
             }
         });
 
-        // Загружаем дни недели
+        // загрузка дней недели
         dayComboBox.getItems().addAll(
                 "Понедельник", "Вторник", "Среда",
                 "Четверг", "Пятница", "Суббота", "Воскресенье"
@@ -56,40 +56,35 @@ public class AddScheduleController {
         dayComboBox.setPromptText("Выберите день недели");
     }
 
+    // сохранение нового рабочего дня
     @FXML
     private void saveSchedule() {
-        // Проверка выбора мастера
         Master selectedMaster = masterComboBox.getValue();
         if (selectedMaster == null) {
             showError("Выберите мастера");
             return;
         }
 
-        // Проверка выбора дня
         String selectedDay = dayComboBox.getValue();
         if (selectedDay == null) {
             showError("Выберите день недели");
             return;
         }
 
-        // Проверка времени начала
         String startTime = startTimeField.getText().trim();
         if (startTime.isEmpty()) {
             showError("Введите время начала работы");
             return;
         }
 
-        // Проверка времени окончания
         String endTime = endTimeField.getText().trim();
         if (endTime.isEmpty()) {
             showError("Введите время окончания работы");
             return;
         }
 
-        // Преобразование дня недели в число
         int dayNumber = convertDayToNumber(selectedDay);
 
-        // Создание записи расписания
         MasterSchedule schedule = new MasterSchedule();
         schedule.setMasterId(selectedMaster.getId());
         schedule.setDayOfWeek(dayNumber);
@@ -105,6 +100,7 @@ public class AddScheduleController {
         }
     }
 
+    // отмена и закрытие
     @FXML
     private void cancel() {
         closeWindow();
@@ -120,6 +116,7 @@ public class AddScheduleController {
         errorLabel.setVisible(true);
     }
 
+    // преобразование названия дня в число
     private int convertDayToNumber(String dayName) {
         switch (dayName) {
             case "Понедельник": return 1;

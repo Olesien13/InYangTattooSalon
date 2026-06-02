@@ -5,9 +5,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+// dao для работы с услугами
+
 public class ServiceDao {
 
-    // Получить все услуги с именами мастеров
+    // получить все услуги с именами мастеров
     public List<Service> getAll() {
         List<Service> services = new ArrayList<>();
         String sql = """
@@ -29,7 +31,7 @@ public class ServiceDao {
                 s.setDurationMinutes(rs.getInt("duration_minutes"));
                 s.setPrice(rs.getDouble("price"));
                 s.setImagePath(rs.getString("image_path"));
-                s.setMasterName(rs.getString("master_names")); // ← Добавляем мастеров
+                s.setMasterName(rs.getString("master_names"));
                 services.add(s);
             }
         } catch (SQLException e) {
@@ -38,7 +40,7 @@ public class ServiceDao {
         return services;
     }
 
-    // Найти услугу по id (с мастером)
+    // найти услугу по id (с мастером)
     public Service findById(int id) {
         String sql = """
             SELECT s.id, s.name, s.duration_minutes, s.price, s.image_path,
@@ -69,7 +71,7 @@ public class ServiceDao {
         return null;
     }
 
-    // СОЗДАТЬ новую услугу (без связи с мастером – связь добавляется отдельно)
+    // создать новую услугу (без связи с мастером)
     public boolean create(Service service) {
         String sql = "INSERT INTO services (name, duration_minutes, price, image_path) VALUES (?, ?, ?, ?)";
         try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -89,7 +91,7 @@ public class ServiceDao {
         return false;
     }
 
-    // Создать услугу и связать с мастером
+    // создать услугу и связать с мастером
     public boolean createWithMaster(Service service, int masterId) {
         boolean created = create(service);
         if (created && masterId > 0) {
@@ -98,7 +100,7 @@ public class ServiceDao {
         return created;
     }
 
-    // Связать услугу с мастером
+    // связать услугу с мастером
     public boolean linkWithMaster(int serviceId, int masterId) {
         String sql = "INSERT INTO master_services (master_id, service_id) VALUES (?, ?)";
         try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(sql)) {
@@ -111,9 +113,8 @@ public class ServiceDao {
         }
     }
 
-    // Обновить связи услуги с мастерами (удалить старые и добавить новые)
+    // обновить связи услуги с мастерами
     public boolean updateMasterLinks(int serviceId, List<Integer> masterIds) {
-        // Удалить старые связи
         String deleteSql = "DELETE FROM master_services WHERE service_id = ?";
         try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(deleteSql)) {
             pstmt.setInt(1, serviceId);
@@ -122,7 +123,6 @@ public class ServiceDao {
             e.printStackTrace();
         }
 
-        // Добавить новые связи
         boolean allSuccess = true;
         for (int masterId : masterIds) {
             allSuccess = linkWithMaster(serviceId, masterId) && allSuccess;
@@ -130,7 +130,7 @@ public class ServiceDao {
         return allSuccess;
     }
 
-    // ОБНОВИТЬ услугу
+    // обновить услугу
     public boolean update(Service service) {
         String sql = "UPDATE services SET name = ?, duration_minutes = ?, price = ?, image_path = ? WHERE id = ?";
         try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(sql)) {
@@ -146,9 +146,8 @@ public class ServiceDao {
         return false;
     }
 
-    // УДАЛИТЬ услугу – сначала удаляем связи из master_services, потом саму услугу
+    // удалить услугу (вместе со связями)
     public boolean delete(int id) {
-        // Удаляем связи с мастерами
         String deleteLinks = "DELETE FROM master_services WHERE service_id = ?";
         try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(deleteLinks)) {
             pstmt.setInt(1, id);
@@ -156,7 +155,6 @@ public class ServiceDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        // Удаляем саму услугу
         String sql = "DELETE FROM services WHERE id = ?";
         try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(sql)) {
             pstmt.setInt(1, id);

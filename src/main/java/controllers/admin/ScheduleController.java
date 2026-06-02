@@ -11,25 +11,25 @@ import dao.MasterDao;
 import dao.MasterScheduleDao;
 import models.Master;
 import models.MasterSchedule;
-
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+// контроллер окна расписания мастеров
 
 public class ScheduleController {
 
+    // таблица и колонки
     @FXML private TableView<MasterScheduleRow> scheduleTable;
-    @FXML private TableColumn<MasterSchedule, String> colMaster;
-    @FXML private TableColumn<MasterSchedule, String> colMon;
-    @FXML private TableColumn<MasterSchedule, String> colTue;
-    @FXML private TableColumn<MasterSchedule, String> colWed;
-    @FXML private TableColumn<MasterSchedule, String> colThu;
-    @FXML private TableColumn<MasterSchedule, String> colFri;
-    @FXML private TableColumn<MasterSchedule, String> colSat;
-    @FXML private TableColumn<MasterSchedule, String> colSun;
+    @FXML private TableColumn<MasterScheduleRow, String> colMaster;
+    @FXML private TableColumn<MasterScheduleRow, String> colMon;
+    @FXML private TableColumn<MasterScheduleRow, String> colTue;
+    @FXML private TableColumn<MasterScheduleRow, String> colWed;
+    @FXML private TableColumn<MasterScheduleRow, String> colThu;
+    @FXML private TableColumn<MasterScheduleRow, String> colFri;
+    @FXML private TableColumn<MasterScheduleRow, String> colSat;
+    @FXML private TableColumn<MasterScheduleRow, String> colSun;
 
-    @FXML private Button employeesMenuBtn;
+    // кнопки
     @FXML private Button addButton;
     @FXML private Button editButton;
     @FXML private Button deleteButton;
@@ -38,26 +38,14 @@ public class ScheduleController {
     private MasterDao masterDao;
     private MasterScheduleDao scheduleDao;
 
-    // Класс для хранения расписания одного мастера
-    public class MasterScheduleRow {
+    // класс для хранения расписания одного мастера (строка таблицы)
+    public static class MasterScheduleRow {
         private String masterName;
-        private String mon;
-        private String tue;
-        private String wed;
-        private String thu;
-        private String fri;
-        private String sat;
-        private String sun;
+        private String mon, tue, wed, thu, fri, sat, sun;
 
         public MasterScheduleRow(String masterName) {
             this.masterName = masterName;
-            this.mon = "";
-            this.tue = "";
-            this.wed = "";
-            this.thu = "";
-            this.fri = "";
-            this.sat = "";
-            this.sun = "";
+            mon = tue = wed = thu = fri = sat = sun = "";
         }
 
         public String getMasterName() { return masterName; }
@@ -82,7 +70,7 @@ public class ScheduleController {
         masterDao = new MasterDao();
         scheduleDao = new MasterScheduleDao();
 
-        // Настройка колонок таблицы
+        // настройка колонок таблицы
         colMaster.setCellValueFactory(new PropertyValueFactory<>("masterName"));
         colMon.setCellValueFactory(new PropertyValueFactory<>("mon"));
         colTue.setCellValueFactory(new PropertyValueFactory<>("tue"));
@@ -95,21 +83,16 @@ public class ScheduleController {
         loadSchedule();
     }
 
+    // загрузка расписания всех мастеров
     private void loadSchedule() {
-        // Очищаем таблицу
         scheduleTable.getItems().clear();
 
-        // Получаем всех мастеров
         List<Master> masters = masterDao.getAll();
 
-        // Для каждого мастера создаём строку расписания
         for (Master master : masters) {
             MasterScheduleRow row = new MasterScheduleRow(master.getName());
-
-            // Получаем расписание мастера
             List<MasterSchedule> schedules = scheduleDao.getByMasterId(master.getId());
 
-            // Заполняем дни недели
             for (MasterSchedule schedule : schedules) {
                 String time = schedule.getStartTime() + "-" + schedule.getEndTime();
                 switch (schedule.getDayOfWeek()) {
@@ -122,17 +105,11 @@ public class ScheduleController {
                     case 7: row.setSun(time); break;
                 }
             }
-
-            // Добавляем строку в таблицу
             scheduleTable.getItems().add(row);
         }
     }
 
-    @FXML
-    private void goToEmployees() {
-        loadSchedule(); // Обновляем таблицу
-    }
-
+    // открыть окно добавления рабочего дня
     @FXML
     private void addSchedule() {
         try {
@@ -142,13 +119,14 @@ public class ScheduleController {
             stage.setTitle("Добавить рабочий день");
             stage.setScene(new Scene(root));
             stage.showAndWait();
-            loadSchedule(); // Обновляем таблицу после закрытия
+            loadSchedule();
         } catch (IOException e) {
             e.printStackTrace();
             showAlert("Ошибка", "Не удалось открыть окно добавления");
         }
     }
 
+    // открыть окно редактирования расписания мастера
     @FXML
     private void editSchedule() {
         MasterScheduleRow selected = scheduleTable.getSelectionModel().getSelectedItem();
@@ -157,7 +135,6 @@ public class ScheduleController {
             return;
         }
 
-        // Находим мастера по имени
         Master master = masterDao.getAll().stream()
                 .filter(m -> m.getName().equals(selected.getMasterName()))
                 .findFirst()
@@ -168,7 +145,6 @@ public class ScheduleController {
             return;
         }
 
-        // Сохраняем ID мастера в сессию для окна редактирования
         utils.UserSession.setSelectedMasterId(master.getId());
 
         try {
@@ -178,13 +154,14 @@ public class ScheduleController {
             stage.setTitle("Редактировать расписание: " + master.getName());
             stage.setScene(new Scene(root));
             stage.showAndWait();
-            loadSchedule(); // Обновляем таблицу после закрытия
+            loadSchedule();
         } catch (IOException e) {
             e.printStackTrace();
             showAlert("Ошибка", "Не удалось открыть окно редактирования");
         }
     }
 
+    // удалить всё расписание мастера
     @FXML
     private void deleteSchedule() {
         MasterScheduleRow selected = scheduleTable.getSelectionModel().getSelectedItem();
@@ -193,7 +170,6 @@ public class ScheduleController {
             return;
         }
 
-        // Находим мастера по имени
         Master master = masterDao.getAll().stream()
                 .filter(m -> m.getName().equals(selected.getMasterName()))
                 .findFirst()
@@ -210,8 +186,7 @@ public class ScheduleController {
         confirm.setContentText("Вы уверены, что хотите удалить всё расписание мастера " + master.getName() + "?");
 
         if (confirm.showAndWait().get() == ButtonType.OK) {
-            boolean deleted = scheduleDao.deleteByMasterId(master.getId());
-            if (deleted) {
+            if (scheduleDao.deleteByMasterId(master.getId())) {
                 showAlert("Успех", "Расписание удалено");
                 loadSchedule();
             } else {
@@ -220,6 +195,7 @@ public class ScheduleController {
         }
     }
 
+    // возврат в окно сотрудников
     @FXML
     private void goBack() {
         try {
@@ -234,6 +210,7 @@ public class ScheduleController {
         }
     }
 
+    // показать сообщение
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);

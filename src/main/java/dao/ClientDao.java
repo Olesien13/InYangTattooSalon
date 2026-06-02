@@ -7,9 +7,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// dao для работы с клиентами
+
 public class ClientDao {
 
-    // Получить всех клиентов (даже без записей)
+    // получить всех клиентов
     public List<Client> getAll() {
         List<Client> clients = new ArrayList<>();
         String sql = """
@@ -42,7 +44,7 @@ public class ClientDao {
         return clients;
     }
 
-    // Получить клиента по id
+    // получить клиента по id
     public Client findById(int id) {
         String sql = """
             SELECT 
@@ -74,7 +76,7 @@ public class ClientDao {
         return null;
     }
 
-    // Получить только клиентов с записями
+    // получить только клиентов с записями
     public List<Client> getWithAppointments() {
         List<Client> clients = new ArrayList<>();
         String sql = """
@@ -107,7 +109,7 @@ public class ClientDao {
         return clients;
     }
 
-    // Обновить данные клиента
+    // обновить данные клиента
     public boolean update(Client client) {
         String sql = "UPDATE users SET first_name=?, last_name=?, middle_name=?, phone=?, email=? WHERE id=?";
 
@@ -131,7 +133,7 @@ public class ClientDao {
         }
     }
 
-    // Обновить статус записи
+    // обновить статус записи
     public boolean updateAppointmentStatus(int userId, String date, String status) {
         String sql = "UPDATE appointments SET status = ? WHERE user_id = ? AND appointment_date = ?";
 
@@ -147,7 +149,7 @@ public class ClientDao {
         }
     }
 
-    // Обновить цену записи
+    // обновить цену записи
     public boolean updateAppointmentPrice(int userId, String date, double price) {
         String sql = "UPDATE appointments SET final_price = ? WHERE user_id = ? AND appointment_date = ?";
 
@@ -162,7 +164,7 @@ public class ClientDao {
         }
     }
 
-    // Удалить клиента (и все его записи)
+    // удалить клиента (и все его записи)
     public boolean delete(int id) {
         String deleteAppointments = "DELETE FROM appointments WHERE user_id = ?";
         try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(deleteAppointments)) {
@@ -182,19 +184,20 @@ public class ClientDao {
         }
     }
 
+    // получить расходники для конкретной записи клиента
     public List<Map<String, Object>> getClientConsumables(int appointmentId) {
         List<Map<String, Object>> consumables = new ArrayList<>();
         String sql = """
-        SELECT 
-            c.name as consumable_name,
-            ac.used_quantity as total_quantity,
-            ac.used_quantity * c.price as total_price
-        FROM appointment_consumables ac
-        JOIN consumables c ON ac.consumable_id = c.id
-        JOIN appointments a ON ac.appointment_id = a.id
-        WHERE ac.appointment_id = ? AND a.status != 'Отменено'
-        ORDER BY total_price DESC
-    """;
+            SELECT 
+                c.name as consumable_name,
+                ac.used_quantity as total_quantity,
+                ac.used_quantity * c.price as total_price
+            FROM appointment_consumables ac
+            JOIN consumables c ON ac.consumable_id = c.id
+            JOIN appointments a ON ac.appointment_id = a.id
+            WHERE ac.appointment_id = ? AND a.status != 'Отменено'
+            ORDER BY total_price DESC
+        """;
 
         try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(sql)) {
             pstmt.setInt(1, appointmentId);
@@ -212,6 +215,7 @@ public class ClientDao {
         return consumables;
     }
 
+    // извлечение клиента из resultset
     private Client extractClient(ResultSet rs) throws SQLException {
         Client client = new Client();
         client.setId(rs.getInt("id"));

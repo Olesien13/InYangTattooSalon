@@ -5,13 +5,13 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+// dao для работы с записями клиентов
+
 public class AppointmentDao {
 
-    // метод проверяет свободен ли указанный слот у мастера
-    // учитываются записи со статусами pending и confirmed (активные)
+    // проверка, свободен ли слот у мастера
+    // учитываются записи со статусами pending и confirmed
     public boolean isSlotAvailable(int masterId, String date, String time) {
-
-        // формируем sql-запрос: подсчитываем количество записей для данного мастера, даты и времени с активными статусами
         String sql = "SELECT COUNT(*) FROM appointments WHERE master_id = ? AND appointment_date = ? AND appointment_time = ? AND status IN ('pending', 'confirmed')";
         try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(sql)) {
             pstmt.setInt(1, masterId);
@@ -19,26 +19,18 @@ public class AppointmentDao {
             pstmt.setString(3, time);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
-
-                // если количество найденных записей равно 0, слот свободен
-                return rs.getInt(1) == 0;
+                return rs.getInt(1) == 0;   // если 0 – слот свободен
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        // в случае ошибки возвращаем true (по умолчанию считаем слот свободным)
-        return true;
+        return true;   // по умолчанию считаем свободным
     }
 
-    // метод для создания новой записи в таблице appointments (с учётом размера тату)
+    // создание новой записи (с учётом размера тату)
     public boolean createAppointment(Appointment appointment) {
-
-        // sql-запрос на вставку данных (включая size)
         String sql = "INSERT INTO appointments (user_id, master_id, service_id, appointment_date, appointment_time, status, final_price, size) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(sql)) {
-
-            // устанавливаем значения параметров из переданного объекта appointment
             pstmt.setInt(1, appointment.getUserId());
             pstmt.setInt(2, appointment.getMasterId());
             pstmt.setInt(3, appointment.getServiceId());
@@ -54,7 +46,7 @@ public class AppointmentDao {
         }
     }
 
-    // возвращает список всех записей пользователя с данными о мастере и услуге
+    // список всех записей пользователя (с данными о мастере и услуге)
     public List<Appointment> getByUserId(int userId) {
         List<Appointment> list = new ArrayList<>();
         String sql = "SELECT a.*, m.name as master_name, s.name as service_name, s.price as original_price " +
@@ -78,7 +70,7 @@ public class AppointmentDao {
                 a.setStatus(rs.getString("status"));
                 a.setOriginalPrice(rs.getDouble("original_price"));
                 a.setFinalPrice(rs.getDouble("final_price"));
-                a.setSize(rs.getString("size"));   // добавляем поле размера
+                a.setSize(rs.getString("size"));
                 list.add(a);
             }
         } catch (SQLException e) {
@@ -87,7 +79,7 @@ public class AppointmentDao {
         return list;
     }
 
-    // обновляет статус записи (для отмены, подтверждения, завершения)
+    // обновление статуса записи
     public boolean updateStatus(int appointmentId, String status) {
         String sql = "UPDATE appointments SET status = ? WHERE id = ?";
         try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(sql)) {

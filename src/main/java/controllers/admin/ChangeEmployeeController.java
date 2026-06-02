@@ -8,49 +8,49 @@ import models.Master;
 
 import java.util.List;
 
+// контроллер окна редактирования сотрудника
+
 public class ChangeEmployeeController {
 
-    @FXML private TextField nameField;
-    @FXML private TextField phoneField;
-    @FXML private ComboBox<String> positionComboBox;
-    @FXML private TextField hireDateField;
-    @FXML private TextField salaryField;
-    @FXML private Label errorLabel;
+    @FXML private TextField nameField;                    // поле фио
+    @FXML private TextField phoneField;                   // поле телефон
+    @FXML private ComboBox<String> positionComboBox;      // выбор должности
+    @FXML private TextField hireDateField;                // дата трудоустройства
+    @FXML private TextField salaryField;                  // зарплата
+    @FXML private Label errorLabel;                       // метка ошибок
 
-    private MasterDao masterDao;
-    private Master currentMaster;
+    private MasterDao masterDao;       // dao для работы с мастерами
+    private Master currentMaster;      // редактируемый сотрудник
 
     @FXML
     public void initialize() {
         masterDao = new MasterDao();
-        loadPositions();
+        loadPositions();   // загрузка списка должностей
     }
 
-    // Загрузка списка должностей из базы данных
+    // загрузка списка должностей из бд
     private void loadPositions() {
         List<String> positions = masterDao.getAllPositions();
         positionComboBox.getItems().setAll(positions);
     }
 
-    // Передача данных из EmployeesController
+    // передача данных из EmployeesController
     public void setMaster(Master master) {
         this.currentMaster = master;
 
-        // Заполняем поля формы
         nameField.setText(master.getName());
         phoneField.setText(master.getPhone());
         hireDateField.setText(master.getHireDate());
         salaryField.setText(String.valueOf(master.getSalary()));
 
-        // Устанавливаем выбранную должность в ComboBox
         if (master.getSpecialization() != null && !master.getSpecialization().isEmpty()) {
             positionComboBox.setValue(master.getSpecialization());
         }
     }
 
+    // сохранение изменений
     @FXML
     private void updateEmployee() {
-        // Проверка на пустые поля
         if (nameField.getText().trim().isEmpty()) {
             showError("Введите имя сотрудника");
             return;
@@ -64,13 +64,11 @@ public class ChangeEmployeeController {
             return;
         }
 
-        // Обновляем данные мастера
         currentMaster.setName(nameField.getText().trim());
         currentMaster.setPhone(phoneField.getText().trim());
         currentMaster.setSpecialization(positionComboBox.getValue().trim());
         currentMaster.setHireDate(hireDateField.getText().trim());
 
-        // Получаем зарплату
         double salary = 0;
         if (!salaryField.getText().trim().isEmpty()) {
             try {
@@ -81,11 +79,9 @@ public class ChangeEmployeeController {
         }
         currentMaster.setSalary(salary);
 
-        // Обновляем мастера в БД
         boolean updated = masterDao.update(currentMaster);
 
         if (updated) {
-            // Обновляем зарплату
             masterDao.updateSalary(currentMaster.getId(), salary);
             closeWindow();
         } else {
@@ -93,6 +89,7 @@ public class ChangeEmployeeController {
         }
     }
 
+    // отмена и закрытие
     @FXML
     private void cancel() {
         closeWindow();

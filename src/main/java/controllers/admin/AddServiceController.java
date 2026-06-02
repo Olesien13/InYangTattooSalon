@@ -7,32 +7,34 @@ import dao.MasterDao;
 import dao.ServiceDao;
 import models.Master;
 import models.Service;
-
 import java.util.List;
+
+// контроллер окна добавления услуги
 
 public class AddServiceController {
 
-    @FXML private TextField nameField;
-    @FXML private TextField durationField;
-    @FXML private TextField priceField;
-    @FXML private Label errorLabel;
-    @FXML private ComboBox<Master> masterComboBox;
+    @FXML private TextField nameField;               // поле название
+    @FXML private TextField durationField;           // поле время выполнения
+    @FXML private TextField priceField;              // поле цена
+    @FXML private Label errorLabel;                  // метка ошибок
+    @FXML private ComboBox<Master> masterComboBox;   // выбор мастера
 
-    private ServiceDao serviceDao;
-    private MasterDao masterDao; 
+    private ServiceDao serviceDao;    // dao для работы с услугами
+    private MasterDao masterDao;      // dao для работы с мастерами
 
     @FXML
     public void initialize() {
         serviceDao = new ServiceDao();
         masterDao = new MasterDao();
-        loadMasters();
+        loadMasters();   // загрузка списка мастеров
     }
 
+    // загрузка списка мастеров в combobox
     private void loadMasters() {
         List<Master> masters = masterDao.getAll();
         masterComboBox.getItems().setAll(masters);
 
-        // Отображаем имя мастера в выпадающем списке
+        // отображение имени мастера
         masterComboBox.setCellFactory(lv -> new ListCell<Master>() {
             @Override
             protected void updateItem(Master master, boolean empty) {
@@ -49,6 +51,7 @@ public class AddServiceController {
         });
     }
 
+    // сохранение новой услуги
     @FXML
     private void saveService() {
         if (nameField.getText().trim().isEmpty()) {
@@ -56,7 +59,6 @@ public class AddServiceController {
             return;
         }
 
-        // Проверка выбора мастера
         Master selectedMaster = masterComboBox.getValue();
         if (selectedMaster == null) {
             showError("Выберите мастера");
@@ -80,11 +82,9 @@ public class AddServiceController {
             return;
         }
 
-        // Сохраняем услугу
         boolean created = serviceDao.create(service);
 
         if (created) {
-            // Связываем услугу с мастером
             int serviceId = service.getId();
             if (serviceId > 0) {
                 serviceDao.linkWithMaster(serviceId, selectedMaster.getId());
@@ -95,6 +95,7 @@ public class AddServiceController {
         }
     }
 
+    // отмена и закрытие
     @FXML
     private void cancel() {
         closeWindow();

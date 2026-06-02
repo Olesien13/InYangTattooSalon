@@ -8,18 +8,16 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import dao.ClientDao;
-import dao.DatabaseConnection;  // ← ДОБАВИТЬ
+import dao.DatabaseConnection;
 import models.Client;
-
 import java.io.IOException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
+
+// контроллер окна управления клиентами
 
 public class ClientsController {
 
-    // Элементы таблицы
+    // таблица и колонки
     @FXML private TableView<Client> clientsTable;
     @FXML private TableColumn<Client, Integer> colId;
     @FXML private TableColumn<Client, String> colName;
@@ -31,14 +29,14 @@ public class ClientsController {
     @FXML private TableColumn<Client, String> colStatus;
     @FXML private TableColumn<Client, String> colSize;
 
-    // Кнопки навигации
+    // кнопки навигации
     @FXML private Button employeesMenuBtn;
     @FXML private Button consumablesMenuBtn;
     @FXML private Button servicesMenuBtn;
     @FXML private Button clientsMenuBtn;
     @FXML private Button backButton;
 
-    // Кнопки действий
+    // кнопки действий
     @FXML private Button addButton;
     @FXML private Button editButton;
     @FXML private Button deleteButton;
@@ -46,12 +44,11 @@ public class ClientsController {
 
     private ClientDao clientDao;
 
-    // Инициализация контроллера
     @FXML
     public void initialize() {
         clientDao = new ClientDao();
 
-        // Настройка колонок таблицы
+        // привязка колонок к полям модели Client
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
@@ -62,22 +59,22 @@ public class ClientsController {
         colRegistrationDate.setCellValueFactory(new PropertyValueFactory<>("registrationDate"));
         colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 
-        loadClients();
+        loadClients(); // загрузка списка
     }
 
-    // Загрузка списка клиентов
+    // загрузка списка клиентов из бд
     private void loadClients() {
         List<Client> clients = clientDao.getAll();
         clientsTable.getItems().setAll(clients);
     }
 
-    // Открыть окно добавления клиента
+    // открыть окно добавления клиента
     @FXML
     private void addClient() {
         openAddEditWindow("/admin/add-clientele.fxml", "Добавить клиента", null);
     }
 
-    // Открыть окно редактирования выбранного клиента
+    // открыть окно редактирования выбранного клиента
     @FXML
     private void editClient() {
         Client selected = clientsTable.getSelectionModel().getSelectedItem();
@@ -88,7 +85,7 @@ public class ClientsController {
         openAddEditWindow("/admin/change-clientele.fxml", "Редактировать клиента", selected);
     }
 
-    // Удалить выбранного клиента
+    // удалить выбранного клиента
     @FXML
     private void deleteClient() {
         Client selected = clientsTable.getSelectionModel().getSelectedItem();
@@ -103,8 +100,7 @@ public class ClientsController {
         confirm.setContentText("Вы уверены, что хотите удалить клиента " + selected.getName() + "?");
 
         if (confirm.showAndWait().get() == ButtonType.OK) {
-            boolean deleted = clientDao.delete(selected.getId());
-            if (deleted) {
+            if (clientDao.delete(selected.getId())) {
                 loadClients();
                 showAlert("Успех", "Клиент успешно удалён");
             } else {
@@ -113,22 +109,7 @@ public class ClientsController {
         }
     }
 
-    // Получить последний ID записи клиента
-    private int getLastAppointmentId(int clientId) {
-        String sql = "SELECT id FROM appointments WHERE user_id = ? ORDER BY appointment_date DESC LIMIT 1";
-        try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(sql)) {
-            pstmt.setInt(1, clientId);
-            ResultSet rs = pstmt.executeQuery();
-            if (rs.next()) {
-                return rs.getInt("id");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return -1;
-    }
-
-    // Отчёт по расходникам клиента
+    // открыть отчёт по расходникам клиента
     @FXML
     private void showClientConsumables() {
         Client selected = clientsTable.getSelectionModel().getSelectedItem();
@@ -142,7 +123,7 @@ public class ClientsController {
             Parent root = loader.load();
 
             ClientConsumablesReportController controller = loader.getController();
-            controller.setClient(selected);  // Передаём клиента, а не appointmentId
+            controller.setClient(selected);
 
             Stage stage = new Stage();
             stage.setTitle("Расходники клиента");
@@ -154,7 +135,7 @@ public class ClientsController {
         }
     }
 
-    // Универсальный метод для открытия окон добавления и редактирования
+    // универсальный метод для открытия окон добавления и редактирования
     private void openAddEditWindow(String fxmlPath, String title, Client client) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
@@ -178,33 +159,37 @@ public class ClientsController {
         }
     }
 
-    // ==================== Навигация по меню ====================
-
+    // переход на страницу сотрудников
     @FXML
     private void goToEmployees() {
         openWindow("/admin/employees.fxml", "Сотрудники");
     }
 
+    // переход на страницу расходников
     @FXML
     private void goToConsumables() {
         openWindow("/admin/consumables.fxml", "Расходники");
     }
 
+    // переход на страницу услуг
     @FXML
     private void goToServices() {
         openWindow("/admin/service.fxml", "Услуги");
     }
 
+    // текущая страница клиентов
     @FXML
     private void goToClients() {
-        // Уже на этой странице
+        // уже здесь
     }
 
+    // возврат в главное меню
     @FXML
     private void goBack() {
         openWindow("/admin/menu.fxml", "Главное меню");
     }
 
+    // универсальный метод для переключения окон
     private void openWindow(String fxmlPath, String title) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
@@ -218,6 +203,7 @@ public class ClientsController {
         }
     }
 
+    // показать сообщение
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);

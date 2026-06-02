@@ -13,15 +13,15 @@ public class Appointment {
     private String serviceName;     // для отображения (из services.name)
     private String date;            // appointment_date
     private String time;            // appointment_time
-    private String status;          // pending, confirmed, completed, cancelled
+    private String status;
     private double originalPrice;   // полная цена (из services.price)
     private double finalPrice;      // цена со скидкой (если применима)
-    private String size;
+    private String size;            // размер тату
 
-    // Конструктор по умолчанию
+    // конструктор по умолчанию
     public Appointment() {}
 
-    // Геттеры и сеттеры
+    // геттеры и сеттеры
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 

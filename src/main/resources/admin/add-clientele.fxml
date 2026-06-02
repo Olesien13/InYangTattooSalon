@@ -8,86 +8,104 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
+<!-- окно добавления клиента -->
+
 <AnchorPane prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #F9F6F0;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.admin.AddClientController">
+
     <children>
-        <Label layoutX="170.0" layoutY="30.0" text="Добавить позицию" AnchorPane.topAnchor="30.0">
+
+        <!-- заголовок по центру -->
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="170.0" layoutY="30.0" text="Добавить позицию" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
             <font>
                 <Font name="Maika" size="24.0" />
             </font>
         </Label>
 
-        <TextField fx:id="nameField" layoutX="151.0" layoutY="104.0" prefHeight="25.0" prefWidth="372.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" />
-        <TextField fx:id="phoneField" layoutX="151.0" layoutY="143.0" prefHeight="25.0" prefWidth="372.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" />
-        <TextField fx:id="emailField" layoutX="151.0" layoutY="183.0" prefHeight="25.0" prefWidth="372.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" />
-
-        <ComboBox fx:id="serviceComboBox" layoutX="195.0" layoutY="222.0" prefHeight="27.0" prefWidth="328.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" />
-
-        <TextField fx:id="totalSpentField" editable="false" layoutX="195.0" layoutY="261.0" prefHeight="27.0" prefWidth="328.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" />
-
-        <TextField fx:id="dateField" layoutX="150.0" layoutY="302.0" prefHeight="25.0" prefWidth="372.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" />
-
-        <ComboBox fx:id="statusComboBox" layoutX="151.0" layoutY="339.0" prefHeight="27.0" prefWidth="372.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" />
-
-        <Label layoutX="79.0" layoutY="108.0" text="ФИО">
-            <font>
-                <Font name="Open Sans Regular" size="13.0" />
-            </font>
-        </Label>
-        <Label layoutX="79.0" layoutY="147.0" text="Телефон">
-            <font>
-                <Font name="Open Sans Regular" size="13.0" />
-            </font>
-        </Label>
-        <Label layoutX="79.0" layoutY="187.0" text="Почта">
-            <font>
-                <Font name="Open Sans Regular" size="13.0" />
-            </font>
-        </Label>
-        <Label layoutX="79.0" layoutY="225.0" prefHeight="18.0" prefWidth="164.0" text="Название услуги">
-            <font>
-                <Font name="Open Sans Regular" size="13.0" />
-            </font>
-        </Label>
-        <Label layoutX="79.0" layoutY="265.0" text="Всего потратил">
-            <font>
-                <Font name="Open Sans Regular" size="13.0" />
-            </font>
-        </Label>
-        <Label layoutX="78.0" layoutY="306.0" text="Дата">
-            <font>
-                <Font name="Open Sans Regular" size="13.0" />
-            </font>
-        </Label>
-        <Label layoutX="78.0" layoutY="343.0" text="Статус">
-            <font>
-                <Font name="Open Sans Regular" size="13.0" />
-            </font>
-        </Label>
-
-        <Label fx:id="errorLabel" layoutX="150.0" layoutY="390.0" textFill="red" visible="false">
-            <font>
-                <Font name="Open Sans Regular" size="13.0" />
-            </font>
-        </Label>
-
-        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="258.0" layoutY="69.0" text="Клиенты" textFill="#771011">
+        <!-- подзаголовок -->
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="258.0" layoutY="69.0" text="Клиенты" textFill="#771011" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="69.0">
             <font>
                 <Font name="Maika" size="16.0" />
             </font>
         </Label>
 
-        <Button fx:id="backButton" layoutX="41.0" layoutY="430.0" mnemonicParsing="false" onAction="#cancel" style="-fx-background-color: #771011; -fx-background-radius: 20;" text="Назад" textFill="WHITE" AnchorPane.leftAnchor="41.0">
+        <!-- фио -->
+        <Label layoutX="79.0" layoutY="108.0" text="ФИО" AnchorPane.leftAnchor="79.0" AnchorPane.topAnchor="108.0">
+            <font>
+                <Font name="Open Sans Regular" size="13.0" />
+            </font>
+        </Label>
+        <TextField fx:id="nameField" layoutX="151.0" layoutY="104.0" prefHeight="25.0" prefWidth="372.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" AnchorPane.leftAnchor="151.0" AnchorPane.rightAnchor="77.0" AnchorPane.topAnchor="104.0" />
+
+        <!-- телефон -->
+        <Label layoutX="79.0" layoutY="147.0" text="Телефон" AnchorPane.leftAnchor="79.0" AnchorPane.topAnchor="147.0">
+            <font>
+                <Font name="Open Sans Regular" size="13.0" />
+            </font>
+        </Label>
+        <TextField fx:id="phoneField" layoutX="151.0" layoutY="143.0" prefHeight="25.0" prefWidth="372.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" AnchorPane.leftAnchor="151.0" AnchorPane.rightAnchor="77.0" AnchorPane.topAnchor="143.0" />
+
+        <!-- почта -->
+        <Label layoutX="79.0" layoutY="187.0" text="Почта" AnchorPane.leftAnchor="79.0" AnchorPane.topAnchor="187.0">
+            <font>
+                <Font name="Open Sans Regular" size="13.0" />
+            </font>
+        </Label>
+        <TextField fx:id="emailField" layoutX="151.0" layoutY="183.0" prefHeight="25.0" prefWidth="372.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" AnchorPane.leftAnchor="151.0" AnchorPane.rightAnchor="77.0" AnchorPane.topAnchor="183.0" />
+
+        <!-- название услуги -->
+        <Label layoutX="79.0" layoutY="225.0" text="Название услуги" AnchorPane.leftAnchor="79.0" AnchorPane.topAnchor="225.0">
+            <font>
+                <Font name="Open Sans Regular" size="13.0" />
+            </font>
+        </Label>
+        <ComboBox fx:id="serviceComboBox" layoutX="195.0" layoutY="222.0" prefHeight="27.0" prefWidth="328.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" AnchorPane.leftAnchor="195.0" AnchorPane.rightAnchor="77.0" AnchorPane.topAnchor="222.0" />
+
+        <!-- всего потратил -->
+        <Label layoutX="79.0" layoutY="265.0" text="Всего потратил" AnchorPane.leftAnchor="79.0" AnchorPane.topAnchor="265.0">
+            <font>
+                <Font name="Open Sans Regular" size="13.0" />
+            </font>
+        </Label>
+        <TextField fx:id="totalSpentField" editable="false" layoutX="195.0" layoutY="261.0" prefHeight="27.0" prefWidth="328.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" AnchorPane.leftAnchor="195.0" AnchorPane.rightAnchor="77.0" AnchorPane.topAnchor="261.0" />
+
+        <!-- дата -->
+        <Label layoutX="78.0" layoutY="306.0" text="Дата" AnchorPane.leftAnchor="78.0" AnchorPane.topAnchor="306.0">
+            <font>
+                <Font name="Open Sans Regular" size="13.0" />
+            </font>
+        </Label>
+        <TextField fx:id="dateField" layoutX="150.0" layoutY="302.0" prefHeight="25.0" prefWidth="372.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="78.0" AnchorPane.topAnchor="302.0" />
+
+        <!-- статус -->
+        <Label layoutX="78.0" layoutY="343.0" text="Статус" AnchorPane.leftAnchor="78.0" AnchorPane.topAnchor="343.0">
+            <font>
+                <Font name="Open Sans Regular" size="13.0" />
+            </font>
+        </Label>
+        <ComboBox fx:id="statusComboBox" layoutX="151.0" layoutY="339.0" prefHeight="27.0" prefWidth="372.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #771011;" AnchorPane.leftAnchor="151.0" AnchorPane.rightAnchor="77.0" AnchorPane.topAnchor="339.0" />
+
+        <!-- ошибки -->
+        <Label fx:id="errorLabel" layoutX="150.0" layoutY="390.0" textFill="red" visible="false" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="77.0" AnchorPane.topAnchor="390.0">
+            <font>
+                <Font name="Open Sans Regular" size="13.0" />
+            </font>
+        </Label>
+
+        <!-- кнопки -->
+        <Button fx:id="backButton" layoutX="41.0" layoutY="430.0" mnemonicParsing="false" onAction="#cancel" style="-fx-background-color: #771011; -fx-background-radius: 20;" text="Назад" textFill="WHITE" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="41.0">
             <font>
                 <Font name="Open Sans Regular" size="13.0" />
             </font>
         </Button>
 
-        <Button fx:id="saveButton" layoutX="474.0" layoutY="430.0" mnemonicParsing="false" onAction="#saveClient" style="-fx-background-color: #771011; -fx-background-radius: 20;" text="Сохранить" textFill="WHITE" AnchorPane.rightAnchor="39.0">
+        <Button fx:id="saveButton" layoutX="474.0" layoutY="430.0" mnemonicParsing="false" onAction="#saveClient" style="-fx-background-color: #771011; -fx-background-radius: 20;" text="Сохранить" textFill="WHITE" AnchorPane.bottomAnchor="45.0" AnchorPane.rightAnchor="39.0">
             <font>
                 <Font name="Open Sans Regular" size="13.0" />
             </font>
         </Button>
 
-        <HBox alignment="CENTER" layoutY="475.0" prefHeight="25.0" prefWidth="600.0" style="-fx-background-color: #771011; -fx-background-radius: 10 10 0 0;" />
+        <!-- декоративная полоса -->
+        <HBox alignment="CENTER" layoutY="475.0" prefHeight="25.0" prefWidth="600.0" style="-fx-background-color: #771011; -fx-background-radius: 10 10 0 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+
     </children>
 </AnchorPane>

@@ -5,9 +5,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+// dao для работы с расходными материалами
+
 public class ConsumableDao {
 
-    // Получить все расходники
+    // получить все расходники
     public List<Consumable> getAll() {
         List<Consumable> consumables = new ArrayList<>();
         String sql = "SELECT * FROM consumables";
@@ -23,7 +25,7 @@ public class ConsumableDao {
         return consumables;
     }
 
-    // Найти расходник по id
+    // найти расходник по id
     public Consumable findById(int id) {
         String sql = "SELECT * FROM consumables WHERE id = ?";
 
@@ -39,7 +41,7 @@ public class ConsumableDao {
         return null;
     }
 
-    // Создать расходник
+    // создать расходник
     public boolean create(Consumable consumable) {
         String sql = "INSERT INTO consumables (name, quantity, price, unit) VALUES (?, ?, ?, ?)";
 
@@ -56,7 +58,7 @@ public class ConsumableDao {
         }
     }
 
-    // Создать и вернуть ID
+    // создать и вернуть id
     public int createAndGetId(Consumable consumable) {
         String sql = "INSERT INTO consumables (name, quantity, price, unit) VALUES (?, ?, ?, ?)";
 
@@ -78,7 +80,7 @@ public class ConsumableDao {
         return -1;
     }
 
-    // Обновить расходник
+    // обновить расходник
     public boolean update(Consumable consumable) {
         String sql = "UPDATE consumables SET name=?, quantity=?, price=?, unit=? WHERE id=?";
 
@@ -96,7 +98,7 @@ public class ConsumableDao {
         }
     }
 
-    // Удалить расходник
+    // удалить расходник
     public boolean delete(int id) {
         String sql = "DELETE FROM consumables WHERE id = ?";
 
@@ -109,6 +111,7 @@ public class ConsumableDao {
         }
     }
 
+    // извлечение расходника из resultset
     private Consumable extractConsumable(ResultSet rs) throws SQLException {
         Consumable consumable = new Consumable();
         consumable.setId(rs.getInt("id"));
