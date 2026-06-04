@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #F9F6F0;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.client.Kholenko.ProfileController">
+<AnchorPane prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #F9F6F0;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="coursework.itms206.controllers.client.Kholenko.ProfileController">
    <stylesheets>
       <URL value="@styles.css" />
    </stylesheets>
@@ -60,25 +53,14 @@
       </HBox>
 
       <!-- Бонусы -->
-      <VBox layoutX="20.0" layoutY="360.0" spacing="5" styleClass="bonus" AnchorPane.bottomAnchor="45.60000000000002" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
-         <Pane prefHeight="24.0" prefWidth="338.0">
-            <children>
-               <Label alignment="CENTER" contentDisplay="BOTTOM" layoutY="-1.0" maxWidth="Infinity" styleClass="section-title" text="Бонусы" textAlignment="CENTER">
-                  <graphic>
-                     <Region prefHeight="1.0" prefWidth="147.0" style="-fx-background-color: #771011;" />
-                  </graphic>
-               </Label>
-            </children>
-            <opaqueInsets>
-               <Insets />
-            </opaqueInsets>
-            <VBox.margin>
-               <Insets left="200.0" />
-            </VBox.margin>
-         </Pane>
+      <VBox fx:id="bonusBox" layoutX="20.0" layoutY="360.0" spacing="5" styleClass="bonus" AnchorPane.bottomAnchor="45.60000000000002" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+         <Label alignment="CENTER" contentDisplay="BOTTOM" maxWidth="Infinity" styleClass="section-title" text="Бонусы">
+            <graphic>
+               <Region prefHeight="1.0" prefWidth="147.0" style="-fx-background-color: #771011;" />
+            </graphic>
+         </Label>
          <Label fx:id="discountLabel" text="Ваша скидка: 0%" />
          <Label fx:id="nextLevelLabel" text="Следующий уровень скидки: 5% после 1 посещения" />
-         <padding><Insets bottom="10" left="10" right="10" top="10" /></padding>
       </VBox>
 
       <!-- Кнопка Выход -->

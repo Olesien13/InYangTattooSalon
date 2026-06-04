@@ -9,7 +9,7 @@
 
 <!-- окно добавления расходника -->
 
-<AnchorPane prefHeight="450.0" prefWidth="600.0" style="-fx-background-color: #F9F6F0;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.admin.Shokina.AddConsumableController">
+<AnchorPane prefHeight="450.0" prefWidth="600.0" style="-fx-background-color: #F9F6F0;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="coursework.itms206.controllers.admin.Shokina.AddConsumableController">
 
     <children>
 
